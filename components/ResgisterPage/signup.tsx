@@ -21,26 +21,42 @@ import { useDispatch } from 'react-redux'
 
 import { checkUser } from '../Redux/UserSlice'
 
+import { checkEmail } from '../../utils/checkEmail'
+import { passwordMatch } from '../../utils/checkPassword'
 
 type User = {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    token: string;
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    confirmPassword: string
+    token: string
 }
 
 const SignUpRegister = () => {
     const dispatch = useDispatch()
 
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
+
     const [show, setShow] = useState(false)
+
+    const [notMatch, setNotMatch] = useState(false)
+    const [notEmail, setNotEmail] = useState(false)
 
     const { register, handleSubmit } = useForm<User>()
 
-    function handleSignUp(data: User) {
-        dispatch(checkUser(data))
+    async function handleSignUp(data: User) {
+        const { password, confirmPassword, email } = data;
+
+        const emailIsValid = checkEmail(email)
+        const match = passwordMatch(password, confirmPassword)
+
+        emailIsValid ? setNotEmail(false) : setNotEmail(true)
+        match ? setNotMatch(false) : setNotMatch(true)
+
+        if (emailIsValid && match) {
+            dispatch(checkUser(data))
+        }
     }
 
     return (
@@ -48,9 +64,9 @@ const SignUpRegister = () => {
             borderRadius="lg"
             position={isLargerThan1280 ? 'relative' : 'absolute'}
             bg={isLargerThan1280 ? '#fff' : 'rgba(255, 255, 255, 0.8)'}
-            py="5"
+            py="3"
             minW={['0', '400px', '400px', '400px']}
-            w={['100%', '50%', '40%']}
+            w={['92%', '50%', '40%']}
             minH={['15em', '20em']}
             h="auto"
         >
@@ -64,7 +80,7 @@ const SignUpRegister = () => {
                 >
                     Registre-se
                 </Text>
-                <Stack spacing={[3, 5]}>
+                <Stack spacing={[3, 4]}>
                     <Box>
                         <Text color="#808080">Nome</Text>
                         <Input
@@ -166,6 +182,14 @@ const SignUpRegister = () => {
                             Confirmar
                         </Text>
                     </Button>
+                    <Text
+                        minH={'16px'}
+                        fontSize={'sm'}
+                        color="red"
+                    >
+                        {notMatch ? 'As Senhas não conferem' : null} <br />
+                        {notEmail ? 'Email inválido' : null}
+                    </Text>
                     <Button
                         borderRadius={'0'}
                         bg="transparent"
