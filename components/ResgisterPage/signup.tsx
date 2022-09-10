@@ -17,22 +17,30 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-type SignUpFormData = {
-    firstName: string
-    lastName: string
-    email: string
-    password: string
-    confirmPassword: string
+import { useDispatch } from 'react-redux'
+
+import { checkUser } from '../Redux/UserSlice'
+
+
+type User = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    token: string;
 }
 
 const SignUpRegister = () => {
+    const dispatch = useDispatch()
+
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
     const [show, setShow] = useState(false)
 
-    const { register, handleSubmit } = useForm<SignUpFormData>()
+    const { register, handleSubmit } = useForm<User>()
 
-    function handleSignUp(data: SignUpFormData) {
-        console.log(data)
+    function handleSignUp(data: User) {
+        dispatch(checkUser(data))
     }
 
     return (
