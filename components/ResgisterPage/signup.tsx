@@ -43,16 +43,19 @@ const SignUpRegister = () => {
     const [notMatch, setNotMatch] = useState(false)
     const [notEmail, setNotEmail] = useState(false)
 
-    const { register, handleSubmit } = useForm<User>()
+    const { register, handleSubmit, reset } = useForm<User>()
 
-    async function handleSignUp(data: User) {
-        const { password, confirmPassword, email } = data;
+    function handleSignUp(data: User) {
+        
+        reset();
+
+        const { password, confirmPassword, email } = data
 
         const emailIsValid = checkEmail(email)
         const match = passwordMatch(password, confirmPassword)
 
-        emailIsValid ? setNotEmail(false) : setNotEmail(true)
-        match ? setNotMatch(false) : setNotMatch(true)
+        setNotEmail(!emailIsValid)
+        setNotMatch(!match)
 
         if (emailIsValid && match) {
             dispatch(checkUser(data))
@@ -80,6 +83,7 @@ const SignUpRegister = () => {
                 >
                     Registre-se
                 </Text>
+                <form onSubmit={handleSubmit(handleSignUp)}>
                 <Stack spacing={[3, 4]}>
                     <Box>
                         <Text color="#808080">Nome</Text>
@@ -162,7 +166,7 @@ const SignUpRegister = () => {
                         w="100%"
                         p="6"
                         borderRadius={'0'}
-                        onClick={handleSubmit(handleSignUp)}
+                        type="submit"
                         bgGradient={
                             'linear(270deg, #CE8DF5 8.33%, #6B13B0 100%)'
                         }
@@ -198,9 +202,10 @@ const SignUpRegister = () => {
                         _focus={{ bg: 'transparent' }}
                         color="BLACK"
                     >
-                        <Link href="/ ">Já tenho uma conta</Link>
+                        <Link href="/login">Já tenho uma conta</Link>
                     </Button>
                 </Stack>
+                </form>
             </Box>
         </Center>
     )
