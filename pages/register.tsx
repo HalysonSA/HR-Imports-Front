@@ -1,4 +1,4 @@
-import { Center, Flex, useMediaQuery } from '@chakra-ui/react'
+import { Center, Flex, useMediaQuery, Image } from '@chakra-ui/react'
 
 import BannerSignUp from '../components/ResgisterPage/banner'
 import SignUpRegister from '../components/ResgisterPage/signup'
@@ -15,10 +15,19 @@ const SignUp = () => {
         >
             <Center
                 w={isLargerThan1280 ? '40%' : '100%'}
-                bgImage={isLargerThan1280 ? '#6B13B0' : 'url(/Socialhand.gif)'}
+                bg="#6B13B0"
                 bgSize="cover"
                 bgRepeat="no-repeat"
             >
+                {isLargerThan1280 ? null : (
+                    <Image
+                        w={'100%'}
+                        h={'100%'}
+                        objectFit="cover"
+                        src="/SocialHand.gif"
+                        alt="Social Hand"
+                    />
+                )}
                 <SignUpRegister />
             </Center>
             {isLargerThan1280 ? <BannerSignUp /> : null}

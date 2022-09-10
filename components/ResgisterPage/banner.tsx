@@ -10,6 +10,7 @@ const BannerSignUp = () => {
             alignItems="end"
         >
             <Image
+                objectFit={'fill'}
                 w="100%"
                 h="100%"
                 src={'/SocialHand.gif'}

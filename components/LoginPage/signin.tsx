@@ -1,8 +1,20 @@
-import { Center, Box, Text, Input, Stack, Button } from '@chakra-ui/react'
+import {
+    Center,
+    Box,
+    Text,
+    Input,
+    Stack,
+    Button,
+    InputGroup,
+    InputRightElement,
+} from '@chakra-ui/react'
 
 import { useForm } from 'react-hook-form'
 
+import { useState } from 'react'
+
 import { FaFacebook, FaGoogle } from 'react-icons/fa'
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 
 type SignInProps = {
     email: string
@@ -11,6 +23,8 @@ type SignInProps = {
 
 const SignInLogin = () => {
     const { register, handleSubmit } = useForm<SignInProps>()
+
+    const [show, setShow] = useState(false)
 
     function handleSignIn(data: SignInProps) {
         console.log(data)
@@ -46,15 +60,32 @@ const SignInLogin = () => {
                     </Box>
                     <Box>
                         <Text color="#808080">Senha</Text>
-                        <Input
-                            {...register('password', { required: true })}
-                            letterSpacing={'0.2em'}
-                            type={'password'}
-                            variant="flushed"
-                            focusBorderColor="#8816CE"
-                            borderColor={'#8816CE'}
-                            borderBottom={'2px'}
-                        />
+                        <InputGroup size="md">
+                            <Input
+                                {...register('password', {
+                                    required: true,
+                                })}
+                                letterSpacing={'0.2em'}
+                                variant="flushed"
+                                type={show ? 'text' : 'password'}
+                                focusBorderColor="#8816CE"
+                                borderColor={'#8816CE'}
+                                borderBottom={'2px'}
+                            />
+                            <InputRightElement width="4.5rem">
+                                <Button
+                                    bg="transparent"
+                                    _hover={{ bg: 'transparent' }}
+                                    _active={{ bg: 'transparent' }}
+                                    _focus={{ bg: 'transparent' }}
+                                    h="1.75rem"
+                                    size="sm"
+                                    onClick={() => setShow(!show)}
+                                >
+                                    {show ? <ViewOffIcon /> : <ViewIcon />}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
                     </Box>
                     <Button
                         w="100%"

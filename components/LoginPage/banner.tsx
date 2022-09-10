@@ -74,6 +74,7 @@ const BannerLogin = () => {
 
                     <Image
                         src="/UserMaker.svg"
+                        objectFit={'fill'}
                         w="100%"
                         h="100%"
                         alt="User Maker"

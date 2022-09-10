@@ -38,6 +38,7 @@ const SignUpRegister = () => {
     return (
         <Center
             borderRadius="lg"
+            position={isLargerThan1280 ? 'relative' : 'absolute'}
             bg={isLargerThan1280 ? '#fff' : 'rgba(255, 255, 255, 0.8)'}
             py="5"
             minW={['0', '400px', '400px', '400px']}
