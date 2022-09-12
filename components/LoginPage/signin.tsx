@@ -51,7 +51,7 @@ const SignInLogin = () => {
         <Center
             w={['100%', '50%', '40%']}
             minH={['15em', '20em']}
-            h="auto"
+            h="70vh"
         >
             <ToastContainer />
             <Box
