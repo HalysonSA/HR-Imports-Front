@@ -17,6 +17,8 @@ const Login = () => {
                 maxW="92%"
                 height={['80vh', '90vh']}
                 maxH="800px"
+                minH="500px"
+                my='2'
                 bg="white"
                 borderRadius={['0.5em', '1em', '1.5em', '2em']}
                 direction={'row'}

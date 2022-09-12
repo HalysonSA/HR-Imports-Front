@@ -6,7 +6,7 @@ import {
     Stack,
     Button,
     InputGroup,
-    InputRightElement,
+    InputRightElement
 } from '@chakra-ui/react'
 
 import { useForm } from 'react-hook-form'
@@ -26,7 +26,6 @@ type SignInProps = {
 }
 
 const SignInLogin = () => {
-
     const { register, handleSubmit, reset } = useForm<SignInProps>()
 
     const [show, setShow] = useState(false)
@@ -37,8 +36,7 @@ const SignInLogin = () => {
     }
 
     function handleSignIn(data: SignInProps) {
-
-        reset();
+        reset()
 
         const { email, password } = data
 
@@ -51,21 +49,17 @@ const SignInLogin = () => {
         <Center
             w={['100%', '50%', '40%']}
             minH={['15em', '20em']}
-            h="70vh"
         >
             <ToastContainer />
-            <Box
-                w="80%"
-                h="auto"
-            >
+            <Box w="80%" h='auto'>
                 <Text
                     fontSize={'48px'}
                     fontWeight={'bold'}
                 >
                     Entrar
                 </Text>
-                    <form onSubmit={handleSubmit(handleSignIn)}>
-                <Stack spacing={[5, 8]}>
+                <form onSubmit={handleSubmit(handleSignIn)}>
+                    <Stack spacing={[3, 5]}>
                         <Box>
                             <Text color="#808080">Email</Text>
                             <Input
@@ -125,15 +119,16 @@ const SignInLogin = () => {
                         >
                             <Text color="white">Entrar</Text>
                         </Button>
-                </Stack>
-                    </form>
-                <Center m="5">
+                    </Stack>
+                </form>
+                <Center m="4">
                     <Text color="#808080"> Ou Entre com sua rede social</Text>
                 </Center>
-                <Stack>
+                
                     <Button
-                        w="100%"
+                        w={["50%","100%"]}
                         p="6"
+                        my='1'
                         borderRadius={'0'}
                         colorScheme="red"
                         leftIcon={<FaGoogle />}
@@ -141,15 +136,16 @@ const SignInLogin = () => {
                         <Text color="white">Google</Text>
                     </Button>
                     <Button
-                        w="100%"
+                        w={["50%","100%"]}
                         p="6"
+                        my='1'
                         borderRadius={'0'}
                         colorScheme="facebook"
                         leftIcon={<FaFacebook />}
                     >
                         <Text color="white">Facebook</Text>
                     </Button>
-                </Stack>
+               
             </Box>
         </Center>
     )
