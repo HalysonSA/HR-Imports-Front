@@ -1,13 +1,6 @@
-import {
-    Flex,
-    Box,
-    Text,
-    Stack,
-    Image,
-    useMediaQuery,
-    Button,
-} from '@chakra-ui/react'
+import { Flex, Box, Text, Stack, useMediaQuery, Button } from '@chakra-ui/react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const BannerLogin = () => {
     const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
@@ -36,6 +29,7 @@ const BannerLogin = () => {
                     maxH="800px"
                 >
                     <Box
+                        zIndex={99}
                         position={'absolute'}
                         ml="3em"
                         w={['50%', '40%', '30%']}
@@ -74,9 +68,10 @@ const BannerLogin = () => {
 
                     <Image
                         src="/UserMaker.svg"
-                        objectFit={'fill'}
-                        w="100%"
-                        h="100%"
+                        objectFit="fill"
+                        layout="responsive"
+                        width={'100%'}
+                        height={'100%'}
                         alt="User Maker"
                     />
                 </Flex>

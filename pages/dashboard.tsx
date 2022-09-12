@@ -1,5 +1,4 @@
 
-import { withAuth } from '../utils/routerProtector'
 
 function AdminPage() {
     return (
@@ -8,4 +7,4 @@ function AdminPage() {
         </div>
     )
 }
-export default withAuth(AdminPage)
+export default AdminPage

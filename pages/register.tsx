@@ -1,7 +1,7 @@
-import { Center, Flex, useMediaQuery, Image } from '@chakra-ui/react'
-
-import BannerSignUp from '../components/ResgisterPage/banner'
-import SignUpRegister from '../components/ResgisterPage/signup'
+import { Center, Flex, useMediaQuery } from '@chakra-ui/react'
+import Image from 'next/image'
+import BannerSignUp from '../components/RegisterPage/banner'
+import SignUpRegister from '../components/RegisterPage/signup'
 
 const SignUp = () => {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)')
@@ -21,10 +21,11 @@ const SignUp = () => {
             >
                 {isLargerThan1280 ? null : (
                     <Image
-                        w={'100%'}
-                        h={'100%'}
-                        objectFit="cover"
                         src="/SocialHand.gif"
+                        layout="fill"
+                        width={'100%'}
+                        height={'100%'}
+                        objectFit="cover"
                         alt="Social Hand"
                     />
                 )}
