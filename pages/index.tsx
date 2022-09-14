@@ -1,24 +1,14 @@
-import Link from "next/link"
 
-
+import Layout from '../components/Layout/Layout'
 const Home = () => {
     return (
-        <div>
-
-            
-            <h1>Home</h1>
-            <Link href="/dashboard">
-                <a>Dashboard</a>
-            </Link>
-            <Link href="/login">
-                <a>Login</a>
-            </Link>
-            <Link href="/register">
-                <a>Register</a>
-            </Link>
-        </div>
+        <Layout>
+            <div>
+                <h1>Home</h1>
+               
+            </div>
+        </Layout>
     )
 }
-
 
 export default Home
