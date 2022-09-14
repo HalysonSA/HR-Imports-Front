@@ -6,7 +6,8 @@ import {
     Stack,
     Button,
     InputGroup,
-    InputRightElement
+    InputRightElement,
+    useMediaQuery,
 } from '@chakra-ui/react'
 
 import { useForm } from 'react-hook-form'
@@ -19,6 +20,7 @@ import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { checkEmail } from '../../utils/checkEmail'
 
 import { toast, ToastContainer } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 type SignInProps = {
     email: string
@@ -26,6 +28,10 @@ type SignInProps = {
 }
 
 const SignInLogin = () => {
+    const router = useRouter()
+
+    const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
+
     const { register, handleSubmit, reset } = useForm<SignInProps>()
 
     const [show, setShow] = useState(false)
@@ -51,7 +57,10 @@ const SignInLogin = () => {
             minH={['15em', '20em']}
         >
             <ToastContainer />
-            <Box w="80%" h='auto'>
+            <Box
+                w="80%"
+                h="auto"
+            >
                 <Text
                     fontSize={'48px'}
                     fontWeight={'bold'}
@@ -121,31 +130,42 @@ const SignInLogin = () => {
                         </Button>
                     </Stack>
                 </form>
+
+                {isLargerThan500 ? null : (
+                    <Button
+                        w="100%"
+                        p="6"
+                        my="1"
+                        borderRadius={'0'}
+                        colorScheme="gray"
+                        onClick={() => router.push('/register')}
+                    >
+                        <Text color="black">Cadastre-se</Text>
+                    </Button>
+                )}
                 <Center m="4">
                     <Text color="#808080"> Ou Entre com sua rede social</Text>
                 </Center>
-                
-                    <Button
-                        w={["50%","100%"]}
-                        p="6"
-                        my='1'
-                        borderRadius={'0'}
-                        colorScheme="red"
-                        leftIcon={<FaGoogle />}
-                    >
-                        <Text color="white">Google</Text>
-                    </Button>
-                    <Button
-                        w={["50%","100%"]}
-                        p="6"
-                        my='1'
-                        borderRadius={'0'}
-                        colorScheme="facebook"
-                        leftIcon={<FaFacebook />}
-                    >
-                        <Text color="white">Facebook</Text>
-                    </Button>
-               
+                <Button
+                    w={['50%', '100%']}
+                    p="6"
+                    my="1"
+                    borderRadius={'0'}
+                    colorScheme="red"
+                    leftIcon={<FaGoogle />}
+                >
+                    <Text color="white">Google</Text>
+                </Button>
+                <Button
+                    w={['50%', '100%']}
+                    p="6"
+                    my="1"
+                    borderRadius={'0'}
+                    colorScheme="facebook"
+                    leftIcon={<FaFacebook />}
+                >
+                    <Text color="white">Facebook</Text>
+                </Button>
             </Box>
         </Center>
     )

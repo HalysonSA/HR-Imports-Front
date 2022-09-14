@@ -180,7 +180,7 @@ const SignUpRegister = () => {
                         }}
                     >
                         <Text
-                            fontSize={'2xl'}
+                            fontSize={'lg'}
                             color="white"
                         >
                             Confirmar
