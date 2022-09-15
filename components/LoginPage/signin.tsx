@@ -1,4 +1,3 @@
-
 import {
     Center,
     Box,
@@ -22,6 +21,8 @@ import { checkEmail } from '../../utils/checkEmail'
 
 import { toast, ToastContainer } from 'react-toastify'
 import { useRouter } from 'next/router'
+
+import { signIn } from 'next-auth/react'
 
 type SignInProps = {
     email: string
@@ -153,6 +154,7 @@ const SignInLogin = () => {
                     my="1"
                     borderRadius={'0'}
                     colorScheme="red"
+                    onClick={() => signIn('google')}
                     leftIcon={<FaGoogle />}
                 >
                     <Text color="white">Google</Text>

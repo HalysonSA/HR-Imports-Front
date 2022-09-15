@@ -19,9 +19,12 @@ import { useRouter } from 'next/router'
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
 
+import { useSession, signOut } from 'next-auth/react'
+
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const router = useRouter()
+    const { data: session } = useSession()
 
     return (
         <Box
@@ -34,6 +37,7 @@ export default function Navbar() {
                 justifyContent={'space-between'}
             >
                 <IconButton
+                    bg="transparent"
                     size={'md'}
                     icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
                     aria-label={'Open Menu'}
@@ -65,14 +69,42 @@ export default function Navbar() {
                         >
                             <Avatar
                                 size={'md'}
-                                src={''}
+                                src={session ? session?.user?.image : ''}
+                                referrerPolicy={'no-referrer'}
                             />
                         </MenuButton>
                         <MenuList>
-                            <MenuItem onClick={() => router.push('/login')}>Login||Nome do usuario</MenuItem>
-                            <MenuItem onClick={() => router.push('/orders')}>Pedidos</MenuItem>
+                            {session ? (
+                                <>
+                                    <MenuItem>{session?.user?.name}</MenuItem>
+                                    <MenuItem
+                                        onClick={() => router.push('/orders')}
+                                    >
+                                        Pedidos
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Button
+                                            w="100%"
+                                            bg="transparent"
+                                            onClick={() => signOut()}
+                                        >
+                                            Sair
+                                        </Button>
+                                    </MenuItem>
+                                </>
+                            ) : (
+                                <MenuItem>
+                                    <Button
+                                        w="100%"
+                                        bg="transparent"
+                                        onClick={() => router.push('/login')}
+                                    >
+                                        Entrar
+                                    </Button>
+                                </MenuItem>
+                            )}
+
                             <MenuDivider />
-                            <MenuItem> Sair|| nada </MenuItem>
                         </MenuList>
                     </Menu>
                 </Flex>
