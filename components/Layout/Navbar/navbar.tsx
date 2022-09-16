@@ -32,21 +32,13 @@ export default function Navbar() {
     return (
         <Box
             bg="white"
-            px={10}
+            px={['4', '10']}
         >
             <Flex
                 h={'70px'}
                 alignItems={'center'}
                 justifyContent={'space-between'}
             >
-                <IconButton
-                    bg="transparent"
-                    size={'md'}
-                    icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-                    aria-label={'Open Menu'}
-                    display={{ md: 'none' }}
-                    onClick={isOpen ? onClose : onOpen}
-                />
                 <HStack
                     spacing={8}
                     alignItems={'center'}
@@ -63,20 +55,35 @@ export default function Navbar() {
                         spacing={4}
                         display={{ base: 'none', md: 'flex' }}
                     >
-                        <Text
-                            cursor={'pointer'}
-                            fontSize={'lg'}
-                            fontWeight={'bold'}
-                        >
-                            Categorias
-                        </Text>
-                        <Text
-                            cursor={'pointer'}
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                cursor={'pointer'}
+                                fontSize={'lg'}
+                                fontWeight={'bold'}
+                                bg={'transparent'}
+                                _hover={{ bg: 'transparent' }}
+                                _active={{ bg: 'transparent' }}
+                            >
+                                Categorias
+                            </MenuButton>
+                            <MenuList>
+                                <MenuItem>Blusas</MenuItem>
+                                <MenuItem>Conjuntos</MenuItem>
+                                <MenuItem>Legging</MenuItem>
+                                <MenuItem>Shorts</MenuItem>
+                                <MenuItem>Regatas</MenuItem>
+                                <MenuItem>Top</MenuItem>
+                            </MenuList>
+                        </Menu>
+
+                        <Link
+                            href="/about"
                             fontSize={'lg'}
                             fontWeight={'bold'}
                         >
                             Sobre
-                        </Text>
+                        </Link>
                     </HStack>
                 </HStack>
                 <Flex alignItems={'center'}>
@@ -151,7 +158,7 @@ export default function Navbar() {
                                     w="15px"
                                     h="15px"
                                     top="15px"
-                                    right="35px"
+                                    right={['4em', '5.5em', '35px']}
                                     position={'absolute'}
                                     borderRadius={'30px'}
                                     bg="red"
@@ -165,6 +172,16 @@ export default function Navbar() {
                                     </Text>
                                 </Center>
                             </Flex>
+                            <IconButton
+                                bg="transparent"
+                                size={'lg'}
+                                icon={
+                                    isOpen ? <CloseIcon /> : <HamburgerIcon />
+                                }
+                                aria-label={'Open Menu'}
+                                display={{ md: 'none' }}
+                                onClick={isOpen ? onClose : onOpen}
+                            />
                         </Menu>
                     </HStack>
                 </Flex>
@@ -179,8 +196,37 @@ export default function Navbar() {
                         as={'nav'}
                         spacing={4}
                     >
-                        <Link>Categorias</Link>
-                        <Link>Sobre</Link>
+                        <HStack>
+                            <Menu>
+                                <MenuButton
+                                    float={'left'}
+                                    as={Button}
+                                    cursor={'pointer'}
+                                    fontSize={'lg'}
+                                    fontWeight={'bold'}
+                                    bg={'transparent'}
+                                    _hover={{ bg: 'transparent' }}
+                                    _active={{ bg: 'transparent' }}
+                                >
+                                    Categorias
+                                </MenuButton>
+                                <MenuList>
+                                    <MenuItem>Blusas</MenuItem>
+                                    <MenuItem>Conjuntos</MenuItem>
+                                    <MenuItem>Legging</MenuItem>
+                                    <MenuItem>Shorts</MenuItem>
+                                    <MenuItem>Regatas</MenuItem>
+                                    <MenuItem>Top</MenuItem>
+                                </MenuList>
+                            </Menu>
+                            <Link
+                                href="/about"
+                                fontSize={'lg'}
+                                fontWeight={'bold'}
+                            >
+                                Sobre
+                            </Link>
+                        </HStack>
                     </Stack>
                 </Box>
             ) : null}

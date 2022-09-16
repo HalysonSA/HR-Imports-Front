@@ -28,7 +28,7 @@ export default function NotFound() {
                     Página não encontrada
                 </Text>
                 <Text mb={6} color='gray.500'>
-                    Essa página não existe, para voltar para a página inicial
+                    Essa página não existe, para voltar a página inicial
                     clique no botão abaixo.
                 </Text>
 
