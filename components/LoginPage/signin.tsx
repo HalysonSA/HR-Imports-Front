@@ -164,6 +164,7 @@ const SignInLogin = () => {
                     p="6"
                     my="1"
                     borderRadius={'0'}
+                    onClick={() => signIn('facebook')}
                     colorScheme="facebook"
                     leftIcon={<FaFacebook />}
                 >

@@ -13,6 +13,7 @@ import {
     MenuDivider,
     useDisclosure,
     Stack,
+    Image
 } from '@chakra-ui/react'
 
 import { useRouter } from 'next/router'
@@ -48,7 +49,12 @@ export default function Navbar() {
                     spacing={8}
                     alignItems={'center'}
                 >
-                    <Box>Logo</Box>
+                    <Box>
+                        <Image
+                            src="/Logo.svg"
+                            alt="Logo"
+                        />
+                    </Box>
                     <HStack
                         as={'nav'}
                         spacing={4}
