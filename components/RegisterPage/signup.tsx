@@ -81,7 +81,7 @@ const SignUpRegister = () => {
                     fontSize={'48px'}
                     fontWeight={'bold'}
                 >
-                    Registre-se
+                   Cadastre-se
                 </Text>
                 <form onSubmit={handleSubmit(handleSignUp)}>
                 <Stack spacing={[3, 4]}>

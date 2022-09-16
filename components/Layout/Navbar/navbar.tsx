@@ -10,10 +10,12 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    MenuDivider,
     useDisclosure,
     Stack,
-    Image
+    Image,
+    Text,
+    Spacer,
+    Center,
 } from '@chakra-ui/react'
 
 import { useRouter } from 'next/router'
@@ -30,7 +32,7 @@ export default function Navbar() {
     return (
         <Box
             bg="white"
-            px={4}
+            px={10}
         >
             <Flex
                 h={'70px'}
@@ -51,7 +53,8 @@ export default function Navbar() {
                 >
                     <Box>
                         <Image
-                            src="/Logo.svg"
+                            w="40px"
+                            src="/crown.svg"
                             alt="Logo"
                         />
                     </Box>
@@ -60,59 +63,110 @@ export default function Navbar() {
                         spacing={4}
                         display={{ base: 'none', md: 'flex' }}
                     >
-                        <Link>Categorias</Link>
-                        <Link>Sobre</Link>
+                        <Text
+                            cursor={'pointer'}
+                            fontSize={'lg'}
+                            fontWeight={'bold'}
+                        >
+                            Categorias
+                        </Text>
+                        <Text
+                            cursor={'pointer'}
+                            fontSize={'lg'}
+                            fontWeight={'bold'}
+                        >
+                            Sobre
+                        </Text>
                     </HStack>
                 </HStack>
                 <Flex alignItems={'center'}>
-                    <Menu>
-                        <MenuButton
-                            as={Button}
-                            rounded={'full'}
-                            variant={'link'}
-                            cursor={'pointer'}
-                            minW={0}
+                    <HStack>
+                        <Text
+                            fontSize={'lg'}
+                            fontWeight={'semi-bold'}
+                            display={{ base: 'none', md: 'flex' }}
                         >
-                            <Avatar
-                                size={'md'}
-                                src={session ? session?.user?.image : ''}
-                                referrerPolicy={'no-referrer'}
-                            />
-                        </MenuButton>
-                        <MenuList>
-                            {session ? (
-                                <>
-                                    <MenuItem>{session?.user?.name}</MenuItem>
-                                    <MenuItem
-                                        onClick={() => router.push('/orders')}
-                                    >
-                                        Pedidos
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <Button
-                                            w="100%"
+                            {session
+                                ? 'Olá, ' + session.user.name
+                                : 'Entre ou cadastre-se'}
+                        </Text>
+                        <Menu>
+                            <MenuButton
+                                as={Button}
+                                rounded={'full'}
+                                variant={'link'}
+                                cursor={'pointer'}
+                                minW={0}
+                            >
+                                <Avatar
+                                    size={'sm'}
+                                    src={session ? session?.user?.image : ''}
+                                    referrerPolicy={'no-referrer'}
+                                />
+                            </MenuButton>
+                            <MenuList>
+                                {session ? (
+                                    <>
+                                        <MenuItem>
+                                            {session?.user?.name}
+                                        </MenuItem>
+                                        <MenuItem
+                                            onClick={() =>
+                                                router.push('/orders')
+                                            }
+                                        >
+                                            Pedidos
+                                        </MenuItem>
+                                        <MenuItem
                                             bg="transparent"
+                                            _hover={{
+                                                bg: 'red',
+                                                color: 'white',
+                                            }}
                                             onClick={() => signOut()}
                                         >
                                             Sair
-                                        </Button>
-                                    </MenuItem>
-                                </>
-                            ) : (
-                                <MenuItem>
-                                    <Button
+                                        </MenuItem>
+                                    </>
+                                ) : (
+                                    <MenuItem
                                         w="100%"
                                         bg="transparent"
                                         onClick={() => router.push('/login')}
                                     >
-                                        Entrar
-                                    </Button>
-                                </MenuItem>
-                            )}
-
-                            <MenuDivider />
-                        </MenuList>
-                    </Menu>
+                                        Entre ou cadastre-se
+                                    </MenuItem>
+                                )}
+                            </MenuList>
+                            <Spacer />
+                            <Flex
+                                cursor={'pointer'}
+                                onClick={() => router.push('/cart')}
+                            >
+                                <Image
+                                    src="/shopping-bag.svg"
+                                    alt="bag"
+                                />
+                                <Center
+                                    w="15px"
+                                    h="15px"
+                                    top="15px"
+                                    right="35px"
+                                    position={'absolute'}
+                                    borderRadius={'30px'}
+                                    bg="red"
+                                >
+                                    <Text
+                                        fontSize={'sm'}
+                                        color={'white'}
+                                        fontWeight={'bold'}
+                                    >
+                                        1
+                                    </Text>
+                                </Center>
+                            </Flex>
+                        </Menu>
+                    </HStack>
                 </Flex>
             </Flex>
 
