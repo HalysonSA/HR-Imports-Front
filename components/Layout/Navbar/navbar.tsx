@@ -45,7 +45,8 @@ export default function Navbar() {
                 >
                     <Box>
                         <Image
-                            w="40px"
+                            w="48px"
+                            h="48px"
                             src="/crown.svg"
                             alt="Logo"
                         />
@@ -59,11 +60,14 @@ export default function Navbar() {
                             <MenuButton
                                 as={Button}
                                 cursor={'pointer'}
-                                p="0"
+                                p="2"
                                 fontSize={'lg'}
                                 fontWeight={'bold'}
                                 bg={'transparent'}
-                                _hover={{ bg: 'transparent', transform: 'scale(1.1)' }}
+                                _hover={{
+                                    bg: 'transparent',
+                                    transform: 'scale(1.1)',
+                                }}
                                 _active={{ bg: 'transparent' }}
                             >
                                 Categorias
@@ -125,6 +129,7 @@ export default function Navbar() {
                                     size={'sm'}
                                     src={session ? session?.user?.image : ''}
                                     referrerPolicy={'no-referrer'}
+                                    name={session ? session?.user?.name : ''}
                                 />
                             </MenuButton>
                             <MenuList zIndex={99}>
@@ -167,6 +172,8 @@ export default function Navbar() {
                                 onClick={() => router.push('/cart')}
                             >
                                 <Image
+                                    w='34px'
+                                    h='34px'
                                     src="/shopping-bag.svg"
                                     alt="bag"
                                 />
