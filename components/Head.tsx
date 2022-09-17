@@ -2,7 +2,6 @@ import Head from 'next/head'
 
 const Header = () => (
     <Head>
-        <html lang='pt-BR' />
         <title>HR Modas</title>
         <meta
             name="description"
