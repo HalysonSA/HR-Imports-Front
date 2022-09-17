@@ -7,9 +7,13 @@ import {
     useColorModeValue,
     Button,
     Image,
+    Flex,
 } from '@chakra-ui/react'
 
 import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { IoIosCard } from 'react-icons/io'
+import { MdCached } from 'react-icons/md'
+import { TbTruckDelivery } from 'react-icons/tb'
 
 const SocialButton = ({ children, label, href }) => {
     return (
@@ -62,6 +66,29 @@ const LinkFooter = ({ label, href }) => {
     )
 }
 
+const InfoFooter = ({ icon, title, description }) => {
+    return (
+        <Flex
+            p="5"
+            direction={'row'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            flex="1"
+        >
+            {icon}
+            <Flex direction={'column'}>
+                <Text
+                    fontSize={'xl'}
+                    fontWeight={'bold'}
+                >
+                    {title}
+                </Text>
+                <Text fontWeight={'medium'}>{description}</Text>
+            </Flex>
+        </Flex>
+    )
+}
+
 export default function Footer() {
     return (
         <Box
@@ -69,6 +96,29 @@ export default function Footer() {
             bg="white"
             color="black"
         >
+            <Flex
+                minH="200px"
+                direction={'row'}
+                wrap={'wrap'}
+                borderBottom={'1px'}
+                borderColor={'gray.200'}
+            >
+                <InfoFooter
+                    icon={<IoIosCard size={'70px'} />}
+                    title={'Pagamentos'}
+                    description={'Cartão de Crédito/Debito e Pix'}
+                />
+                <InfoFooter
+                    icon={<MdCached size={'70px'} />}
+                    title={'Não Aceitamos Trocas'}
+                    description={'Nem devoluções'}
+                />
+                <InfoFooter
+                    icon={<TbTruckDelivery size={'70px'} />}
+                    title={'Entrega em Todo o Brasil'}
+                    description={'Envio em até 1 dia útil'}
+                />
+            </Flex>
             <Container
                 as={Stack}
                 maxW={'6xl'}

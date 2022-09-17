@@ -59,15 +59,16 @@ export default function Navbar() {
                             <MenuButton
                                 as={Button}
                                 cursor={'pointer'}
+                                p="0"
                                 fontSize={'lg'}
                                 fontWeight={'bold'}
                                 bg={'transparent'}
-                                _hover={{ bg: 'transparent' }}
+                                _hover={{ bg: 'transparent', transform: 'scale(1.1)' }}
                                 _active={{ bg: 'transparent' }}
                             >
                                 Categorias
                             </MenuButton>
-                            <MenuList>
+                            <MenuList zIndex={99}>
                                 <MenuItem>Blusas</MenuItem>
                                 <MenuItem>Conjuntos</MenuItem>
                                 <MenuItem>Legging</MenuItem>
@@ -76,11 +77,26 @@ export default function Navbar() {
                                 <MenuItem>Top</MenuItem>
                             </MenuList>
                         </Menu>
+                        <Link
+                            href="/shop"
+                            fontSize={'lg'}
+                            fontWeight={'bold'}
+                            _hover={{
+                                textDecoration: 'none',
+                                transform: 'scale(1.1)',
+                            }}
+                        >
+                            Produtos
+                        </Link>
 
                         <Link
                             href="/about"
                             fontSize={'lg'}
                             fontWeight={'bold'}
+                            _hover={{
+                                textDecoration: 'none',
+                                transform: 'scale(1.1)',
+                            }}
                         >
                             Sobre
                         </Link>
@@ -201,6 +217,7 @@ export default function Navbar() {
                                 <MenuButton
                                     float={'left'}
                                     as={Button}
+                                    p="0"
                                     cursor={'pointer'}
                                     fontSize={'lg'}
                                     fontWeight={'bold'}
@@ -210,7 +227,7 @@ export default function Navbar() {
                                 >
                                     Categorias
                                 </MenuButton>
-                                <MenuList>
+                                <MenuList zIndex={99}>
                                     <MenuItem>Blusas</MenuItem>
                                     <MenuItem>Conjuntos</MenuItem>
                                     <MenuItem>Legging</MenuItem>
@@ -219,6 +236,13 @@ export default function Navbar() {
                                     <MenuItem>Top</MenuItem>
                                 </MenuList>
                             </Menu>
+                            <Link
+                                href="/shop"
+                                fontSize={'lg'}
+                                fontWeight={'bold'}
+                            >
+                                Produtos
+                            </Link>
                             <Link
                                 href="/about"
                                 fontSize={'lg'}

@@ -13,8 +13,20 @@ a {
 * {
   font-family: "Ruda", sans-serif;
   box-sizing: border-box;
+  
+}
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
 }
 
+body::-webkit-scrollbar-track {
+  background: white;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #572C8C;    /* color of the scroll thumb */
+  border: 3px solid white;
+}
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
