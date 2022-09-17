@@ -127,7 +127,7 @@ export default function Navbar() {
                                     referrerPolicy={'no-referrer'}
                                 />
                             </MenuButton>
-                            <MenuList>
+                            <MenuList zIndex={99}>
                                 {session ? (
                                     <>
                                         <MenuItem>
