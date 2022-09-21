@@ -135,10 +135,16 @@ export default function Footer() {
                     direction={'row'}
                     spacing={6}
                 >
-                    <LinkFooter
-                        label="Inicio"
-                        href="/"
-                    />
+                    <Link
+                        onClick={() =>
+                            window.scrollTo( {
+                                top: 0,
+                                behavior: 'smooth',
+                            })
+                        }
+                    >
+                        Inicio
+                    </Link>
                     <LinkFooter
                         label="Sobre"
                         href="/about"
