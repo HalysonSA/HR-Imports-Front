@@ -3,6 +3,7 @@ import Head from 'next/head'
 const Header = () => (
     <Head>
         <title>HR Modas</title>
+        <link rel="apple-touch-icon" href=""></link>
         <meta
             name="description"
             content="Roupas para atividades físicas"

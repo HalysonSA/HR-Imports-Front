@@ -8,14 +8,27 @@ import {
     Button,
     Image,
     Flex,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import React, { ReactElement } from 'react';
 
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
-import { IoIosCard } from 'react-icons/io'
-import { MdCached } from 'react-icons/md'
-import { TbTruckDelivery } from 'react-icons/tb'
+import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { IoIosCard } from 'react-icons/io';
+import { MdCached } from 'react-icons/md';
+import { TbTruckDelivery } from 'react-icons/tb';
 
-const SocialButton = ({ children, label, href }) => {
+interface SocialProps {
+    children?: ReactElement;
+    label: string;
+    href: string;
+}
+
+interface FooterInfoProps {
+    title: string;
+    icon: ReactElement;
+    description: string;
+}
+
+const SocialButton = ({ children, label, href }: SocialProps) => {
     return (
         <Button
             bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
@@ -30,6 +43,7 @@ const SocialButton = ({ children, label, href }) => {
             alignItems={'center'}
             justifyContent={'center'}
             transition={'background 0.3s ease'}
+            // @ts-ignore
             _hover={
                 label == 'Twitter'
                     ? {
@@ -52,10 +66,10 @@ const SocialButton = ({ children, label, href }) => {
         >
             {children}
         </Button>
-    )
-}
+    );
+};
 
-const LinkFooter = ({ label, href }) => {
+const LinkFooter = ({ label, href }: SocialProps) => {
     return (
         <Link
             href={href}
@@ -63,10 +77,10 @@ const LinkFooter = ({ label, href }) => {
         >
             {label}
         </Link>
-    )
-}
+    );
+};
 
-const InfoFooter = ({ icon, title, description }) => {
+const InfoFooter = ({ icon, title, description }: FooterInfoProps) => {
     return (
         <Flex
             p="5"
@@ -86,8 +100,8 @@ const InfoFooter = ({ icon, title, description }) => {
                 <Text fontWeight={'medium'}>{description}</Text>
             </Flex>
         </Flex>
-    )
-}
+    );
+};
 
 export default function Footer() {
     return (
@@ -136,12 +150,18 @@ export default function Footer() {
                     spacing={6}
                 >
                     <Link
+                        href={'/'}
                         onClick={() =>
-                            window.scrollTo( {
+                            window.scrollTo({
                                 top: 0,
                                 behavior: 'smooth',
                             })
                         }
+                        _hover={{
+                            transform: 'scale(1.2)',
+                            color: 'blackAlpha.800',
+                        }}
+                        isExternal={false}
                     >
                         Inicio
                     </Link>
@@ -177,21 +197,21 @@ export default function Footer() {
                     >
                         <SocialButton
                             label={'Instagram'}
-                            href={'#'}
+                            href={'https://www.instagram.com/'}
                         >
                             <FaInstagram size={20} />
                         </SocialButton>
 
                         <SocialButton
                             label={'Twitter'}
-                            href={'#'}
+                            href={'https://twitter.com/'}
                         >
                             <FaTwitter size={20} />
                         </SocialButton>
 
                         <SocialButton
                             label={'Youtube'}
-                            href={'#'}
+                            href={'https://www.youtube.com/'}
                         >
                             <FaYoutube size={30} />
                         </SocialButton>
@@ -199,5 +219,5 @@ export default function Footer() {
                 </Container>
             </Box>
         </Box>
-    )
+    );
 }

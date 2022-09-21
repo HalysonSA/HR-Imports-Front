@@ -6,7 +6,17 @@ import { SessionProvider } from 'next-auth/react'
 import { Provider } from 'react-redux'
 import store from '../components/Redux/Storage'
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+import type { NextComponentType  } from 'next' 
+import { Session } from 'next-auth'
+
+type AppProps = {
+    Component: NextComponentType,
+    pageProps: {
+        session: Session,
+    }
+}
+
+function MyApp({ Component, pageProps: { session, ...pageProps }}: AppProps) {
     return (
         <SessionProvider session={session}>
             <Provider store={store}>

@@ -16,18 +16,18 @@ import {
     Text,
     Spacer,
     Center,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-import { useSession, signOut } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react';
 
 export default function Navbar() {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const router = useRouter()
-    const { data: session } = useSession()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const router = useRouter();
+    const { data: session } = useSession();
 
     return (
         <Box
@@ -114,7 +114,7 @@ export default function Navbar() {
                             display={{ base: 'none', md: 'flex' }}
                         >
                             {session
-                                ? 'Olá, ' + session.user.name
+                                ? 'Olá, ' + session?.user?.name
                                 : 'Entre ou cadastre-se'}
                         </Text>
                         <Menu>
@@ -127,9 +127,9 @@ export default function Navbar() {
                             >
                                 <Avatar
                                     size={'sm'}
-                                    src={session ? session?.user?.image : ''}
+                                    src={session?.user?.image || undefined}
                                     referrerPolicy={'no-referrer'}
-                                    name={session ? session?.user?.name : ''}
+                                    name={session?.user?.name || undefined}
                                 />
                             </MenuButton>
                             <MenuList zIndex={99}>
@@ -172,8 +172,8 @@ export default function Navbar() {
                                 onClick={() => router.push('/cart')}
                             >
                                 <Image
-                                    w='34px'
-                                    h='34px'
+                                    w="34px"
+                                    h="34px"
                                     src="/shopping-bag.svg"
                                     alt="bag"
                                 />
@@ -262,5 +262,5 @@ export default function Navbar() {
                 </Box>
             ) : null}
         </Box>
-    )
+    );
 }
