@@ -19,8 +19,7 @@ import { useForm } from 'react-hook-form'
 
 import { useDispatch } from 'react-redux'
 
-import { checkUser } from '../Redux/UserSlice'
-
+//import { checkUser } from '../Redux/UserSlice'
 import { checkEmail } from '../../utils/checkEmail'
 import { passwordMatch } from '../../utils/checkPassword'
 
@@ -56,10 +55,10 @@ const SignUpRegister = () => {
 
         setNotEmail(!emailIsValid)
         setNotMatch(!match)
-
+        /*
         if (emailIsValid && match) {
             dispatch(checkUser(data))
-        }
+        }*/
     }
 
     return (

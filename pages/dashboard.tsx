@@ -1,10 +1,9 @@
+import Dashboard from '../components/Dashboard/menu';
 
-
-function AdminPage() {
+export default function AdminPage() {
     return (
-        <div>
-            <h1>Admin Dashboard</h1>
-        </div>
-    )
+        <>
+            <Dashboard />
+        </>
+    );
 }
-export default AdminPage
