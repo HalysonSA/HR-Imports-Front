@@ -14,6 +14,7 @@ import {
     BoxProps,
     Image,
     FlexProps,
+    Spacer,
     useMediaQuery,
 } from '@chakra-ui/react';
 import { FiTrendingUp, FiMenu } from 'react-icons/fi';
@@ -24,6 +25,7 @@ import { FaBoxes } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 
 import ProductsTable from '../tables/productsTable';
+import { NextComponentType } from 'next';
 
 interface LinkItemProps {
     name: string;
@@ -36,60 +38,79 @@ const LinkItems: Array<LinkItemProps> = [
     { name: 'Sair', icon: RiLogoutCircleLine },
 ];
 
+const DashboardComponent = (component: NextComponentType) => {};
 export default function Dashboard() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
     return (
-        <Box
-            minH="100vh"
+        <Flex
             bg="purple.400"
+            w="100%"
+            minH="100vh"
+            direction={{ base: 'column', md: 'row' }}
         >
-            {isLargerThan768 ? (
-                <Box
-                    left="20%"
-                    top="15%"
-                    position={'absolute'}
-                >
-                    <Image
-                        w="100%"
-                        maxH="80vh"
-                        src="/dashboard.svg"
-                        alt=""
-                    />
-                </Box>
-            ) : null}
             <Box
-                left="30%"
-                top="15%"
+                left="20%"
                 position={'absolute'}
             >
-                <ProductsTable />
+                <Image
+                    src="./dashboard.svg"
+                    alt=""
+                    w="100%"
+                    minH="100vh"
+                />
             </Box>
 
-            <SidebarContent
-                onClose={() => onClose}
-                display={{ base: 'none', md: 'block' }}
-            />
-            <Drawer
-                autoFocus={false}
-                isOpen={isOpen}
-                placement="left"
-                onClose={onClose}
-                returnFocusOnClose={false}
-                onOverlayClick={onClose}
-                size="full"
+            <Box
+                flex="1"
+                minW="250px"
             >
-                <DrawerContent>
-                    <SidebarContent onClose={onClose} />
-                </DrawerContent>
-            </Drawer>
-            {/* mobilenav */}
-            <MobileNav
-                display={{ base: 'flex', md: 'none' }}
-                onOpen={onOpen}
-            />
-        </Box>
+                <SidebarContent
+                    onClose={() => onClose}
+                    display={{ base: 'none', md: 'block' }}
+                />
+                <Drawer
+                    autoFocus={false}
+                    isOpen={isOpen}
+                    placement="left"
+                    onClose={onClose}
+                    returnFocusOnClose={false}
+                    onOverlayClick={onClose}
+                    size="full"
+                >
+                    <DrawerContent>
+                        <SidebarContent onClose={onClose} />
+                    </DrawerContent>
+                </Drawer>
+                {/* mobilenav */}
+                <MobileNav
+                    display={{ base: 'flex', md: 'none' }}
+                    onOpen={onOpen}
+                />
+            </Box>
+
+            <Spacer />
+            {isLargerThan768 ? (
+                <Box
+                    zIndex={1}
+                    w="60%"
+                    my="10"
+                    flex="3"
+                >
+                    <ProductsTable />
+                </Box>
+            ) : (
+                <Box
+                    zIndex={1}
+                    flex="3"
+                    mx="4"
+                >
+                    <ProductsTable />
+                </Box>
+            )}
+            <Spacer />
+        </Flex>
     );
 }
 
