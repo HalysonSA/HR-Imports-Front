@@ -10,6 +10,7 @@ import {
     TableContainer,
     ButtonGroup,
     Button,
+    Text,
 } from '@chakra-ui/react';
 
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -78,7 +79,7 @@ const ProductsTable = () => {
 
     return (
         <Box bg={'rgba(255,255,255,0.7)'}>
-            <TableContainer>
+            <TableContainer p="3">
                 <Table
                     fontSize={'md'}
                     colorScheme="white"
@@ -99,38 +100,77 @@ const ProductsTable = () => {
                     <Tbody>
                         {page.map((product: productInfo) => (
                             <Tr key={product._id}>
-                                <Td>{product.title}</Td>
-                                <Td>{product.description}</Td>
-                                <Td isNumeric>R${product.price}</Td>
-                                <Td>{product.category}</Td>
-                                <Td isNumeric>
-                                    {product.size.map((size) => size + ' ')}
+                                <Td p="0">
+                                    <Center>
+                                        <Text>{product.title}</Text>
+                                    </Center>
                                 </Td>
-                                <Td isNumeric>{product.stock}</Td>
-                                <Th>
-                                    <Button
-                                        bg="transparent"
-                                        _hover={{
-                                            color: 'teal.300',
-                                            transform: 'scale(1.2)',
-                                        }}
-                                        _active={{ bg: 'trasparent' }}
-                                    >
-                                        <FaEdit />
-                                    </Button>
-                                </Th>
-                                <Th>
-                                    <Button
-                                        bg="transparent"
-                                        _hover={{
-                                            color: 'red',
-                                            transform: 'scale(1.2)',
-                                        }}
-                                        _active={{ bg: 'trasparent' }}
-                                    >
-                                        <FaTrash />
-                                    </Button>
-                                </Th>
+                                <Td p="0">
+                                    <Center>
+                                        <Text>{product.description}</Text>
+                                    </Center>
+                                </Td>
+                                <Td
+                                    p="0"
+                                    isNumeric
+                                >
+                                    <Center>
+                                        <Text>
+                                            R${product.price.toFixed(2)}
+                                        </Text>
+                                    </Center>
+                                </Td>
+                                <Td p="0">
+                                    <Center>
+                                        <Text>{product.category}</Text>
+                                    </Center>
+                                </Td>
+                                <Td
+                                    p="0"
+                                    isNumeric
+                                >
+                                    <Center>
+                                        <Text>
+                                            {product.size.map(
+                                                (size) => size + ' '
+                                            )}
+                                        </Text>
+                                    </Center>
+                                </Td>
+                                <Td
+                                    p="0"
+                                    isNumeric
+                                >
+                                    <Center>{product.stock}</Center>
+                                </Td>
+                                <Td p="0">
+                                    <Center>
+                                        <Button
+                                            bg="transparent"
+                                            _hover={{
+                                                color: 'teal.300',
+                                                transform: 'scale(1.2)',
+                                            }}
+                                            _active={{ bg: 'trasparent' }}
+                                        >
+                                            <FaEdit />
+                                        </Button>
+                                    </Center>
+                                </Td>
+                                <Td p="0">
+                                    <Center>
+                                        <Button
+                                            bg="transparent"
+                                            _hover={{
+                                                color: 'red',
+                                                transform: 'scale(1.2)',
+                                            }}
+                                            _active={{ bg: 'trasparent' }}
+                                        >
+                                            <FaTrash />
+                                        </Button>
+                                    </Center>
+                                </Td>
                             </Tr>
                         ))}
                     </Tbody>

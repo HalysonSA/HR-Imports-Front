@@ -90,20 +90,22 @@ export default function Dashboard() {
                 />
             </Box>
 
-            <Spacer />
             {isLargerThan768 ? (
-                <Box
-                    zIndex={1}
-                    w="60%"
-                    my="10"
-                    flex="3"
-                >
-                    <ProductsTable />
-                </Box>
+                <>
+                    <Spacer />
+                    <Box
+                        zIndex={1}
+                        w="60%"
+                        my="10"
+                        flex="3"
+                    >
+                        <ProductsTable />
+                    </Box>
+                </>
             ) : (
                 <Box
                     zIndex={1}
-                    flex="3"
+                    flex="6"
                     mx="4"
                 >
                     <ProductsTable />
