@@ -139,6 +139,15 @@ export default function Navbar() {
                                             {session?.user?.name}
                                         </MenuItem>
                                         <MenuItem
+                                            onClick={() => {
+                                                router.push(
+                                                    '/dashboard/dashboard'
+                                                );
+                                            }}
+                                        >
+                                            Admin
+                                        </MenuItem>
+                                        <MenuItem
                                             onClick={() =>
                                                 router.push('/orders')
                                             }

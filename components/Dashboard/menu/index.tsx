@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import {
     IconButton,
     Box,
@@ -24,9 +25,9 @@ import { GiHandTruck } from 'react-icons/gi';
 import { FaBoxes } from 'react-icons/fa';
 import { IconType } from 'react-icons';
 
-import ProductsTable from '../tables/productsTable';
-import { NextComponentType } from 'next';
-
+interface ComponentProps {
+    children: React.ReactNode;
+}
 interface LinkItemProps {
     name: string;
     icon: IconType;
@@ -38,8 +39,7 @@ const LinkItems: Array<LinkItemProps> = [
     { name: 'Sair', icon: RiLogoutCircleLine },
 ];
 
-const DashboardComponent = (component: NextComponentType) => {};
-export default function Dashboard() {
+export default function Dashboard({ children }: ComponentProps) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
@@ -99,7 +99,7 @@ export default function Dashboard() {
                         my="10"
                         flex="3"
                     >
-                        <ProductsTable />
+                        {children}
                     </Box>
                 </>
             ) : (
@@ -108,7 +108,7 @@ export default function Dashboard() {
                     flex="6"
                     mx="4"
                 >
-                    <ProductsTable />
+                    {children}
                 </Box>
             )}
             <Spacer />
@@ -165,10 +165,12 @@ interface NavItemProps extends FlexProps {
     icon: IconType;
     children: string;
 }
+
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+    const router = useRouter();
     return (
         <Link
-            href="#"
+            onClick={() => router.push('/dashboard/' + children.toLowerCase())}
             style={{ textDecoration: 'none' }}
             _focus={{ boxShadow: 'none' }}
         >

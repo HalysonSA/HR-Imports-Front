@@ -1,22 +1,22 @@
-import '../styles/globals.css'
-import { ChakraProvider } from '@chakra-ui/react'
-import Header from '../components/Head'
-import 'react-toastify/dist/ReactToastify.css'
-import { SessionProvider } from 'next-auth/react'
-import { Provider } from 'react-redux'
-import store from '../components/Redux/Storage'
+import '../styles/globals.css';
+import { ChakraProvider } from '@chakra-ui/react';
+import Header from '../components/Head';
+import 'react-toastify/dist/ReactToastify.css';
+import { SessionProvider } from 'next-auth/react';
+import { Provider } from 'react-redux';
+import store from '../components/Redux/Storage';
 
-import type { NextComponentType  } from 'next' 
-import { Session } from 'next-auth'
+import type { NextComponentType } from 'next';
+import { Session } from 'next-auth';
 
 type AppProps = {
-    Component: NextComponentType,
+    Component: NextComponentType;
     pageProps: {
-        session: Session,
-    }
-}
+        session: Session;
+    };
+};
 
-function MyApp({ Component, pageProps: { session, ...pageProps }}: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <SessionProvider session={session}>
             <Provider store={store}>
@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps }}: AppProps) {
                 </ChakraProvider>
             </Provider>
         </SessionProvider>
-    )
+    );
 }
 
-export default MyApp
+export default MyApp;
