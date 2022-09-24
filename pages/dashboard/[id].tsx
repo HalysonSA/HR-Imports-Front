@@ -1,6 +1,6 @@
 import Dashboard from '../../components/Dashboard/menu';
 import { useRouter } from 'next/router';
-import ProductsTable from '../../components/Dashboard/tables/productsTable';
+import ProductsTable from '../../components/Dashboard/tables/products/productsTable';
 
 export default function AdminPage() {
     const router = useRouter();

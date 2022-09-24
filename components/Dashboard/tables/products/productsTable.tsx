@@ -18,8 +18,12 @@ import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import api from '../../../api/axios';
-import { setProducts } from '../../Redux/ProductSlice';
+import api from '../../../../api/axios';
+
+import { toast, ToastContainer } from 'react-toastify';
+
+import { setProducts, updateProduct } from '../../../Redux/ProductSlice';
+import { deleteProduct } from '../../../Redux/ProductSlice';
 
 type productInfo = {
     _id: number;
@@ -56,7 +60,7 @@ const ProductsTable = () => {
         }
         getProducts();
     }, []);
-
+    ///////// PAGINATION /////////
     var page = products.slice(pageNumber - 1, pageNumber * 10);
 
     if (pageNumber > 1) {
@@ -75,6 +79,25 @@ const ProductsTable = () => {
             setPageNumber(pageNumber - 1);
         }
         return pageNumber;
+    }
+    ///////// - /////////
+
+    function handleDelete(id: number) {
+        api.delete(`/products/${id}`)
+            .then(() => {
+                dispatch(deleteProduct(id));
+                toast.success('Produto deletado com sucesso!');
+            })
+            .catch(() => toast.error('Algo deu errado!'));
+    }
+
+    function handleUpdate(id: number) {
+        api.patch(`/products/${id}`)
+            .then(() => {
+                dispatch(updateProduct(id));
+                toast.success('Produto atualizado com sucesso!');
+            })
+            .catch(() => toast.error('Algo deu errado!'));
     }
 
     return (
@@ -147,6 +170,9 @@ const ProductsTable = () => {
                                     <Center>
                                         <Button
                                             bg="transparent"
+                                            onClick={() =>
+                                                handleUpdate(product._id)
+                                            }
                                             _hover={{
                                                 color: 'teal.300',
                                                 transform: 'scale(1.2)',
@@ -161,6 +187,9 @@ const ProductsTable = () => {
                                     <Center>
                                         <Button
                                             bg="transparent"
+                                            onClick={() =>
+                                                handleDelete(product._id)
+                                            }
                                             _hover={{
                                                 color: 'red',
                                                 transform: 'scale(1.2)',
