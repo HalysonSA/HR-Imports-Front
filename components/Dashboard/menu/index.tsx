@@ -45,23 +45,11 @@ export default function Dashboard({ children }: ComponentProps) {
 
     return (
         <Flex
-            bg="purple.400"
+            bgGradient="linear(to-b, purple.400, purple.400, purple.200)"
             w="100%"
             minH="100vh"
             direction={{ base: 'column', md: 'row' }}
         >
-            <Box
-                left="20%"
-                position={'absolute'}
-            >
-                <Image
-                    src="./dashboard.svg"
-                    alt=""
-                    w="100%"
-                    minH="100vh"
-                />
-            </Box>
-
             <Box
                 flex="1"
                 minW="250px"
