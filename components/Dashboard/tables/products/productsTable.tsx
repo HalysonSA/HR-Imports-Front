@@ -11,6 +11,7 @@ import {
     ButtonGroup,
     Button,
     Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 
 import ScreenCreation from './creationScreen';
@@ -27,6 +28,8 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import { setProducts, updateProduct } from '../../../Redux/ProductSlice';
 import { deleteProduct } from '../../../Redux/ProductSlice';
+
+import EditModal from './editModal';
 
 type productInfo = {
     _id: number;
@@ -48,10 +51,14 @@ type productDetails = {
 const ProductsTable = () => {
     const dispatch = useDispatch();
 
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
     const products = useSelector((state: productDetails) => state.products);
     const totalProducts = products.length;
+
     const [togglePage, setTogglePage] = useState<Boolean>(false);
     const [pageNumber, setPageNumber] = useState(1);
+    const [editProduct, setEditProduct] = useState<productInfo>();
 
     useEffect(() => {
         async function getProducts() {
@@ -96,33 +103,9 @@ const ProductsTable = () => {
             .catch(() => toast.error('Algo deu errado!'));
     }
 
-    interface teste {
-        _id: number;
-        title?: string;
-        price?: number;
-        image?: string;
-        size?: string[];
-        description?: string;
-        category?: string;
-    }
-    async function handleUpdate(product: teste) {
-        console.log(product);
-        //QUANDO REALMENTE FOR ATUALIZADO, FAZER OS VALORES DEFAULT SEREM IGUAIS 
-        //AOS VALORES DO PRODUTO PARA QUE NÃO SEJA NECESSÁRIO DIGITAR TODOS OS DADOS NOVAMENTE
-        await api
-            .patch(`/products/${product._id}`, {
-                title: product.title,
-                price: product.price,
-                image: product.image,
-                size: product.size,
-                description: product.description,
-                category: product.category,
-            })
-            .then(() => {
-                toast.success('Producto atualizado com sucesso!');
-                dispatch(updateProduct(product));
-            })
-            .catch(() => toast.error('Algo deu errado!'));
+    async function handleUpdate(product: productInfo) {
+        onOpen();
+        setEditProduct(product);
     }
 
     return (
@@ -196,7 +179,10 @@ const ProductsTable = () => {
                                     >
                                         <Center>
                                             <Text>
-                                                R${product.price.toFixed(2)}
+                                                R$
+                                                {Number(product.price).toFixed(
+                                                    2
+                                                )}
                                             </Text>
                                         </Center>
                                     </Td>
@@ -228,13 +214,7 @@ const ProductsTable = () => {
                                             <Button
                                                 bg="transparent"
                                                 onClick={() =>
-                                                    handleUpdate({
-                                                        _id: product._id,
-                                                        title: 'teste REDUX',
-                                                        price: 231.32,
-                                                        size: ['P', 'M'],
-                                                        category: 'teste',
-                                                    })
+                                                    handleUpdate(product)
                                                 }
                                                 _hover={{
                                                     color: 'teal.300',
@@ -245,6 +225,13 @@ const ProductsTable = () => {
                                                 <FaEdit />
                                             </Button>
                                         </Center>
+                                        {editProduct !== undefined ? (
+                                            <EditModal
+                                                isOpen={isOpen}
+                                                onClose={onClose}
+                                                product={editProduct}
+                                            />
+                                        ) : null}
                                     </Td>
                                     <Td p="0">
                                         <Center>

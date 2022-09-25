@@ -130,16 +130,16 @@ const ScreenCreation = () => {
                 >
                     <FormLabel>Tamanho</FormLabel>
                     <>
-                        <Checkbox>Todos</Checkbox>
+                        <Checkbox borderColor="white">Todos</Checkbox>
                         <HStack
                             pl={6}
                             mt={1}
                             spacing={1}
                         >
-                            <Checkbox>P</Checkbox>
-                            <Checkbox>M</Checkbox>
-                            <Checkbox>G</Checkbox>
-                            <Checkbox>GG</Checkbox>
+                            <Checkbox borderColor="white">P</Checkbox>
+                            <Checkbox borderColor="white">M</Checkbox>
+                            <Checkbox borderColor="white">G</Checkbox>
+                            <Checkbox borderColor="white">GG</Checkbox>
                         </HStack>
                     </>
                 </FormControl>
