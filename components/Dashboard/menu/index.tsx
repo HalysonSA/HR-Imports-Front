@@ -157,7 +157,7 @@ interface NavItemProps extends FlexProps {
 const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
     const router = useRouter();
     return (
-        <Link
+        <Text
             onClick={() => router.push('/dashboard/' + children.toLowerCase())}
             style={{ textDecoration: 'none' }}
             _focus={{ boxShadow: 'none' }}
@@ -189,7 +189,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
                 )}
                 {children}
             </Flex>
-        </Link>
+        </Text>
     );
 };
 

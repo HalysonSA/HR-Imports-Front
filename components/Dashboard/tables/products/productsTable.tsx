@@ -151,7 +151,6 @@ const ProductsTable = () => {
                         <Thead>
                             <Tr>
                                 <Th>Nome</Th>
-                                <Th>Descrição</Th>
                                 <Th>Preço</Th>
                                 <Th>Categoria</Th>
                                 <Th>Tamanhos</Th>
@@ -168,11 +167,7 @@ const ProductsTable = () => {
                                             <Text>{product.title}</Text>
                                         </Center>
                                     </Td>
-                                    <Td p="0">
-                                        <Center>
-                                            <Text>{product.description}</Text>
-                                        </Center>
-                                    </Td>
+
                                     <Td
                                         p="0"
                                         isNumeric
