@@ -1,28 +1,71 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/navigation'
+import { Pagination, Navigation, Autoplay } from 'swiper';
+import {
+    Box,
+    Center,
+    Text,
+    Divider,
+    useMediaQuery,
+    Image,
+    HStack,
+    Stack,
+    Button,
+} from '@chakra-ui/react';
+import {
+    BsStarFill,
+    BsStarHalf,
+    BsStar,
+    BsHeart,
+    BsHeartFill,
+} from 'react-icons/bs';
 
-import { Pagination, Navigation, Autoplay } from 'swiper'
-import { Box, Center, Text, Divider, useMediaQuery } from '@chakra-ui/react'
+import { setProducts } from '../Redux/ProductSlice';
+import api from '../../api/axios';
 
-const test = [
-    'Produto 1',
-    'produto 2',
-    'produto 3',
-    'produto 4',
-    'produto 5',
-    'produto 6',
-    'produto 7',
-    'produto 8',
-    'produto 9',
-]
+type productInfo = {
+    _id: number;
+    title: string;
+    price: number;
+    image: string;
+    description: string;
+    category: string;
+    brand: string;
+    material: string;
+    stock: number;
+    size: [];
+};
+
+type productDetails = {
+    products: productInfo[];
+};
 
 export default function NewProductSlider() {
-    const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+    const [isLargerThan1920] = useMediaQuery('(min-width: 1920px)');
+    const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
+    const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+    const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
+
+    const products = useSelector((state: productDetails) => state.products);
+    console.log(products);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        async function getProducts() {
+            try {
+                const response = await api.get('/products');
+                dispatch(setProducts(response.data));
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getProducts();
+    }, []);
 
     return (
         <>
@@ -36,11 +79,24 @@ export default function NewProductSlider() {
                 </Text>
                 <Divider />
             </Center>
-            <Box>
+            <Box
+                mx={['2', '3', '4', '5']}
+                py="5"
+            >
                 <Swiper
-                    slidesPerView={isLargerThan768 ? 5 : 2}
-                    spaceBetween={10}
+                    slidesPerView={
+                        isLargerThan1920
+                            ? 6
+                            : isLargerThan1280
+                            ? 5
+                            : isLargerThan768
+                            ? 4
+                            : isLargerThan425
+                            ? 2
+                            : 1
+                    }
                     slidesPerGroup={1}
+                    spaceBetween={10}
                     loop={true}
                     loopFillGroupWithBlank={true}
                     autoplay={{
@@ -50,18 +106,87 @@ export default function NewProductSlider() {
                     modules={[Pagination, Navigation, Autoplay]}
                     className="mySwiper"
                 >
-                    {test.map((item) => (
-                        <SwiperSlide key={item}>
+                    {products.map((product) => (
+                        <SwiperSlide key={product._id}>
                             <Box
-                                h="300px"
-                                bg="gray.50"
+                                borderRadius={10}
+                                border="1px solid #e2e8f0"
+                                maxW="280px"
+                                h="410px"
+                                bg="white"
                             >
-                                <h1>{item}</h1>
+                                <Image
+                                    borderRadius={'10px 10px 0 0'}
+                                    h="180px"
+                                    w="100%"
+                                    objectFit={'cover'}
+                                    src={product.image}
+                                    alt={product.title}
+                                />
+                                <Box mx="5">
+                                    <HStack>
+                                        <Text
+                                            fontSize={'xl'}
+                                            fontWeight={'bold'}
+                                            mt="2"
+                                            wordBreak={'break-word'}
+                                        >
+                                            {product.title}
+                                        </Text>
+                                        <Box mt="2">
+                                            <BsHeart color="red" />
+                                        </Box>
+                                    </HStack>
+                                    <HStack>
+                                        <BsStarFill color="#9F7AEA" />
+                                        <BsStarFill color="#9F7AEA" />
+                                        <BsStarFill color="#9F7AEA" />
+                                        <BsStarFill color="#9F7AEA" />
+                                        <BsStarHalf color="#9F7AEA" />
+                                    </HStack>
+                                    <Stack spacing={0}>
+                                        {/*Exemplo com desconto*/}
+                                        <Box transform={
+                                            'translate(10px, 10px)'
+                                        }>
+                                            <Text
+                                                as="del"
+                                                color={'gray'}
+                                            >
+                                                R$
+                                                {product.price
+                                                    .toFixed(2)
+                                                    .replace('.', ',')}
+                                            </Text>
+                                        </Box>
+                                        <Text
+                                            fontSize={'3xl'}
+                                            fontWeight={'extrabold'}
+                                            mt="4"
+                                        >
+                                            R$
+                                            {product.price
+                                                .toFixed(2)
+                                                .replaceAll('.', ',')}
+                                        </Text>
+                                        <Text transform={'translateY(-10px)'}>
+                                            Á vista no PIX
+                                        </Text>
+                                    </Stack>
+                                    <Center mt="5">
+                                        <Button
+                                            w="100%"
+                                            colorScheme={'purple'}
+                                        >
+                                            Comprar
+                                        </Button>
+                                    </Center>
+                                </Box>
                             </Box>
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </Box>
         </>
-    )
+    );
 }
