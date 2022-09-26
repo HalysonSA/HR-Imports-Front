@@ -70,7 +70,7 @@ const EditModal = ({ product, isOpen, onClose }: Props) => {
                     stock: data.stock,
                 })
                 .then(() => {
-                    toast.success('Producto atualizado com sucesso!');
+                    toast.success('Produto atualizado com sucesso!');
                     data._id = product._id;
                     dispatch(updateProduct(data));
                 })
@@ -87,7 +87,7 @@ const EditModal = ({ product, isOpen, onClose }: Props) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay bg="blackAlpha.50" />
-            <ModalContent>
+            <ModalContent mx='4' mt='6em'>
                 <ModalHeader>Editar Produto</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>

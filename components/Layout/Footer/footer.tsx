@@ -149,8 +149,7 @@ export default function Footer() {
                     direction={'row'}
                     spacing={6}
                 >
-                    <Link
-                        href={'/'}
+                    <Text
                         onClick={() =>
                             window.scrollTo({
                                 top: 0,
@@ -161,10 +160,10 @@ export default function Footer() {
                             transform: 'scale(1.2)',
                             color: 'blackAlpha.800',
                         }}
-                        isExternal={false}
+                        cursor={'pointer'}
                     >
                         Inicio
-                    </Link>
+                    </Text>
                     <LinkFooter
                         label="Sobre"
                         href="/about"

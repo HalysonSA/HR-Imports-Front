@@ -171,7 +171,7 @@ const ScreenCreation = () => {
                 <Button
                     m="2"
                     type="submit"
-                    borderRadius={0}
+                    borderRadius={15}
                     colorScheme={'green'}
                 >
                     Confirmar

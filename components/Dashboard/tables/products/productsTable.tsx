@@ -12,7 +12,10 @@ import {
     Button,
     Text,
     useDisclosure,
+    useBoolean,
 } from '@chakra-ui/react';
+
+import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 import ScreenCreation from './creationScreen';
 
@@ -26,7 +29,7 @@ import api from '../../../../api/axios';
 
 import { toast, ToastContainer } from 'react-toastify';
 
-import { setProducts, updateProduct } from '../../../Redux/ProductSlice';
+import { orderProduct, setProducts } from '../../../Redux/ProductSlice';
 import { deleteProduct } from '../../../Redux/ProductSlice';
 
 import EditModal from './editModal';
@@ -56,6 +59,9 @@ const ProductsTable = () => {
     const products = useSelector((state: productDetails) => state.products);
     const totalProducts = products.length;
 
+    const [decreasing, setDecreasing] = useBoolean();
+    const [column, setColumn] = useState('');
+
     const [togglePage, setTogglePage] = useState<Boolean>(false);
     const [pageNumber, setPageNumber] = useState(1);
     const [editProduct, setEditProduct] = useState<productInfo>();
@@ -71,6 +77,18 @@ const ProductsTable = () => {
         }
         getProducts();
     }, []);
+
+    function pageOrder(description: string) {
+        setDecreasing.toggle();
+        dispatch(
+            orderProduct({
+                description: description,
+                isDown: decreasing,
+            })
+        );
+        setColumn(description);
+    }
+
     ///////// PAGINATION /////////
     var page = products.slice(pageNumber - 1, pageNumber * 10);
 
@@ -110,6 +128,7 @@ const ProductsTable = () => {
 
     return (
         <Box
+            my="5"
             bg={'rgba(255,255,255,0.7)'}
             borderRadius={'20px '}
         >
@@ -150,11 +169,55 @@ const ProductsTable = () => {
                     >
                         <Thead>
                             <Tr>
-                                <Th>Nome</Th>
-                                <Th>Preço</Th>
-                                <Th>Categoria</Th>
+                                <Th
+                                    onClick={() => {
+                                        pageOrder('title');
+                                    }}
+                                >
+                                    Nome
+                                    {column == 'title' && decreasing ? (
+                                        <ArrowUpIcon />
+                                    ) : (
+                                        <ArrowDownIcon />
+                                    )}
+                                </Th>
+                                <Th
+                                    onClick={() => {
+                                        pageOrder('price');
+                                    }}
+                                >
+                                    Preço
+                                    {column == 'price' && decreasing ? (
+                                        <ArrowUpIcon />
+                                    ) : (
+                                        <ArrowDownIcon />
+                                    )}
+                                </Th>
+                                <Th
+                                    onClick={() => {
+                                        pageOrder('category');
+                                    }}
+                                >
+                                    Categoria
+                                    {column == 'category' && decreasing ? (
+                                        <ArrowUpIcon />
+                                    ) : (
+                                        <ArrowDownIcon />
+                                    )}
+                                </Th>
                                 <Th>Tamanhos</Th>
-                                <Th>Quantidade</Th>
+                                <Th
+                                    onClick={() => {
+                                        pageOrder('amount');
+                                    }}
+                                >
+                                    Quantidade
+                                    {column == 'amount' && decreasing ? (
+                                        <ArrowUpIcon />
+                                    ) : (
+                                        <ArrowDownIcon />
+                                    )}
+                                </Th>
                                 <Th>Editar</Th>
                                 <Th>Excluir</Th>
                             </Tr>
