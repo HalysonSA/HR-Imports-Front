@@ -36,7 +36,6 @@ const ProductSlice = createSlice({
 
             if (index !== -1) {
                 state[index] = action.payload;
-                console.log(state[index]);
             }
         },
 

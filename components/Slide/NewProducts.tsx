@@ -53,7 +53,7 @@ export default function NewProductSlider() {
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
 
     const products = useSelector((state: productDetails) => state.products);
-    console.log(products);
+
     const dispatch = useDispatch();
     useEffect(() => {
         async function getProducts() {
@@ -146,9 +146,9 @@ export default function NewProductSlider() {
                                     </HStack>
                                     <Stack spacing={0}>
                                         {/*Exemplo com desconto*/}
-                                        <Box transform={
-                                            'translate(10px, 10px)'
-                                        }>
+                                        <Box
+                                            transform={'translate(10px, 10px)'}
+                                        >
                                             <Text
                                                 as="del"
                                                 color={'gray'}

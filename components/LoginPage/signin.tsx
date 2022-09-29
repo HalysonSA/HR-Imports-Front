@@ -8,49 +8,50 @@ import {
     InputGroup,
     InputRightElement,
     useMediaQuery,
-} from '@chakra-ui/react'
+    CircularProgress,
+} from '@chakra-ui/react';
 
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
 
-import { useState } from 'react'
+import { useState } from 'react';
 
-import { FaFacebook, FaGoogle } from 'react-icons/fa'
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 
-import { checkEmail } from '../../utils/checkEmail'
+import { useRouter } from 'next/router';
 
-import { toast, ToastContainer } from 'react-toastify'
-import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react';
 
-import { signIn } from 'next-auth/react'
+import GetUser from '../../utils/checkUser';
+
+import { useDispatch } from 'react-redux';
+import { signInUser } from '../../components/Redux/UserSlice';
 
 type SignInProps = {
-    email: string
-    password: string
-}
+    email: string;
+    password: string;
+};
 
 const SignInLogin = () => {
-    const router = useRouter()
+    const router = useRouter();
+    const dispatch = useDispatch();
 
-    const [isLargerThan500] = useMediaQuery('(min-width: 500px)')
+    const [isLargerThan500] = useMediaQuery('(min-width: 500px)');
 
-    const { register, handleSubmit, reset } = useForm<SignInProps>()
+    const { register, handleSubmit, reset } = useForm<SignInProps>();
 
-    const [show, setShow] = useState(false)
-    const [notEmail, setNotEmail] = useState(false)
+    const [show, setShow] = useState(false);
+    const [isLoading, setLoading] = useState(false);
 
-    if (notEmail) {
-        toast.error('E-mail inválido')
-    }
+    async function handleSignIn({ email, password }: SignInProps) {
+        setLoading(true);
 
-    function handleSignIn(data: SignInProps) {
-        reset()
+        const user = await GetUser({ email, password });
 
-        const { email, password } = data
+        user ? dispatch(signInUser(user)) : null;
 
-        const check = checkEmail(email)
-        setNotEmail(!check)
-        //fazer função de enviar para o backend
+        setLoading(false);
+        reset();
     }
 
     return (
@@ -58,7 +59,6 @@ const SignInLogin = () => {
             w={['100%', '50%', '40%']}
             minH={['15em', '20em']}
         >
-            <ToastContainer />
             <Box
                 w="80%"
                 h="auto"
@@ -128,7 +128,17 @@ const SignInLogin = () => {
                                     'linear(270deg, #6B13B0 8.33%, #CE8DF5 100%)',
                             }}
                         >
-                            <Text color="white">Entrar</Text>
+                            <Text color="white">
+                                {isLoading ? (
+                                    <CircularProgress
+                                        size="30"
+                                        isIndeterminate
+                                        color="purple.400"
+                                    />
+                                ) : (
+                                    'Entrar'
+                                )}
+                            </Text>
                         </Button>
                     </Stack>
                 </form>
@@ -172,6 +182,6 @@ const SignInLogin = () => {
                 </Button>
             </Box>
         </Center>
-    )
-}
-export default SignInLogin
+    );
+};
+export default SignInLogin;
