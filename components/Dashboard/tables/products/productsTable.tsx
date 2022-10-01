@@ -255,9 +255,9 @@ const ProductsTable = () => {
                                     >
                                         <Center>
                                             <Text>
-                                                {product.size.map(
+                                                {product.size ? product.size.map(
                                                     (size) => size + ' '
-                                                )}
+                                                ) : 'NA'}
                                             </Text>
                                         </Center>
                                     </Td>

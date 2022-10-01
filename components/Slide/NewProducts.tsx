@@ -30,6 +30,7 @@ import { setProducts } from '../Redux/ProductSlice';
 import api from '../../api/axios';
 
 type productInfo = {
+    products: [] | null;
     _id: number;
     title: string;
     price: number;
@@ -42,20 +43,18 @@ type productInfo = {
     size: [];
 };
 
-type productDetails = {
-    products: productInfo[];
-};
-
 export default function NewProductSlider() {
     const [isLargerThan1920] = useMediaQuery('(min-width: 1920px)');
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
 
-    const products = useSelector((state: productDetails) => state.products);
+    const myProducts = useSelector((state: productInfo) => state.products);
+    const products = myProducts ? [...myProducts] : [];
+    products.reverse();
 
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
         async function getProducts() {
             try {
@@ -87,7 +86,7 @@ export default function NewProductSlider() {
                 <Swiper
                     slidesPerView={
                         isLargerThan1920
-                            ? 6
+                            ? 9
                             : isLargerThan1280
                             ? 5
                             : isLargerThan768
@@ -107,83 +106,88 @@ export default function NewProductSlider() {
                     modules={[Pagination, Navigation, Autoplay]}
                     className="mySwiper"
                 >
-                    {products.slice(0,9).map((product) => (
+                    {products.slice(0, 9).map((product: productInfo) => (
                         <SwiperSlide key={product._id}>
-                            <Box
-                                borderRadius={10}
-                                border="1px solid #e2e8f0"
-                                maxW="280px"
-                                h="410px"
-                                bg="white"
-                            >
-                                <Image
-                                    borderRadius={'10px 10px 0 0'}
-                                    h="180px"
-                                    w="100%"
-                                    objectFit={'cover'}
-                                    src={product.image}
-                                    alt={product.title}
-                                />
-                                <Box mx="5">
-                                    <HStack>
-                                        <Text
-                                            fontSize={'xl'}
-                                            fontWeight={'bold'}
-                                            mt="2"
-                                            wordBreak={'break-word'}
-                                        >
-                                            {product.title}
-                                        </Text>
-                                        <Box mt="2">
-                                            <BsHeart color="red" />
-                                        </Box>
-                                    </HStack>
-                                    <HStack>
-                                        <BsStarFill color="#9F7AEA" />
-                                        <BsStarFill color="#9F7AEA" />
-                                        <BsStarFill color="#9F7AEA" />
-                                        <BsStarFill color="#9F7AEA" />
-                                        <BsStarHalf color="#9F7AEA" />
-                                    </HStack>
-                                    <Stack spacing={0}>
-                                        {/*Exemplo com desconto*/}
-                                        <Box
-                                            transform={'translate(10px, 10px)'}
-                                        >
+                            <Center>
+                                <Box
+                                    borderRadius={10}
+                                    border="1px solid #e2e8f0"
+                                    w="280px"
+                                    minH="410px"
+                                    pb='2'
+                                    bg="white"
+                                >
+                                    <Image
+                                        borderRadius={'10px 10px 0 0'}
+                                        h="180px"
+                                        w="100%"
+                                        objectFit={'fill'}
+                                        src={product.image}
+                                        alt={product.title}
+                                    />
+                                    <Box mx="5">
+                                        <HStack>
                                             <Text
-                                                as="del"
-                                                color={'gray'}
+                                                fontSize={'xl'}
+                                                fontWeight={'bold'}
+                                                mt="2"
+                                                wordBreak={'break-word'}
+                                            >
+                                                {product.title}
+                                            </Text>
+                                            <Box mt="2">
+                                                <BsHeart color="red" />
+                                            </Box>
+                                        </HStack>
+                                        <HStack>
+                                            <BsStarFill color="#9F7AEA" />
+                                            <BsStarFill color="#9F7AEA" />
+                                            <BsStarFill color="#9F7AEA" />
+                                            <BsStarFill color="#9F7AEA" />
+                                            <BsStarHalf color="#9F7AEA" />
+                                        </HStack>
+                                        <Stack spacing={0}>
+                                            {/*Exemplo com desconto*/}
+                                            <Box
+                                                transform={'translateY( 10px)'}
+                                            >
+                                                <Text
+                                                    as="del"
+                                                    color={'gray'}
+                                                >
+                                                    R$
+                                                    {product.price
+                                                        .toFixed(2)
+                                                        .replace('.', ',')}
+                                                </Text>
+                                            </Box>
+                                            <Text
+                                                fontSize={'3xl'}
+                                                fontWeight={'extrabold'}
+                                                mt="4"
                                             >
                                                 R$
                                                 {product.price
                                                     .toFixed(2)
-                                                    .replace('.', ',')}
+                                                    .replaceAll('.', ',')}
                                             </Text>
-                                        </Box>
-                                        <Text
-                                            fontSize={'3xl'}
-                                            fontWeight={'extrabold'}
-                                            mt="4"
-                                        >
-                                            R$
-                                            {product.price
-                                                .toFixed(2)
-                                                .replaceAll('.', ',')}
-                                        </Text>
-                                        <Text transform={'translateY(-10px)'}>
-                                            Á vista no PIX
-                                        </Text>
-                                    </Stack>
-                                    <Center mt="5">
-                                        <Button
-                                            w="100%"
-                                            colorScheme={'purple'}
-                                        >
-                                            Comprar
-                                        </Button>
-                                    </Center>
+                                            <Text
+                                                transform={'translateY(-10px)'}
+                                            >
+                                                Á vista no PIX
+                                            </Text>
+                                        </Stack>
+                                        <Center mt="5" pb='2'>
+                                            <Button
+                                                w="100%"
+                                                colorScheme={'purple'}
+                                            >
+                                                Comprar
+                                            </Button>
+                                        </Center>
+                                    </Box>
                                 </Box>
-                            </Box>
+                            </Center>
                         </SwiperSlide>
                     ))}
                 </Swiper>
