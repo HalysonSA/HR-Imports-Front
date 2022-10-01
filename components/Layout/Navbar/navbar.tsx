@@ -22,7 +22,7 @@ import { useRouter } from 'next/router';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-import { useSession, signOut, signIn } from 'next-auth/react';
+import { useSession, signOut} from 'next-auth/react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
@@ -76,9 +76,9 @@ export default function Navbar() {
                 >
                     <Box>
                         <Image
-                            w="48px"
-                            h="48px"
-                            src="/crown.svg"
+                            w="80px"
+                            h="80px"
+                            src="/logo.svg"
                             alt="Logo"
                         />
                     </Box>
@@ -104,12 +104,8 @@ export default function Navbar() {
                                 Categorias
                             </MenuButton>
                             <MenuList zIndex={99}>
-                                <MenuItem>Blusas</MenuItem>
-                                <MenuItem>Conjuntos</MenuItem>
-                                <MenuItem>Legging</MenuItem>
-                                <MenuItem>Shorts</MenuItem>
-                                <MenuItem>Regatas</MenuItem>
-                                <MenuItem>Top</MenuItem>
+                                <MenuItem>Eletrônicos</MenuItem>
+                                <MenuItem>Utilitários de Cozinha</MenuItem>
                             </MenuList>
                         </Menu>
                         <Link
@@ -117,7 +113,6 @@ export default function Navbar() {
                             fontSize={'lg'}
                             fontWeight={'bold'}
                             _hover={{
-                                textDecoration: 'none',
                                 transform: 'scale(1.1)',
                             }}
                         >
@@ -129,7 +124,6 @@ export default function Navbar() {
                             fontSize={'lg'}
                             fontWeight={'bold'}
                             _hover={{
-                                textDecoration: 'none',
                                 transform: 'scale(1.1)',
                             }}
                         >
@@ -139,17 +133,7 @@ export default function Navbar() {
                 </HStack>
                 <Flex alignItems={'center'}>
                     <HStack>
-                        <Text
-                            fontSize={'lg'}
-                            fontWeight={'semi-bold'}
-                            display={{ base: 'none', md: 'flex' }}
-                        >
-                            {session
-                                ? 'Olá, ' + session?.user?.name
-                                : user.name
-                                ? 'Olá, ' + user.name
-                                : 'Entre ou cadastre-se'}
-                        </Text>
+                       
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -160,32 +144,20 @@ export default function Navbar() {
                             >
                                 <Avatar
                                     size={'sm'}
-                                    src={session?.user?.image || undefined}
+                                    src={session?.user?.image|| user.name || undefined}
                                     referrerPolicy={'no-referrer'}
-                                    name={session?.user?.name || undefined}
+                                    name={session?.user?.name || user.name || undefined}
                                 />
                             </MenuButton>
                             <MenuList zIndex={99}>
                                 {session || user.name ? (
                                     <>
-                                        <MenuItem>
-                                            {session?.user?.name}
-                                        </MenuItem>
-                                        <MenuItem
-                                            onClick={() => {
-                                                router.push(
-                                                    '/dashboard/dashboard'
-                                                );
-                                            }}
-                                        >
-                                            Admin
-                                        </MenuItem>
                                         <MenuItem
                                             onClick={() =>
                                                 router.push('/orders')
                                             }
                                         >
-                                            Pedidos
+                                            Meus Pedidos
                                         </MenuItem>
                                         <MenuItem
                                             bg="transparent"
@@ -208,6 +180,17 @@ export default function Navbar() {
                                     </MenuItem>
                                 )}
                             </MenuList>
+                            <Text
+                            fontSize={'lg'}
+                            fontWeight={'semi-bold'}
+                            display={{ base: 'none', md: 'flex' }}
+                        >
+                            {session
+                                ? 'Olá, ' + session?.user?.name
+                                : user.name
+                                ? 'Olá, ' + user.name
+                                : 'Entre ou cadastre-se'}
+                        </Text>
                             <Spacer />
                             <Flex
                                 cursor={'pointer'}

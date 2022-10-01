@@ -120,7 +120,7 @@ export default function Footer() {
                 <InfoFooter
                     icon={<IoIosCard size={'70px'} />}
                     title={'Pagamentos'}
-                    description={'Cartão de Crédito/Debito e Pix'}
+                    description={'Cartão de Crédito/Debito, Boleto e PIX'}
                 />
                 <InfoFooter
                     icon={<MdCached size={'70px'} />}
@@ -142,6 +142,8 @@ export default function Footer() {
                 align={'center'}
             >
                 <Image
+                w='80px'
+                h='80px'
                     src="/Logo.svg"
                     alt="Logo"
                 />

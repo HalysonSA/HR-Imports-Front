@@ -153,7 +153,7 @@ export default function NewProductSlider() {
                                             >
                                                 <Text
                                                     as="del"
-                                                    color={'gray'}
+                                                    color={'red'}
                                                 >
                                                     R$
                                                     {product.price

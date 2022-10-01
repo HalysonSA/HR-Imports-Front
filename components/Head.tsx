@@ -2,19 +2,19 @@ import Head from 'next/head'
 
 const Header = () => (
     <Head>
-        <title>HR Modas</title>
+        <title>HR-Imports</title>
         <link rel="apple-touch-icon" href=""></link>
         <meta
             name="description"
-            content="Roupas para atividades físicas"
+            content="Produtos de qualidade e preço justo"
         />
         <meta
             property="og:title"
-            content="HR Moda - Roupas para atividades físicas"
+            content="HR Imports - Produtos Importados"
         />
         <meta
             property="og:description"
-            content="Roupas de alta qualidade para atividades físicas"
+            content="Produtos importados de qualidade e preço justo"
         />
         <meta
             property="og:url"
