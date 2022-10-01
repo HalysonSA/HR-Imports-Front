@@ -11,6 +11,8 @@ import {
     CircularProgress,
 } from '@chakra-ui/react';
 
+import { toast, ToastContainer } from 'react-toastify';
+
 import { useForm } from 'react-hook-form';
 
 import { useState } from 'react';
@@ -26,6 +28,7 @@ import GetUser from '../../utils/checkUser';
 
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../components/Redux/UserSlice';
+
 
 type SignInProps = {
     email: string;
@@ -49,7 +52,7 @@ const SignInLogin = () => {
         const user = await GetUser({ email, password });
 
         user ? dispatch(signInUser(user)) : null;
-
+        user ? router.push('/') : toast.error('Email ou senha incorretos');
         setLoading(false);
         reset();
     }
@@ -59,6 +62,7 @@ const SignInLogin = () => {
             w={['100%', '50%', '40%']}
             minH={['15em', '20em']}
         >
+            <ToastContainer />
             <Box
                 w="80%"
                 h="auto"

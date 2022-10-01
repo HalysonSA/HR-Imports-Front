@@ -13,6 +13,7 @@ const UserSlice = createSlice({
     reducers: {
         signInUser: (state, action: PayloadAction<InitialState>) => {
             Object.assign(state, action.payload);
+            sessionStorage.setItem('user', JSON.stringify(state));
         },
     },
 });

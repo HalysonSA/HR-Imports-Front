@@ -55,6 +55,7 @@ export default function NewProductSlider() {
     const products = useSelector((state: productDetails) => state.products);
 
     const dispatch = useDispatch();
+    
     useEffect(() => {
         async function getProducts() {
             try {
@@ -106,7 +107,7 @@ export default function NewProductSlider() {
                     modules={[Pagination, Navigation, Autoplay]}
                     className="mySwiper"
                 >
-                    {products.map((product) => (
+                    {products.slice(0,9).map((product) => (
                         <SwiperSlide key={product._id}>
                             <Box
                                 borderRadius={10}

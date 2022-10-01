@@ -22,12 +22,43 @@ import { useRouter } from 'next/router';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut, signIn } from 'next-auth/react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
+import { signInUser } from '../../../components/Redux/UserSlice';
+
+type UserInfo = {
+    name?: string;
+    email?: string;
+    password?: string;
+    phone?: string;
+};
+
+type UserType = {
+    user: UserInfo;
+};
 
 export default function Navbar() {
+    const dispatch = useDispatch();
+
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
     const { data: session } = useSession();
+
+    const user = useSelector((state: UserType) => state.user);
+
+    useEffect(() => {
+        sessionStorage.getItem('user')
+            ? dispatch(signInUser(JSON.parse(sessionStorage.getItem('user')!)))
+            : null;
+    }, []);
+
+    function handleLogout() {
+        signOut();
+        sessionStorage.removeItem('user');
+    }
 
     return (
         <Box
@@ -115,6 +146,8 @@ export default function Navbar() {
                         >
                             {session
                                 ? 'Olá, ' + session?.user?.name
+                                : user.name
+                                ? 'Olá, ' + user.name
                                 : 'Entre ou cadastre-se'}
                         </Text>
                         <Menu>
@@ -133,7 +166,7 @@ export default function Navbar() {
                                 />
                             </MenuButton>
                             <MenuList zIndex={99}>
-                                {session ? (
+                                {session || user.name ? (
                                     <>
                                         <MenuItem>
                                             {session?.user?.name}
@@ -160,7 +193,7 @@ export default function Navbar() {
                                                 bg: 'red',
                                                 color: 'white',
                                             }}
-                                            onClick={() => signOut()}
+                                            onClick={() => handleLogout()}
                                         >
                                             Sair
                                         </MenuItem>
