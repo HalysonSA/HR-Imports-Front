@@ -121,7 +121,7 @@ export default function NewProductSlider() {
                                         borderRadius={'10px 10px 0 0'}
                                         h="180px"
                                         w="100%"
-                                        objectFit={'fill'}
+                                        objectFit={'cover'}
                                         src={product.image}
                                         alt={product.title}
                                     />

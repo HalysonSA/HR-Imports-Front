@@ -9,10 +9,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+.swiper-pagination-bullet-active {
+  background-color: #9F7AEA !important;
+}
 * {
   font-family: "Ruda", sans-serif;
   box-sizing: border-box;
+  
   
 }
 body::-webkit-scrollbar {
