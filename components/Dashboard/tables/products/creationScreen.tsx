@@ -25,6 +25,7 @@ interface IFormInput {
     category: string;
     brand: string;
     material: string;
+    color: string;
     stock: number;
     size: [];
 }
@@ -46,6 +47,7 @@ const ScreenCreation = () => {
             brand: data.brand,
             material: data.material,
             stock: data.stock,
+            color: data.color,
         }).then(() => {
             dispatch(addProduct(data));
             reset();
@@ -113,19 +115,32 @@ const ScreenCreation = () => {
                             focusBorderColor="white"
                             {...register('category')}
                         >
-                            <option>Calça</option>
-                            <option>Camisa</option>
+                            <option>Eletrônico</option>
+                            <option>Roupas</option>
+                            <option>Calçados</option>
+                            <option>Brinquedos</option>
+                            <option>Acessórios</option>
+                            <option>Outros</option>
                         </Select>
                     </FormControl>
-                    <FormControl m="2">
-                        <FormLabel>Estoque</FormLabel>
-
-                        <Input
-                            type={'number'}
+                    <FormControl
+                        m="2"
+                        isRequired
+                    >
+                        <FormLabel>Cor</FormLabel>
+                        <Select
+                            placeholder="Escolha a cor"
                             focusBorderColor="white"
-                            placeholder="Quantidade em estoque"
-                            {...register('stock')}
-                        />
+                            {...register('color')}
+                        >
+                            <option>Preto</option>
+                            <option>Vermelho</option>
+                            <option>Verde</option>
+                            <option>Azul</option>
+                            <option>Branco</option>
+                            <option>Cinza</option>
+                            <option>Amarelo</option>
+                        </Select>
                     </FormControl>
                 </HStack>
                 <HStack>

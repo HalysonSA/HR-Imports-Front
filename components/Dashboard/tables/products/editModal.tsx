@@ -38,6 +38,7 @@ type productInfo = {
     brand?: string;
     material?: string;
     stock?: number;
+    color?: string;
 };
 
 type Props = {
@@ -87,7 +88,10 @@ const EditModal = ({ product, isOpen, onClose }: Props) => {
             scrollBehavior={'inside'}
         >
             <ModalOverlay bg="blackAlpha.50" />
-            <ModalContent mx='4' mt='6em'>
+            <ModalContent
+                mx="4"
+                mt="6em"
+            >
                 <ModalHeader>Editar Produto</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody pb={6}>
@@ -141,20 +145,32 @@ const EditModal = ({ product, isOpen, onClose }: Props) => {
                                     placeholder="Escolha a categoria"
                                     focusBorderColor="white"
                                 >
-                                    <option>Calça</option>
-                                    <option>Camisa</option>
+                                    <option>Eletrônico</option>
+                                    <option>Roupas</option>
+                                    <option>Calçados</option>
+                                    <option>Brinquedos</option>
+                                    <option>Acessórios</option>
+                                    <option>Outros</option>
                                 </Select>
                             </FormControl>
-                            <FormControl m="2">
-                                <FormLabel>Estoque</FormLabel>
-
-                                <Input
-                                    type={'number'}
-                                    defaultValue={product.stock}
+                            <FormControl
+                                m="2"
+                            >
+                                <FormLabel>Cor</FormLabel>
+                                <Select
+                                defaultValue={product.color}
+                                    placeholder="Escolha a cor"
                                     focusBorderColor="white"
-                                    placeholder="Quantidade em estoque"
-                                    {...register('stock')}
-                                />
+                                    {...register('color')}
+                                >
+                                    <option>Preto</option>
+                                    <option>Vermelho</option>
+                                    <option>Verde</option>
+                                    <option>Azul</option>
+                                    <option>Branco</option>
+                                    <option>Cinza</option>
+                                    <option>Amarelo</option>
+                                </Select>
                             </FormControl>
                         </HStack>
                         <HStack>

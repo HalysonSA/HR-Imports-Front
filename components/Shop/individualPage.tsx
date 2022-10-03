@@ -1,7 +1,6 @@
 import { Box, Button, Flex, Text, Stack, Image } from '@chakra-ui/react';
 import RelatedProductSlider from '../Slide/RelatedProducts';
 import { useMediaQuery } from '@chakra-ui/react';
-import { IoPricetagsOutline } from 'react-icons/io5';
 
 type ProductInfo = {
     _id: string;
@@ -34,7 +33,7 @@ const IndividualProductPage = (product: Product) => {
         brand,
     } = product.product;
 
-    const priceInCard = price + (price * 7) / 100;
+    const priceInCard = price + (price * 5) / 100;
 
     return (
         <Box
@@ -72,6 +71,7 @@ const IndividualProductPage = (product: Product) => {
                             <Text
                                 fontWeight={'extrabold'}
                                 fontSize={'3xl'}
+                                color={'purple.400'}
                             >
                                 R$ {price.toFixed(2).replace('.', ',')}
                             </Text>
@@ -87,9 +87,9 @@ const IndividualProductPage = (product: Product) => {
                                 R$ {priceInCard.toFixed(2).replace('.', ',')}
                             </Text>
                             <Text transform={'translateY(-10px)'}>
-                                Em até 12x de{' '}
+                                Em até 3x de{' '}
                                 <b>
-                                    {(priceInCard / 12)
+                                    {(priceInCard / 3)
                                         .toFixed(2)
                                         .replace('.', ',')}
                                 </b>{' '}
@@ -98,20 +98,21 @@ const IndividualProductPage = (product: Product) => {
                         </Box>
                         <Button
                             colorScheme={'purple'}
-                            variant="solid"
                             minW="180px"
-                            width="30%"
+                            width="50%"
                             p="8"
                             fontSize={'xl'}
+                            variant={'outline'}
                         >
                             Comprar
                         </Button>
 
                         <Box>
+                        
                             <Text fontSize={'lg'}>Categoria: {category}</Text>
                             <Text fontSize={'lg'}>Marca: {brand}</Text>
                             <Text fontSize={'lg'}>Material: {material}</Text>
-                            <Text fontSize={'lg'}>Cor:{color}</Text>
+                            <Text fontSize={'lg'}>Cor: {color}</Text>
                         </Box>
                     </Stack>
                 </Box>
