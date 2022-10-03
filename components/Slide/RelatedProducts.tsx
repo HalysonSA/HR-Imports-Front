@@ -29,8 +29,6 @@ import {
 import { setProducts } from '../Redux/ProductSlice';
 import api from '../../api/axios';
 
-import { useRouter } from 'next/router';
-
 type productInfo = {
     products: [] | null;
     _id: number;
@@ -45,13 +43,11 @@ type productInfo = {
     size: [];
 };
 
-export default function NewProductSlider() {
+export default function RelatedProductSlider() {
     const [isLargerThan1920] = useMediaQuery('(min-width: 1920px)');
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
-
-    const router = useRouter();
 
     const myProducts = useSelector((state: productInfo) => state.products);
     const products = myProducts ? [...myProducts] : [];
@@ -72,20 +68,19 @@ export default function NewProductSlider() {
     }, []);
 
     return (
-        <>
-            <Center p={'5'}>
-                <Divider />
-                <Text
-                    fontSize={'2xl'}
-                    p={'5'}
-                >
-                    Novidades
-                </Text>
-                <Divider />
-            </Center>
+        <Box>
+            <Text
+            px={[4, 10, 20]}
+            py={5}
+                fontWeight={'bold'}
+                fontSize={'2xl'}
+            >
+                Produtos Relacionados
+            </Text>
+
             <Box
                 mx={['2', '3', '4', '5']}
-                py="5"
+                
             >
                 <Swiper
                     slidesPerView={
@@ -186,11 +181,6 @@ export default function NewProductSlider() {
                                             pb="2"
                                         >
                                             <Button
-                                                onClick={() => {
-                                                    router.push(
-                                                        `/shop/${product._id}`
-                                                    );
-                                                }}
                                                 w="100%"
                                                 colorScheme={'purple'}
                                             >
@@ -204,6 +194,6 @@ export default function NewProductSlider() {
                     ))}
                 </Swiper>
             </Box>
-        </>
+        </Box>
     );
 }
