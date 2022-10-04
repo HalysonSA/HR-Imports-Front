@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaYoutube, FaFacebookF } from 'react-icons/fa';
 import { IoIosCard } from 'react-icons/io';
-import { MdCached } from 'react-icons/md';
+import { MdVerified } from 'react-icons/md';
 import { TbTruckDelivery } from 'react-icons/tb';
 
 interface SocialProps {
@@ -45,20 +45,15 @@ const SocialButton = ({ children, label, href }: SocialProps) => {
             transition={'background 0.3s ease'}
             // @ts-ignore
             _hover={
-                label == 'Twitter'
+                label == 'Facebook'
                     ? {
-                          bg: 'twitter.500',
+                          bg: 'facebook.500',
                           color: 'white',
                       }
                     : label == 'Instagram'
                     ? {
                           bgGradient:
                               'linear(220deg, #7928CA, #FF0080, #F0E68C)',
-                          color: 'white',
-                      }
-                    : label == 'Youtube'
-                    ? {
-                          bg: 'red',
                           color: 'white',
                       }
                     : null
@@ -123,14 +118,14 @@ export default function Footer() {
                     description={'Cartão de Crédito/Debito, Boleto e PIX'}
                 />
                 <InfoFooter
-                    icon={<MdCached size={'70px'} />}
-                    title={'Não Aceitamos Trocas'}
-                    description={'Nem devoluções'}
+                    icon={<MdVerified size={'70px'} />}
+                    title={'Garantia de Satisfação'}
+                    description={'Garantia do Fabricante'}
                 />
                 <InfoFooter
                     icon={<TbTruckDelivery size={'70px'} />}
-                    title={'Entrega em Todo o Brasil'}
-                    description={'Envio em até 1 dia útil'}
+                    title={'Frete Grátis'}
+                    description={'Entrega em Todo o Brasil'}
                 />
             </Flex>
             <Container
@@ -144,7 +139,7 @@ export default function Footer() {
                 <Image
                 w='80px'
                 h='80px'
-                    src="/Logo.svg"
+                    src="/logo.svg"
                     alt="Logo"
                 />
                 <Stack
@@ -203,19 +198,14 @@ export default function Footer() {
                             <FaInstagram size={20} />
                         </SocialButton>
 
-                        <SocialButton
-                            label={'Twitter'}
-                            href={'https://twitter.com/'}
-                        >
-                            <FaTwitter size={20} />
-                        </SocialButton>
 
                         <SocialButton
-                            label={'Youtube'}
-                            href={'https://www.youtube.com/'}
+                            label={'Facebook'}
+                            href={'https://www.facebook.com/'}
                         >
-                            <FaYoutube size={30} />
+                            <FaFacebookF size={20} />
                         </SocialButton>
+
                     </Stack>
                 </Container>
             </Box>

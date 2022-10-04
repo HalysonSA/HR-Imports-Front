@@ -21,6 +21,7 @@ import {
 import { useRouter } from 'next/router';
 
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { useSession, signOut} from 'next-auth/react';
 import { useSelector } from 'react-redux';
@@ -196,12 +197,7 @@ export default function Navbar() {
                                 cursor={'pointer'}
                                 onClick={() => router.push('/cart')}
                             >
-                                <Image
-                                    w="34px"
-                                    h="34px"
-                                    src="/shopping-bag.svg"
-                                    alt="bag"
-                                />
+                                <AiOutlineShoppingCart size={30}/>
                                 <Center
                                     w="15px"
                                     h="15px"
