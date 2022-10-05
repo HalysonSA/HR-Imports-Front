@@ -23,12 +23,13 @@ import { useRouter } from 'next/router';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-import { useSession, signOut} from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../../components/Redux/UserSlice';
+import CartSideBar from '../../Cart/sidebar';
 
 type UserInfo = {
     name?: string;
@@ -49,6 +50,8 @@ export default function Navbar() {
     const { data: session } = useSession();
 
     const user = useSelector((state: UserType) => state.user);
+
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         sessionStorage.getItem('user')
@@ -134,7 +137,6 @@ export default function Navbar() {
                 </HStack>
                 <Flex alignItems={'center'}>
                     <HStack>
-                       
                         <Menu>
                             <MenuButton
                                 as={Button}
@@ -145,9 +147,17 @@ export default function Navbar() {
                             >
                                 <Avatar
                                     size={'sm'}
-                                    src={session?.user?.image|| user.name || undefined}
+                                    src={
+                                        session?.user?.image ||
+                                        user.name ||
+                                        undefined
+                                    }
                                     referrerPolicy={'no-referrer'}
-                                    name={session?.user?.name || user.name || undefined}
+                                    name={
+                                        session?.user?.name ||
+                                        user.name ||
+                                        undefined
+                                    }
                                 />
                             </MenuButton>
                             <MenuList zIndex={99}>
@@ -182,22 +192,23 @@ export default function Navbar() {
                                 )}
                             </MenuList>
                             <Text
-                            fontSize={'lg'}
-                            fontWeight={'semi-bold'}
-                            display={{ base: 'none', md: 'flex' }}
-                        >
-                            {session
-                                ? 'Olá, ' + session?.user?.name
-                                : user.name
-                                ? 'Olá, ' + user.name
-                                : 'Entre ou cadastre-se'}
-                        </Text>
+                                fontSize={'lg'}
+                                fontWeight={'semi-bold'}
+                                display={{ base: 'none', md: 'flex' }}
+                            >
+                                {session
+                                    ? 'Olá, ' + session?.user?.name
+                                    : user.name
+                                    ? 'Olá, ' + user.name
+                                    : 'Entre ou cadastre-se'}
+                            </Text>
                             <Spacer />
                             <Flex
                                 cursor={'pointer'}
-                                onClick={() => router.push('/cart')}
+                                onClick={() => setShow(!show)}
                             >
-                                <AiOutlineShoppingCart size={30}/>
+                                <AiOutlineShoppingCart size={30} />
+
                                 <Center
                                     w="15px"
                                     h="15px"
@@ -216,6 +227,8 @@ export default function Navbar() {
                                     </Text>
                                 </Center>
                             </Flex>
+
+                            {show ? <CartSideBar /> : null}
                             <IconButton
                                 bg="transparent"
                                 size={'lg'}
