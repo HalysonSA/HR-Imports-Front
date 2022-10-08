@@ -3,8 +3,9 @@ import { Stack, Flex, Text, Button } from '@chakra-ui/react';
 const FooterSideBar = () => {
     return (
         <Stack
+            w="100%"
             spacing={5}
-            m='5'
+            m="5"
         >
             <Flex justifyContent={'space-between'}>
                 <Text

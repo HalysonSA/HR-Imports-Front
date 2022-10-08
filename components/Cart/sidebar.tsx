@@ -1,40 +1,58 @@
-import { Box, Flex,  Button } from '@chakra-ui/react';
 import FooterSideBar from './footersidebar';
 import ItemSideBar from './itemsidebar';
-import { MdClose } from 'react-icons/md';
+
+import {
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    useDisclosure,
+} from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { cartIsOpen } from '../Redux/CartSlice';
+
+type Props = {
+    isCartOpen: boolean;
+};
+
 const CartSideBar = () => {
+    const { onClose } = useDisclosure();
+    const dispatch = useDispatch();
+
+    const isCartOpen = useSelector((state: Props) => state.isCartOpen);
+
     return (
-        <Box
-            w={['100%', '70%', '30%']}
-            right="0"
-            top="0"
-            position={'absolute'}
-            zIndex={99}
-            borderLeft="1px solid"
-            borderBottom="1px solid"
-            bg="#DFE8EF"
-            borderColor="purple.400"
+        <Drawer
+            size={'sm'}
+            isOpen={isCartOpen}
+            placement="right"
+            onClose={onClose}
         >
-            <Box m="3">
-                <Button
-                    bg="transparent"
-                    //Fechar o carrinho usando estado Redux
-                    //onClick={() => {}
-                    _hover={{
-                        bg: 'transparent',
-                        transform: 'scale(1.1)',
-                    }}
-                >
-                    <MdClose size={30} />
-                </Button>
-            </Box>
-            <Flex direction={'column'}>
-                <ItemSideBar />
-                <ItemSideBar />
-                <ItemSideBar />
-                <FooterSideBar />
-            </Flex>
-        </Box>
+            <DrawerOverlay />
+            <DrawerContent>
+                <DrawerHeader p="6">
+                    <DrawerCloseButton
+                        left={5}
+                        onClick={() => dispatch(cartIsOpen(false))}
+                    />
+                </DrawerHeader>
+
+                <DrawerBody>
+                    <ItemSideBar />
+                    <ItemSideBar />
+                    <ItemSideBar />
+                    <ItemSideBar />
+                    <ItemSideBar />
+                </DrawerBody>
+
+                <DrawerFooter w="100%">
+                    <FooterSideBar />
+                </DrawerFooter>
+            </DrawerContent>
+        </Drawer>
     );
 };
 export default CartSideBar;

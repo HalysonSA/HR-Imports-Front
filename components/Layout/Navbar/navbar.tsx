@@ -30,6 +30,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../../components/Redux/UserSlice';
 import CartSideBar from '../../Cart/sidebar';
+import { cartIsOpen } from '../../Redux/CartSlice';
 
 type UserInfo = {
     name?: string;
@@ -44,14 +45,12 @@ type UserType = {
 
 export default function Navbar() {
     const dispatch = useDispatch();
+    const user = useSelector((state: UserType) => state.user);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const router = useRouter();
+
     const { data: session } = useSession();
-
-    const user = useSelector((state: UserType) => state.user);
-
-    const [show, setShow] = useState(false);
 
     useEffect(() => {
         sessionStorage.getItem('user')
@@ -62,6 +61,10 @@ export default function Navbar() {
     function handleLogout() {
         signOut();
         sessionStorage.removeItem('user');
+    }
+
+    function handleOpenCart() {
+        dispatch(cartIsOpen(true));
     }
 
     return (
@@ -205,7 +208,7 @@ export default function Navbar() {
                             <Spacer />
                             <Flex
                                 cursor={'pointer'}
-                                onClick={() => setShow(!show)}
+                                onClick={() => handleOpenCart()}
                             >
                                 <AiOutlineShoppingCart size={30} />
 
@@ -228,7 +231,7 @@ export default function Navbar() {
                                 </Center>
                             </Flex>
 
-                            {show ? <CartSideBar /> : null}
+                            <CartSideBar />
                             <IconButton
                                 bg="transparent"
                                 size={'lg'}

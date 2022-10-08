@@ -7,11 +7,14 @@ import {
     Box,
     HStack,
     Center,
+    useMediaQuery,
 } from '@chakra-ui/react';
 import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
 import { FiTrash } from 'react-icons/fi';
 
 const ItemSideBar = () => {
+    const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+
     return (
         <Flex
             border={'1px solid'}
@@ -51,38 +54,45 @@ const ItemSideBar = () => {
                             R$ 99,99
                         </Text>
                     </Box>
-                    <Box>
-                        <HStack spacing={2}>
-                            <Button
-                                colorScheme={'transparent'}
-                                color="black"
-                                p="0"
-                                _hover={{ color: 'purple.400' }}
-                            >
-                                <MdRemoveCircleOutline size={20} />
-                            </Button>
-                            <Text fontWeight={'bold'}>1</Text>
-                            <Button
-                                colorScheme={'transparent'}
-                                color="black"
-                                p="0"
-                                _hover={{ color: 'purple.400' }}
-                            >
-                                <MdAddCircleOutline size={20} />
-                            </Button>
-                        </HStack>
-                    </Box>
+                    <HStack spacing={2}>
+                        <Button
+                            colorScheme={'transparent'}
+                            color="black"
+                            p="0"
+                            _hover={{ color: 'purple.400' }}
+                        >
+                            <MdRemoveCircleOutline size={20} />
+                        </Button>
+                        <Text fontWeight={'bold'}>1</Text>
+                        <Button
+                            colorScheme={'transparent'}
+                            color="black"
+                            p="0"
+                            _hover={{ color: 'purple.400' }}
+                        >
+                            <MdAddCircleOutline size={20} />
+                        </Button>
+                    </HStack>
                 </Stack>
             </Flex>
-            <Center p="5">
-                <Button
-                    bg="transparent"
-                    _hover={{ color: 'red', bg: 'white', cursor: 'pointer' }}
-                    _active={{ color: 'red', bg: 'white', transform: 'scale(1.1)' }}
-                >
-                    <FiTrash size={20} />
-                </Button>
-            </Center>
+            {
+                isLargerThan768 ? (
+                    <Center p="5">
+                    <Button
+                        bg="transparent"
+                        _hover={{ color: 'red', bg: 'white', cursor: 'pointer' }}
+                        _active={{
+                            color: 'red',
+                            bg: 'white',
+                            transform: 'scale(1.1)',
+                        }}
+                    >
+                        <FiTrash size={20} />
+                    </Button>
+                </Center>
+                ) : null
+            }
+          
         </Flex>
     );
 };
