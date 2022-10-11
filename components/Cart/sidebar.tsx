@@ -13,14 +13,31 @@ import {
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartIsOpen } from '../Redux/CartSlice';
+import { useContext } from 'react';
+import { CartContext } from '../../context/cart';
 
 type Props = {
     isCartOpen: boolean;
+};
+type Product = {
+    _id: string;
+    title: string;
+    description: string;
+    price: number;
+    quantity: number;
+    image: string;
+    brand: string;
+    material: string;
+    category: string;
+    size: [];
+    color: string;
 };
 
 const CartSideBar = () => {
     const { onClose } = useDisclosure();
     const dispatch = useDispatch();
+
+    const { cart } = useContext(CartContext);
 
     const isCartOpen = useSelector((state: Props) => state.isCartOpen);
 
@@ -40,12 +57,12 @@ const CartSideBar = () => {
                     />
                 </DrawerHeader>
 
-                <DrawerBody>
-                    <ItemSideBar />
-                    <ItemSideBar />
-                    <ItemSideBar />
-                    <ItemSideBar />
-                    <ItemSideBar />
+                <DrawerBody p={0}>
+                    {cart.map((item: Product) => (
+                        <div key={item._id}>
+                            <ItemSideBar item={item} />
+                        </div>
+                    ))}
                 </DrawerBody>
 
                 <DrawerFooter w="100%">

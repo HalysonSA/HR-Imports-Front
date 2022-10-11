@@ -10,32 +10,37 @@ import {
 import RelatedProductSlider from '../Slide/RelatedProducts';
 import { useMediaQuery } from '@chakra-ui/react';
 import { toast, ToastContainer } from 'react-toastify';
+
 import {
     MdOutlineAddCircleOutline,
     MdOutlineRemoveCircleOutline,
 } from 'react-icons/md';
+
 import { useState } from 'react';
 
-type ProductInfo = {
-    _id: string;
-    title: string;
-    description: string;
-    price: number;
-    image: string;
-    category: string;
-    material: string;
-    brand: string;
-    size: [];
-    color: string;
-};
-type Product = {
-    product: ProductInfo;
-};
+import { useContext } from 'react';
+import { CartContext } from '../../context/cart';
 
-const IndividualProductPage = (product: Product) => {
+type ProductInfo = {
+    product: {
+        _id: string;
+        title: string;
+        description: string;
+        price: number;
+        image: string;
+        category: string;
+        material: string;
+        brand: string;
+        size: [];
+        color: string;
+    };
+};
+const IndividualProductPage = ({ product }: ProductInfo) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
+    const { addItemToCart, removeFromCart } = useContext(CartContext);
 
     const {
+        _id,
         title,
         description,
         price,
@@ -45,11 +50,28 @@ const IndividualProductPage = (product: Product) => {
         size,
         color,
         brand,
-    } = product.product;
+    } = product;
 
     const priceInCard = price + (price * 5) / 100;
 
     const [quantity, setQuantity] = useState(1);
+
+    const handleAddToCart = () => {
+        addItemToCart({
+            _id,
+            title,
+            description,
+            price,
+            image,
+            category,
+            material,
+            size,
+            color,
+            brand,
+            quantity,
+        });
+        toast.success('Produto adicionado ao carrinho');
+    };
 
     return (
         <Box
@@ -162,7 +184,7 @@ const IndividualProductPage = (product: Product) => {
                             fontSize={'xl'}
                             variant={'outline'}
                             onClick={() => {
-                                toast.success('Produto adicionado ao carrinho');
+                                handleAddToCart();
                             }}
                         >
                             Comprar

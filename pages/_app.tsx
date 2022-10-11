@@ -6,6 +6,8 @@ import { SessionProvider } from 'next-auth/react';
 import { Provider } from 'react-redux';
 import store from '../components/Redux/Storage';
 
+import { CartProvider } from '../context/cart';
+
 import type { NextComponentType } from 'next';
 import { Session } from 'next-auth';
 
@@ -19,12 +21,14 @@ type AppProps = {
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <SessionProvider session={session}>
-            <Provider store={store}>
-                <ChakraProvider>
-                    <Header />
-                    <Component {...pageProps} />
-                </ChakraProvider>
-            </Provider>
+            <CartProvider>
+                <Provider store={store}>
+                    <ChakraProvider>
+                        <Header />
+                        <Component {...pageProps} />
+                    </ChakraProvider>
+                </Provider>
+            </CartProvider>
         </SessionProvider>
     );
 }
