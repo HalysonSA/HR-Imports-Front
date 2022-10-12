@@ -6,6 +6,9 @@ const CartSlice = createSlice({
     reducers: {
         cartIsOpen: (state, action: PayloadAction<boolean>) => {
             return action.payload;
+        },
+        cartIsLoading: (state, action: PayloadAction<boolean>) => {
+            return action.payload;
         }
     }
 });

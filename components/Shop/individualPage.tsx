@@ -209,7 +209,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                 >
                     Descrição
                 </Text>
-                <Text pl={4}>{description}</Text>
+                <Text>{description}</Text>
             </Box>
             <RelatedProductSlider />
         </Box>

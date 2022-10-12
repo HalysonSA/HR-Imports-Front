@@ -30,12 +30,18 @@ const addProductToCart = (cartItems: Product[], productToAdd: Product) => {
     if (existingProduct) {
         return cartItems.map((product: Product) =>
             product._id === productToAdd._id
-                ? { ...product, quantity: product.quantity != productToAdd.quantity ? product.quantity + productToAdd.quantity : product.quantity + 1 }
+                ? {
+                      ...product,
+                      quantity:
+                          product.quantity != productToAdd.quantity
+                              ? product.quantity + productToAdd.quantity
+                              : product.quantity + 1,
+                  }
                 : product
         );
     }
 
-    return [...cartItems, { ...productToAdd, quantity: 1 }];
+    return [...cartItems, { ...productToAdd, quantity: productToAdd.quantity }];
 };
 
 const removeProductFromCart = (
@@ -46,13 +52,11 @@ const removeProductFromCart = (
         (product: Product) => product._id === productToRemove._id
     );
 
-    existingProduct
-        ? existingProduct.quantity === 1
-            ? cartItems.filter(
-                  (product: Product) => product._id !== productToRemove._id
-              )
-            : null
-        : null;
+    if (existingProduct?.quantity === 1) {
+        return cartItems.filter(
+            (product: any) => product._id !== productToRemove._id
+        );
+    }
 
     return cartItems.map((product: Product) =>
         product._id === productToRemove._id
@@ -63,22 +67,16 @@ const removeProductFromCart = (
 
 export const CartProvider = ({ children }: any) => {
     const [cart, setCart] = useState<Product[]>([]);
-    const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
-        const fetch = localStorage.getItem('cart');
-
-        if (fetch) {
-            setCart(JSON.parse(fetch));
-        }
+        setCart(JSON.parse(window.sessionStorage.getItem('cart') || '[]'));
     }, []);
 
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cart));
+        window.sessionStorage.setItem('cart', JSON.stringify(cart));
     }, [cart]);
 
     const addItemToCart = (product: Product) => {
-        setProducts(addProductToCart(products, product));
         setCart(addProductToCart(cart, product));
     };
 

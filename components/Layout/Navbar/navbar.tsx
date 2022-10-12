@@ -69,6 +69,9 @@ export default function Navbar() {
 
     return (
         <Box
+            zIndex="100"
+            top={0}
+            position="sticky"
             bg="white"
             px={['4', '10']}
         >
