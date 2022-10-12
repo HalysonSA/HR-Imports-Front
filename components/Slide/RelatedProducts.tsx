@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import { useRouter } from 'next/router';
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -48,6 +50,8 @@ export default function RelatedProductSlider() {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
+
+    const router = useRouter();
 
     const myProducts = useSelector((state: productInfo) => state.products);
     const products = myProducts ? [...myProducts] : [];
@@ -183,6 +187,11 @@ export default function RelatedProductSlider() {
                                             <Button
                                                 w="100%"
                                                 colorScheme={'purple'}
+                                                onClick={() => {
+                                                    router.push(
+                                                        `/shop/${product._id}`
+                                                    );
+                                                }}
                                             >
                                                 Comprar
                                             </Button>

@@ -1,6 +1,11 @@
 import { Stack, Flex, Text, Button } from '@chakra-ui/react';
+import { useContext } from 'react';
+import { CartContext } from '../../context/cart';
 
 const FooterSideBar = () => {
+
+    const { totalValue } = useContext(CartContext);
+
     return (
         <Stack
             w="100%"
@@ -18,7 +23,7 @@ const FooterSideBar = () => {
                     fontWeight={'extrabold'}
                     fontSize={'xl'}
                 >
-                    R$ 99,99
+                    R${totalValue.toFixed(2).replace('.', ',')}
                 </Text>
             </Flex>
             <Button

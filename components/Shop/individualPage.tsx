@@ -6,6 +6,8 @@ import {
     Stack,
     HStack,
     Image,
+    Skeleton,
+    SkeletonText,
 } from '@chakra-ui/react';
 import RelatedProductSlider from '../Slide/RelatedProducts';
 import { useMediaQuery } from '@chakra-ui/react';
@@ -20,6 +22,8 @@ import { useState } from 'react';
 
 import { useContext } from 'react';
 import { CartContext } from '../../context/cart';
+import { useSelector } from 'react-redux';
+import { isLoading } from '../Redux/LoadingSlice';
 
 type ProductInfo = {
     product: {
@@ -38,6 +42,7 @@ type ProductInfo = {
 const IndividualProductPage = ({ product }: ProductInfo) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const { addItemToCart, removeFromCart } = useContext(CartContext);
+    const isLoading = useSelector((state: any) => state.isLoading);
 
     const {
         _id,
@@ -83,96 +88,125 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                 pl={isLargerThan768 ? 20 : 0}
                 py="5"
             >
-                Shop/<b>{title}</b>
+                <Skeleton isLoaded={!isLoading}>
+                    Shop/<b>{title}</b>
+                </Skeleton>
             </Box>
             <Flex direction={isLargerThan768 ? 'row' : 'column'}>
                 <Box
                     w="100%"
                     pl={isLargerThan768 ? 20 : 0}
                 >
-                    <Image
-                        width={'100%'}
-                        height={'100%'}
-                        objectFit="cover"
-                        alt={''}
-                        src={image}
-                    />
+                    <Skeleton
+                        h="100%"
+                        isLoaded={!isLoading}
+                        fadeDuration={2}
+                    >
+                        <Image
+                            width={'100%'}
+                            height={'100%'}
+                            objectFit="cover"
+                            alt={''}
+                            src={image}
+                        />
+                    </Skeleton>
                 </Box>
                 <Box
                     w="100%"
                     pl={isLargerThan768 ? 10 : 0}
                 >
-                    <Text
-                        fontWeight={'bold'}
-                        fontSize={'3xl'}
+                    <Skeleton
+                        isLoaded={!isLoading}
+                        fadeDuration={2}
                     >
-                        {title}
-                    </Text>
+                        <Text
+                            fontWeight={'bold'}
+                            fontSize={'3xl'}
+                        >
+                            {title}
+                        </Text>
+                    </Skeleton>
                     <Stack>
                         <Box>
-                            <Text
-                                fontWeight={'extrabold'}
-                                fontSize={'3xl'}
-                                color={'purple.400'}
+                            <Skeleton
+                                isLoaded={!isLoading}
+                                fadeDuration={3}
                             >
-                                R$ {price.toFixed(2).replace('.', ',')}
-                            </Text>
-                            <Text transform={'translateY(-10px)'}>
-                                Á Vista no PIX ou <b>1x</b> no Cartão
-                            </Text>
+                                <Text
+                                    fontWeight={'extrabold'}
+                                    fontSize={'3xl'}
+                                    color={'purple.400'}
+                                >
+                                    R$ {price.toFixed(2).replace('.', ',')}
+                                </Text>
+                                <Text transform={'translateY(-10px)'}>
+                                    Á Vista no PIX ou <b>1x</b> no Cartão
+                                </Text>
+                            </Skeleton>
                         </Box>
                         <Box>
-                            <Text
-                                fontWeight={'extrabold'}
-                                fontSize={'lg'}
+                            <Skeleton
+                                isLoaded={!isLoading}
+                                fadeDuration={4}
                             >
-                                R$ {priceInCard.toFixed(2).replace('.', ',')}
-                            </Text>
-                            <Text transform={'translateY(-10px)'}>
-                                Em até 3x de{' '}
-                                <b>
-                                    {(priceInCard / 3)
-                                        .toFixed(2)
-                                        .replace('.', ',')}
-                                </b>{' '}
-                                no cartão
-                            </Text>
+                                <Text
+                                    fontWeight={'extrabold'}
+                                    fontSize={'lg'}
+                                >
+                                    R${' '}
+                                    {priceInCard.toFixed(2).replace('.', ',')}
+                                </Text>
+                                <Text transform={'translateY(-10px)'}>
+                                    Em até 3x de{' '}
+                                    <b>
+                                        {(priceInCard / 3)
+                                            .toFixed(2)
+                                            .replace('.', ',')}
+                                    </b>{' '}
+                                    no cartão
+                                </Text>
+                            </Skeleton>
                         </Box>
 
                         <Box>
-                            <Text fontSize={'lg'}>Quantidade:</Text>
-                            <HStack>
-                                <Button
-                                    borderRadius="20px"
-                                    onClick={() => {
-                                        quantity > 1
-                                            ? setQuantity(quantity - 1)
-                                            : null;
-                                    }}
-                                >
-                                    <MdOutlineRemoveCircleOutline
-                                        fill={'gray'}
-                                        size={20}
-                                    />
-                                </Button>
-                                <Text
-                                    fontSize={'lg'}
-                                    fontWeight={'semibold'}
-                                >
-                                    {quantity}
-                                </Text>
-                                <Button
-                                    borderRadius="20px"
-                                    onClick={() => {
-                                        setQuantity(quantity + 1);
-                                    }}
-                                >
-                                    <MdOutlineAddCircleOutline
-                                        fill={'gray'}
-                                        size={20}
-                                    />
-                                </Button>
-                            </HStack>
+                            <Skeleton
+                                isLoaded={!isLoading}
+                                fadeDuration={5}
+                            >
+                                <Text fontSize={'lg'}>Quantidade:</Text>
+                                <HStack>
+                                    <Button
+                                        borderRadius="20px"
+                                        onClick={() => {
+                                            quantity > 1
+                                                ? setQuantity(quantity - 1)
+                                                : null;
+                                        }}
+                                    >
+                                        <MdOutlineRemoveCircleOutline
+                                            fill={'gray'}
+                                            size={20}
+                                        />
+                                    </Button>
+                                    <Text
+                                        fontSize={'lg'}
+                                        fontWeight={'semibold'}
+                                    >
+                                        {quantity}
+                                    </Text>
+                                    <Button
+                                        borderRadius="20px"
+                                        onClick={() => {
+                                            setQuantity(quantity + 1);
+                                        }}
+                                    >
+                                        <MdOutlineAddCircleOutline
+                                            fill={'gray'}
+                                            size={20}
+                                        />
+                                    </Button>
+                                </HStack>
+                            </Skeleton>
                         </Box>
 
                         <Button
@@ -191,10 +225,19 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                         </Button>
 
                         <Box>
-                            <Text fontSize={'lg'}>Categoria: {category}</Text>
-                            <Text fontSize={'lg'}>Marca: {brand}</Text>
-                            <Text fontSize={'lg'}>Material: {material}</Text>
-                            <Text fontSize={'lg'}>Cor: {color}</Text>
+                            <SkeletonText
+                                isLoaded={!isLoading}
+                                fadeDuration={5}
+                            >
+                                <Text fontSize={'lg'}>
+                                    Categoria: {category}
+                                </Text>
+                                <Text fontSize={'lg'}>Marca: {brand}</Text>
+                                <Text fontSize={'lg'}>
+                                    Material: {material}
+                                </Text>
+                                <Text fontSize={'lg'}>Cor: {color}</Text>
+                            </SkeletonText>
                         </Box>
                     </Stack>
                 </Box>
@@ -209,7 +252,16 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                 >
                     Descrição
                 </Text>
-                <Text>{description}</Text>
+
+                <SkeletonText
+                    isLoaded={!isLoading}
+                    fadeDuration={5}
+                    mt="4"
+                    noOfLines={4}
+                    spacing="4"
+                >
+                    <Text>{description}</Text>
+                </SkeletonText>
             </Box>
             <RelatedProductSlider />
         </Box>

@@ -7,10 +7,7 @@ const CartSlice = createSlice({
         cartIsOpen: (state, action: PayloadAction<boolean>) => {
             return action.payload;
         },
-        cartIsLoading: (state, action: PayloadAction<boolean>) => {
-            return action.payload;
-        }
-    }
+    },
 });
 
 export const { cartIsOpen } = CartSlice.actions;

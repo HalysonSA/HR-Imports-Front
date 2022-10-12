@@ -10,6 +10,8 @@ import {
     DrawerContent,
     DrawerCloseButton,
     useDisclosure,
+    Center,
+    Text,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartIsOpen } from '../Redux/CartSlice';
@@ -58,11 +60,17 @@ const CartSideBar = () => {
                 </DrawerHeader>
 
                 <DrawerBody p={0}>
-                    {cart.map((item: Product) => (
-                        <div key={item._id}>
-                            <ItemSideBar item={item} />
-                        </div>
-                    ))}
+                    {cart.length ? (
+                        cart.map((item: Product) => (
+                            <div key={item._id}>
+                                <ItemSideBar item={item} />
+                            </div>
+                        ))
+                    ) : (
+                        <Center>
+                            <Text fontSize={'xl'}>Seu carrinho está vazio</Text>
+                        </Center>
+                    )}
                 </DrawerBody>
 
                 <DrawerFooter w="100%">

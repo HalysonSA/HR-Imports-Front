@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -31,10 +30,11 @@ import { setProducts } from '../Redux/ProductSlice';
 import api from '../../api/axios';
 
 import { useRouter } from 'next/router';
+import { isLoading } from '../Redux/LoadingSlice';
 
 type productInfo = {
     products: [] | null;
-    _id: number;
+    _id: string;
     title: string;
     price: number;
     image: string;
@@ -44,6 +44,7 @@ type productInfo = {
     material: string;
     stock: number;
     size: [];
+    color: string;
 };
 
 export default function NewProductSlider() {
@@ -51,7 +52,7 @@ export default function NewProductSlider() {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
-   
+
     const router = useRouter();
 
     const myProducts = useSelector((state: productInfo) => state.products);
@@ -71,6 +72,10 @@ export default function NewProductSlider() {
         }
         getProducts();
     }, []);
+
+    const handleProductClick = (product: productInfo) => {
+        router.push(`/shop/${product._id}`, undefined, { shallow: true });
+    };
 
     return (
         <>
@@ -188,9 +193,7 @@ export default function NewProductSlider() {
                                         >
                                             <Button
                                                 onClick={() => {
-                                                    router.push(
-                                                        `/shop/${product._id}`
-                                                    );
+                                                    handleProductClick(product);
                                                 }}
                                                 w="100%"
                                                 colorScheme={'purple'}

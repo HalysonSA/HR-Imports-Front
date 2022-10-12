@@ -16,6 +16,7 @@ type Product = {
 
 type CartContextType = {
     cart: Product[];
+    totalValue: number;
     addItemToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
 };
@@ -67,13 +68,24 @@ const removeProductFromCart = (
 
 export const CartProvider = ({ children }: any) => {
     const [cart, setCart] = useState<Product[]>([]);
+    const [totalValue, setTotalValue] = useState(0);
 
     useEffect(() => {
         setCart(JSON.parse(window.sessionStorage.getItem('cart') || '[]'));
     }, []);
 
+    const totalValueCart = () => {
+        let total = 0;
+        cart.map((event: Product) => {
+            total += event.price * event.quantity;
+        });
+        setTotalValue(total);
+    };
+
     useEffect(() => {
         window.sessionStorage.setItem('cart', JSON.stringify(cart));
+
+        totalValueCart();
     }, [cart]);
 
     const addItemToCart = (product: Product) => {
@@ -92,6 +104,7 @@ export const CartProvider = ({ children }: any) => {
         <CartContext.Provider
             value={{
                 cart,
+                totalValue,
                 addItemToCart,
                 removeFromCart,
             }}
