@@ -1,9 +1,13 @@
-import { Box, Flex, HStack, Text, Button } from '@chakra-ui/react';
+import { Box, Flex, HStack, Text, Button, Center } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { BsBasket2Fill } from 'react-icons/bs';
 import { FiTrash } from 'react-icons/fi';
+import { CartContext } from '../../../context/cart';
 import ProductCard from './productCard';
 
 const CartItems = () => {
+    const { clearCart, cart } = useContext(CartContext);
+
     return (
         <Flex
             direction={'column'}
@@ -34,6 +38,7 @@ const CartItems = () => {
                     <Button
                         variant={'outline'}
                         colorScheme={'red'}
+                        onClick={() => clearCart()}
                     >
                         <FiTrash size={15} />
                         <Text
@@ -47,8 +52,22 @@ const CartItems = () => {
                     </Button>
                 </Box>
             </Flex>
-            <Box h="700px">
-                <ProductCard />
+            <Box
+                minH="700px"
+                h="auto"
+            >
+                {cart.length === 0 ? (
+                    <Center>
+                        <Text
+                            fontSize={'2xl'}
+                            color={'#7F858D'}
+                        >
+                            Seu carrinho está vazio
+                        </Text>
+                    </Center>
+                ) : (
+                    <ProductCard />
+                )}
             </Box>
         </Flex>
     );

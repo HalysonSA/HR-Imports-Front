@@ -75,7 +75,9 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
             brand,
             quantity,
         });
-        toast.success('Produto adicionado ao carrinho', { position: 'top-center' });
+        toast.success('Produto adicionado ao carrinho', {
+            position: 'top-center',
+        });
     };
 
     return (

@@ -68,7 +68,12 @@ const CartSideBar = () => {
                         ))
                     ) : (
                         <Center>
-                            <Text fontSize={'xl'}>Seu carrinho está vazio</Text>
+                            <Text
+                                fontSize={'xl'}
+                                color={'#7F858D'}
+                            >
+                                Seu carrinho está vazio
+                            </Text>
                         </Center>
                     )}
                 </DrawerBody>

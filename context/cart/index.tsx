@@ -19,6 +19,8 @@ type CartContextType = {
     totalValue: number;
     addItemToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
+    clearCart: () => void;
+    removeProduct: (product: Product) => void;
 };
 
 export const CartContext = createContext({} as CartContextType);
@@ -100,6 +102,22 @@ export const CartProvider = ({ children }: any) => {
         });
     };
 
+    const removeProduct = (productToRemove: Product) => {
+        const existingProduct = cart.find(
+            (product: Product) => product._id === productToRemove._id
+        );
+        if (existingProduct) {
+            const filteredCart = cart.filter(
+                (product: Product) => product._id !== productToRemove._id
+            );
+            setCart(filteredCart);
+        }
+    };
+
+    const clearCart = () => {
+        setCart([]);
+    };
+
     return (
         <CartContext.Provider
             value={{
@@ -107,6 +125,8 @@ export const CartProvider = ({ children }: any) => {
                 totalValue,
                 addItemToCart,
                 removeFromCart,
+                clearCart,
+                removeProduct,
             }}
         >
             {children}
