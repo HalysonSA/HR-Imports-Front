@@ -6,17 +6,22 @@ import {
     HStack,
     Stack,
     Center,
+    Divider,
 } from '@chakra-ui/react';
+import { useContext } from 'react';
 import { AiOutlineFileSearch } from 'react-icons/ai';
+import { CartContext } from '../../../context/cart';
 
 const Summary = () => {
+    const { totalValue } = useContext(CartContext);
+
     return (
         <Box
-            w={['100%', '100%', '35%','25%']}
+            w={['100%', '100%', '35%', '25%']}
             maxW={'450px'}
             top={'100px'}
             position={'sticky'}
-            h="370px"
+            h="400px"
         >
             <Flex direction={'column'}>
                 <HStack>
@@ -32,9 +37,52 @@ const Summary = () => {
                         Resumo
                     </Text>
                 </HStack>
-                <Text>Valor total:</Text>
-                <Text>Frete:</Text>
-                <Text>Total à prazo:</Text>
+                <Flex justifyContent={'space-between'}>
+                    <Text fontSize={'md'}>Valor total: </Text>
+                    <Text fontSize={'lg'}>
+                        <b>
+                            {new Intl.NumberFormat('pt-BR', {
+                                style: 'currency',
+                                currency: 'BRL',
+                            }).format((totalValue * 5) / 100 + totalValue)}
+                        </b>
+                    </Text>
+                </Flex>
+                <Divider orientation="horizontal" />
+                <Flex justifyContent={'space-between'}>
+                    <Text fontSize={'md'}>Frete:</Text>
+                    <Text fontSize={'lg'}>
+                        <b>R$ 0,00</b>
+                    </Text>
+                </Flex>
+
+                <Flex justifyContent={'space-between'}>
+                    <Text fontSize={'md'}>Total à prazo: </Text>
+                    <Flex
+                        direction={'column'}
+                        alignItems={'flex-end'}
+                    >
+                        <Text fontSize={'lg'}>
+                            <b>
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL',
+                                }).format((totalValue * 5) / 100 + totalValue)}
+                            </b>
+                        </Text>
+                        <Center>
+                            <Text fontSize={'sm'}>
+                                Em até 3x de{' '}
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL',
+                                }).format(
+                                    ((totalValue * 5) / 100 + totalValue) / 3
+                                )}
+                            </Text>
+                        </Center>
+                    </Flex>
+                </Flex>
                 <Stack
                     spacing={4}
                     mt="5"
@@ -51,15 +99,20 @@ const Summary = () => {
                         </Center>
                         <Center>
                             <Text
-                                fontSize={'2xl'}
+                                fontSize={'3xl'}
                                 fontWeight={'extrabold'}
                             >
-                                <b>R$ 9999</b>
+                                <b>
+                                    {new Intl.NumberFormat('pt-BR', {
+                                        style: 'currency',
+                                        currency: 'BRL',
+                                    }).format(totalValue)}
+                                </b>
                             </Text>
                         </Center>
                         <Center>
                             <Text>
-                                Economia de <b>7%</b>
+                                Economia de <b>5%</b>
                             </Text>
                         </Center>
                     </Box>

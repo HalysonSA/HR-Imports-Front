@@ -84,7 +84,7 @@ export default function Navbar() {
                     spacing={8}
                     alignItems={'center'}
                 >
-                    <Box>
+                    <Box onClick={() => router.push('/')} _hover={{cursor:'pointer'}}>
                         <Image
                             w="80px"
                             h="80px"
@@ -198,7 +198,7 @@ export default function Navbar() {
                                 )}
                             </MenuList>
                             <Text
-                                fontSize={'lg'}
+                                fontSize={'sm'}
                                 fontWeight={'semi-bold'}
                                 display={{ base: 'none', md: 'flex' }}
                             >

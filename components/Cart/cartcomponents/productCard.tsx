@@ -15,9 +15,12 @@ const ProductCard = () => {
                     key={item._id}
                     direction={['column', 'column', 'column', 'row']}
                     my={2}
+                    gap={3}
                 >
                     <Image
                         objectFit={'cover'}
+                        minW="150px"
+                        minH="150px"
                         h="150px"
                         w="150px"
                         alt=""
