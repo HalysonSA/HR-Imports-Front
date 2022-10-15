@@ -29,7 +29,7 @@ import { useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../../components/Redux/UserSlice';
-import CartSideBar from '../../Cart/sidebar';
+import CartSideBar from '../../Cart/sidecart/sidebar';
 import { cartIsOpen } from '../../Redux/CartSlice';
 
 type UserInfo = {

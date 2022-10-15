@@ -14,9 +14,9 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartIsOpen } from '../Redux/CartSlice';
+import { cartIsOpen } from '../../Redux/CartSlice';
 import { useContext } from 'react';
-import { CartContext } from '../../context/cart';
+import { CartContext } from '../../../context/cart';
 
 type Props = {
     isCartOpen: boolean;

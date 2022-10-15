@@ -1,6 +1,6 @@
 import { Stack, Flex, Text, Button } from '@chakra-ui/react';
 import { useContext } from 'react';
-import { CartContext } from '../../context/cart';
+import { CartContext } from '../../../context/cart';
 
 const FooterSideBar = () => {
 

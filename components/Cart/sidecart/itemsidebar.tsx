@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
 import { FiTrash } from 'react-icons/fi';
-import { CartContext } from '../../context/cart';
+import { CartContext } from '../../../context/cart';
 import { useContext } from 'react';
 
 type Product = {
