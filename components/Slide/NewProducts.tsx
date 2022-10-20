@@ -31,6 +31,7 @@ import api from '../../api/axios';
 
 import { useRouter } from 'next/router';
 import { isLoading } from '../Redux/LoadingSlice';
+import PriceFormat from '../../utils/priceFormat';
 
 type productInfo = {
     products: [] | null;
@@ -48,7 +49,6 @@ type productInfo = {
 };
 
 export default function NewProductSlider() {
-    const [isLargerThan1920] = useMediaQuery('(min-width: 1920px)');
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
@@ -92,12 +92,11 @@ export default function NewProductSlider() {
             <Box
                 mx={['2', '3', '4', '5']}
                 py="5"
+                cursor={'grab'}
             >
                 <Swiper
                     slidesPerView={
-                        isLargerThan1920
-                            ? 9
-                            : isLargerThan1280
+                        isLargerThan1280
                             ? 5
                             : isLargerThan768
                             ? 4
@@ -126,6 +125,7 @@ export default function NewProductSlider() {
                                     minH="410px"
                                     pb="2"
                                     bg="white"
+                                    wordBreak={'break-word'}
                                 >
                                     <Image
                                         borderRadius={'10px 10px 0 0'}
@@ -165,10 +165,7 @@ export default function NewProductSlider() {
                                                     as="del"
                                                     color={'red'}
                                                 >
-                                                    R$
-                                                    {product.price
-                                                        .toFixed(2)
-                                                        .replace('.', ',')}
+                                                    {PriceFormat(product.price)}
                                                 </Text>
                                             </Box>
                                             <Text
@@ -176,10 +173,10 @@ export default function NewProductSlider() {
                                                 fontWeight={'extrabold'}
                                                 mt="4"
                                             >
-                                                R$
-                                                {product.price
-                                                    .toFixed(2)
-                                                    .replaceAll('.', ',')}
+                                                {PriceFormat(
+                                                    product.price -
+                                                        product.price * 0.1
+                                                )}
                                             </Text>
                                             <Text
                                                 transform={'translateY(-10px)'}

@@ -11,6 +11,7 @@ import {
 import { useContext } from 'react';
 import { AiOutlineFileSearch } from 'react-icons/ai';
 import { CartContext } from '../../../context/cart';
+import PriceFormat from '../../../utils/priceFormat';
 
 const Summary = () => {
     const { totalValue } = useContext(CartContext);
@@ -41,10 +42,7 @@ const Summary = () => {
                     <Text fontSize={'md'}>Valor total: </Text>
                     <Text fontSize={'lg'}>
                         <b>
-                            {new Intl.NumberFormat('pt-BR', {
-                                style: 'currency',
-                                currency: 'BRL',
-                            }).format((totalValue * 5) / 100 + totalValue)}
+                            {PriceFormat((totalValue * 5) / 100 + totalValue)}
                         </b>
                     </Text>
                 </Flex>
@@ -64,19 +62,15 @@ const Summary = () => {
                     >
                         <Text fontSize={'lg'}>
                             <b>
-                                {new Intl.NumberFormat('pt-BR', {
-                                    style: 'currency',
-                                    currency: 'BRL',
-                                }).format((totalValue * 5) / 100 + totalValue)}
+                                {PriceFormat(
+                                    (totalValue * 5) / 100 + totalValue
+                                )}
                             </b>
                         </Text>
                         <Center>
                             <Text fontSize={'sm'}>
                                 Em até 3x de{' '}
-                                {new Intl.NumberFormat('pt-BR', {
-                                    style: 'currency',
-                                    currency: 'BRL',
-                                }).format(
+                                {PriceFormat(
                                     ((totalValue * 5) / 100 + totalValue) / 3
                                 )}
                             </Text>
@@ -102,12 +96,7 @@ const Summary = () => {
                                 fontSize={'3xl'}
                                 fontWeight={'extrabold'}
                             >
-                                <b>
-                                    {new Intl.NumberFormat('pt-BR', {
-                                        style: 'currency',
-                                        currency: 'BRL',
-                                    }).format(totalValue)}
-                                </b>
+                                <b>{PriceFormat(totalValue)}</b>
                             </Text>
                         </Center>
                         <Center>

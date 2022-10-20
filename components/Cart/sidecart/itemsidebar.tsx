@@ -13,6 +13,8 @@ import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
 import { FiTrash } from 'react-icons/fi';
 import { CartContext } from '../../../context/cart';
 import { useContext } from 'react';
+import PriceFormat from '../../../utils/priceFormat';
+
 
 type Product = {
     item: {
@@ -79,7 +81,7 @@ const ItemSideBar = ({ item }: Product) => {
                             fontWeight={'semibold'}
                             fontSize={'lg'}
                         >
-                            R${item.price}
+                            {PriceFormat(item.price)}
                         </Text>
                     </Box>
                     <HStack spacing={2}>

@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { CartContext } from '../../../context/cart';
+import PriceFormat from '../../../utils/priceFormat';
 
 const ProductCard = () => {
     const { addItemToCart, removeFromCart, cart, removeProduct } =
@@ -43,22 +44,14 @@ const ProductCard = () => {
                                 </Text>
                                 <Text color={'#7F858D'}>
                                     Á Vista no PIX:
-                                    <b>
-                                        {' '}
-                                        R$
-                                        {item.price
-                                            .toFixed(2)
-                                            .replace('.', ',')}{' '}
-                                    </b>
+                                    <b>{PriceFormat(item.price)}</b>
                                 </Text>
                                 <Text color={'#7F858D'}>
                                     Parcelado no cartão em até 3x sem juros:
                                     <b>
-                                        {' '}
-                                        R$
-                                        {((item.price * 5) / 100 + item.price)
-                                            .toFixed(2)
-                                            .replace('.', ',')}{' '}
+                                        {PriceFormat(
+                                            (item.price * 5) / 100 + item.price
+                                        )}
                                     </b>
                                 </Text>
                             </Flex>
@@ -141,10 +134,7 @@ const ProductCard = () => {
                                             fontWeight={'extrabold'}
                                             fontSize={'lg'}
                                         >
-                                            R${' '}
-                                            {item.price
-                                                .toFixed(2)
-                                                .replace('.', ',')}
+                                            {PriceFormat(item.price)}
                                         </Text>
                                     </Stack>
                                 </Flex>
