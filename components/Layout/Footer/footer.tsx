@@ -100,7 +100,8 @@ const InfoFooter = ({ icon, title, description }: FooterInfoProps) => {
 
 export default function Footer() {
     return (
-        <Box
+        <Container
+            maxW="1366px"
             bottom={'0'}
             bg="white"
             color="black"
@@ -130,15 +131,14 @@ export default function Footer() {
             </Flex>
             <Container
                 as={Stack}
-                maxW={'6xl'}
                 py={4}
                 spacing={4}
                 justify={'center'}
                 align={'center'}
             >
                 <Image
-                w='80px'
-                h='80px'
+                    w="80px"
+                    h="80px"
                     src="/logo.svg"
                     alt="Logo"
                 />
@@ -171,15 +171,13 @@ export default function Footer() {
                     />
                 </Stack>
             </Container>
-
             <Box
-                borderTopWidth={1}
                 borderStyle={'solid'}
+                borderTopWidth={'1px'}
                 borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
                 <Container
                     as={Stack}
-                    maxW={'6xl'}
                     py={4}
                     direction={{ base: 'column', md: 'row' }}
                     spacing={4}
@@ -198,17 +196,15 @@ export default function Footer() {
                             <FaInstagram size={20} />
                         </SocialButton>
 
-
                         <SocialButton
                             label={'Facebook'}
                             href={'https://www.facebook.com/'}
                         >
                             <FaFacebookF size={20} />
                         </SocialButton>
-
                     </Stack>
                 </Container>
             </Box>
-        </Box>
+        </Container>
     );
 }

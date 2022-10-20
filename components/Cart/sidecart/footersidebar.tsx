@@ -4,6 +4,7 @@ import { CartContext } from '../../../context/cart';
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import { cartIsOpen } from '../../Redux/CartSlice';
+import PriceFormat from '../../../utils/priceFormat';
 
 const FooterSideBar = () => {
     const { totalValue } = useContext(CartContext);
@@ -32,7 +33,7 @@ const FooterSideBar = () => {
                     fontWeight={'extrabold'}
                     fontSize={'xl'}
                 >
-                    R${totalValue.toFixed(2).replace('.', ',')}
+                    {PriceFormat(totalValue)}
                 </Text>
             </Flex>
             <Button

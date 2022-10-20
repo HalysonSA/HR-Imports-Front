@@ -24,6 +24,7 @@ import { useContext } from 'react';
 import { CartContext } from '../../context/cart';
 import { useSelector } from 'react-redux';
 import { isLoading } from '../Redux/LoadingSlice';
+import PriceFormat from '../../utils/priceFormat';
 
 type ProductInfo = {
     product: {
@@ -128,89 +129,82 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                             {title}
                         </Text>
                     </Skeleton>
-                    <Stack>
-                        <Box>
-                            <Skeleton
-                                isLoaded={!isLoading}
-                                fadeDuration={3}
+                    <Box>
+                        <Skeleton
+                            isLoaded={!isLoading}
+                            fadeDuration={3}
+                        >
+                            <Text
+                                fontWeight={'extrabold'}
+                                fontSize={'3xl'}
+                                color={'purple.400'}
                             >
-                                <Text
-                                    fontWeight={'extrabold'}
-                                    fontSize={'3xl'}
-                                    color={'purple.400'}
+                                {PriceFormat(price)}
+                            </Text>
+                            <Text transform={'translateY(-10px)'}>
+                                Á Vista no PIX ou <b>1x</b> no Cartão
+                            </Text>
+                        </Skeleton>
+                    </Box>
+                    <Box>
+                        <Skeleton
+                            isLoaded={!isLoading}
+                            fadeDuration={4}
+                        >
+                            <Text
+                                fontWeight={'extrabold'}
+                                fontSize={'lg'}
+                            >
+                                {PriceFormat(priceInCard)}
+                            </Text>
+                            <Text transform={'translateY(-10px)'}>
+                                Em até 3x de
+                                <b>{PriceFormat(priceInCard / 3)}</b> no cartão
+                            </Text>
+                        </Skeleton>
+                    </Box>
+
+                    <Box>
+                        <Skeleton
+                            isLoaded={!isLoading}
+                            fadeDuration={5}
+                        >
+                            <Text fontSize={'lg'}>Quantidade:</Text>
+                            <HStack>
+                                <Button
+                                    borderRadius="20px"
+                                    onClick={() => {
+                                        quantity > 1
+                                            ? setQuantity(quantity - 1)
+                                            : null;
+                                    }}
                                 >
-                                    R$ {price.toFixed(2).replace('.', ',')}
-                                </Text>
-                                <Text transform={'translateY(-10px)'}>
-                                    Á Vista no PIX ou <b>1x</b> no Cartão
-                                </Text>
-                            </Skeleton>
-                        </Box>
-                        <Box>
-                            <Skeleton
-                                isLoaded={!isLoading}
-                                fadeDuration={4}
-                            >
+                                    <MdOutlineRemoveCircleOutline
+                                        fill={'gray'}
+                                        size={20}
+                                    />
+                                </Button>
                                 <Text
-                                    fontWeight={'extrabold'}
                                     fontSize={'lg'}
+                                    fontWeight={'semibold'}
                                 >
-                                    R${' '}
-                                    {priceInCard.toFixed(2).replace('.', ',')}
+                                    {quantity}
                                 </Text>
-                                <Text transform={'translateY(-10px)'}>
-                                    Em até 3x de{' '}
-                                    <b>
-                                        {(priceInCard / 3)
-                                            .toFixed(2)
-                                            .replace('.', ',')}
-                                    </b>{' '}
-                                    no cartão
-                                </Text>
-                            </Skeleton>
-                        </Box>
-
-                        <Box>
-                            <Skeleton
-                                isLoaded={!isLoading}
-                                fadeDuration={5}
-                            >
-                                <Text fontSize={'lg'}>Quantidade:</Text>
-                                <HStack>
-                                    <Button
-                                        borderRadius="20px"
-                                        onClick={() => {
-                                            quantity > 1
-                                                ? setQuantity(quantity - 1)
-                                                : null;
-                                        }}
-                                    >
-                                        <MdOutlineRemoveCircleOutline
-                                            fill={'gray'}
-                                            size={20}
-                                        />
-                                    </Button>
-                                    <Text
-                                        fontSize={'lg'}
-                                        fontWeight={'semibold'}
-                                    >
-                                        {quantity}
-                                    </Text>
-                                    <Button
-                                        borderRadius="20px"
-                                        onClick={() => {
-                                            setQuantity(quantity + 1);
-                                        }}
-                                    >
-                                        <MdOutlineAddCircleOutline
-                                            fill={'gray'}
-                                            size={20}
-                                        />
-                                    </Button>
-                                </HStack>
-                            </Skeleton>
-                        </Box>
-
+                                <Button
+                                    borderRadius="20px"
+                                    onClick={() => {
+                                        setQuantity(quantity + 1);
+                                    }}
+                                >
+                                    <MdOutlineAddCircleOutline
+                                        fill={'gray'}
+                                        size={20}
+                                    />
+                                </Button>
+                            </HStack>
+                        </Skeleton>
+                    </Box>
+                    <Box my="5">
                         <Button
                             name="Adicionar ao carrinho"
                             colorScheme={'purple'}
@@ -218,30 +212,27 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                             width={['100%', '50%']}
                             p="8"
                             fontSize={'xl'}
-                            variant={'outline'}
+                            fontWeight={'bold'}
+                            variant={'solid'}
+                            textTransform={'uppercase'}
                             onClick={() => {
                                 handleAddToCart();
                             }}
                         >
                             Comprar
                         </Button>
-
-                        <Box>
-                            <SkeletonText
-                                isLoaded={!isLoading}
-                                fadeDuration={5}
-                            >
-                                <Text fontSize={'lg'}>
-                                    Categoria: {category}
-                                </Text>
-                                <Text fontSize={'lg'}>Marca: {brand}</Text>
-                                <Text fontSize={'lg'}>
-                                    Material: {material}
-                                </Text>
-                                <Text fontSize={'lg'}>Cor: {color}</Text>
-                            </SkeletonText>
-                        </Box>
-                    </Stack>
+                    </Box>
+                    <Box>
+                        <SkeletonText
+                            isLoaded={!isLoading}
+                            fadeDuration={5}
+                        >
+                            <Text fontSize={'lg'}>Categoria: {category}</Text>
+                            <Text fontSize={'lg'}>Marca: {brand}</Text>
+                            <Text fontSize={'lg'}>Material: {material}</Text>
+                            <Text fontSize={'lg'}>Cor: {color}</Text>
+                        </SkeletonText>
+                    </Box>
                 </Box>
             </Flex>
             <Box
@@ -251,6 +242,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                 <Text
                     fontWeight={'bold'}
                     fontSize={'2xl'}
+                    wordBreak={'break-word'}
                 >
                     Descrição
                 </Text>

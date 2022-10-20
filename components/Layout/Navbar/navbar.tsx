@@ -16,6 +16,7 @@ import {
     Text,
     Spacer,
     Center,
+    Container,
 } from '@chakra-ui/react';
 
 import { useRouter } from 'next/router';
@@ -25,12 +26,14 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { useSession, signOut } from 'next-auth/react';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../../components/Redux/UserSlice';
 import CartSideBar from '../../Cart/sidecart/sidebar';
 import { cartIsOpen } from '../../Redux/CartSlice';
+
+import { CartContext } from '../../../context/cart';
 
 type UserInfo = {
     name?: string;
@@ -52,6 +55,8 @@ export default function Navbar() {
 
     const { data: session } = useSession();
 
+    const { totalQuantity } = useContext(CartContext);
+
     useEffect(() => {
         sessionStorage.getItem('user')
             ? dispatch(signInUser(JSON.parse(sessionStorage.getItem('user')!)))
@@ -68,12 +73,13 @@ export default function Navbar() {
     }
 
     return (
-        <Box
+        <Container
             zIndex="100"
             top={0}
             position="sticky"
             bg="white"
             px={['4', '10']}
+            maxW="1920px"
         >
             <Flex
                 h={'70px'}
@@ -84,7 +90,10 @@ export default function Navbar() {
                     spacing={8}
                     alignItems={'center'}
                 >
-                    <Box onClick={() => router.push('/')} _hover={{cursor:'pointer'}}>
+                    <Box
+                        onClick={() => router.push('/')}
+                        _hover={{ cursor: 'pointer' }}
+                    >
                         <Image
                             w="80px"
                             h="80px"
@@ -151,20 +160,33 @@ export default function Navbar() {
                                 cursor={'pointer'}
                                 minW={0}
                             >
-                                <Avatar
-                                    size={'sm'}
-                                    src={
-                                        session?.user?.image ||
-                                        user.name ||
-                                        undefined
-                                    }
-                                    referrerPolicy={'no-referrer'}
-                                    name={
-                                        session?.user?.name ||
-                                        user.name ||
-                                        undefined
-                                    }
-                                />
+                                <HStack>
+                                    <Avatar
+                                        size={'sm'}
+                                        src={
+                                            session?.user?.image ||
+                                            user.name ||
+                                            undefined
+                                        }
+                                        referrerPolicy={'no-referrer'}
+                                        name={
+                                            session?.user?.name ||
+                                            user.name ||
+                                            undefined
+                                        }
+                                    />
+                                    <Text
+                                        fontSize={'sm'}
+                                        fontWeight={'semi-bold'}
+                                        display={{ base: 'none', md: 'flex' }}
+                                    >
+                                        {session
+                                            ? 'Olá, ' + session?.user?.name
+                                            : user.name
+                                            ? 'Olá, ' + user.name
+                                            : 'Entre ou cadastre-se'}
+                                    </Text>
+                                </HStack>
                             </MenuButton>
                             <MenuList zIndex={99}>
                                 {session || user.name ? (
@@ -197,17 +219,6 @@ export default function Navbar() {
                                     </MenuItem>
                                 )}
                             </MenuList>
-                            <Text
-                                fontSize={'sm'}
-                                fontWeight={'semi-bold'}
-                                display={{ base: 'none', md: 'flex' }}
-                            >
-                                {session
-                                    ? 'Olá, ' + session?.user?.name
-                                    : user.name
-                                    ? 'Olá, ' + user.name
-                                    : 'Entre ou cadastre-se'}
-                            </Text>
                             <Spacer />
                             <Flex
                                 cursor={'pointer'}
@@ -216,8 +227,8 @@ export default function Navbar() {
                                 <AiOutlineShoppingCart size={30} />
 
                                 <Center
-                                    w="15px"
-                                    h="15px"
+                                    w="18px"
+                                    h="18px"
                                     top="15px"
                                     right={['4em', '5.5em', '35px']}
                                     position={'absolute'}
@@ -229,7 +240,7 @@ export default function Navbar() {
                                         color={'white'}
                                         fontWeight={'bold'}
                                     >
-                                        1
+                                        {totalQuantity}
                                     </Text>
                                 </Center>
                             </Flex>
@@ -301,6 +312,6 @@ export default function Navbar() {
                     </Stack>
                 </Box>
             ) : null}
-        </Box>
+        </Container>
     );
 }

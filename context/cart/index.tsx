@@ -17,6 +17,7 @@ type Product = {
 type CartContextType = {
     cart: Product[];
     totalValue: number;
+    totalQuantity: number;
     addItemToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
     clearCart: () => void;
@@ -71,6 +72,7 @@ const removeProductFromCart = (
 export const CartProvider = ({ children }: any) => {
     const [cart, setCart] = useState<Product[]>([]);
     const [totalValue, setTotalValue] = useState(0);
+    const [totalQuantity, setTotalQuantity] = useState(0);
 
     useEffect(() => {
         setCart(JSON.parse(window.sessionStorage.getItem('cart') || '[]'));
@@ -84,10 +86,19 @@ export const CartProvider = ({ children }: any) => {
         setTotalValue(total);
     };
 
+    const totalQuantityCart = () => {
+        let total = 0;
+        cart.map((event: Product) => {
+            total += event.quantity;
+        });
+        setTotalQuantity(total);
+    };
+
     useEffect(() => {
         window.sessionStorage.setItem('cart', JSON.stringify(cart));
 
         totalValueCart();
+        totalQuantityCart();
     }, [cart]);
 
     const addItemToCart = (product: Product) => {
@@ -123,6 +134,7 @@ export const CartProvider = ({ children }: any) => {
             value={{
                 cart,
                 totalValue,
+                totalQuantity,
                 addItemToCart,
                 removeFromCart,
                 clearCart,
