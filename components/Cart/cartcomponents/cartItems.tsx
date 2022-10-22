@@ -1,12 +1,34 @@
-import { Box, Flex, HStack, Text, Button, Center } from '@chakra-ui/react';
-import { useContext } from 'react';
+import {
+    Box,
+    Flex,
+    HStack,
+    Text,
+    Button,
+    Center,
+    useDisclosure,
+} from '@chakra-ui/react';
+import {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogContent,
+    AlertDialogOverlay,
+} from '@chakra-ui/react';
+import React, { useContext } from 'react';
 import { BsBasket2Fill } from 'react-icons/bs';
 import { FiTrash } from 'react-icons/fi';
 import { CartContext } from '../../../context/cart';
 import ProductCard from './productCard';
 
 const CartItems = () => {
-    const { clearCart, cart } = useContext(CartContext);
+    const { clearCart } = useContext(CartContext);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const handleClearCart = () => {
+        clearCart();
+        onClose();
+    };
 
     return (
         <Flex
@@ -38,7 +60,7 @@ const CartItems = () => {
                     <Button
                         variant={'outline'}
                         colorScheme={'red'}
-                        onClick={() => clearCart()}
+                        onClick={() => onOpen()}
                     >
                         <FiTrash size={15} />
                         <Text
@@ -52,22 +74,45 @@ const CartItems = () => {
                     </Button>
                 </Box>
             </Flex>
+
+            <AlertDialog
+                isOpen={isOpen}
+                //@ts-ignore
+                leastDestructiveRef={undefined}
+                onClose={onClose}
+            >
+                <AlertDialogOverlay>
+                    <AlertDialogContent>
+                        <AlertDialogHeader
+                            fontSize="lg"
+                            fontWeight="bold"
+                        >
+                            Limpar o carrinho
+                        </AlertDialogHeader>
+
+                        <AlertDialogBody>
+                            Você tem certeza que deseja limpar o carrinho?
+                        </AlertDialogBody>
+
+                        <AlertDialogFooter>
+                            <Button onClick={onClose}>Cancelar</Button>
+                            <Button
+                                colorScheme="red"
+                                onClick={() => handleClearCart()}
+                                ml={3}
+                            >
+                                Limpar
+                            </Button>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialogOverlay>
+            </AlertDialog>
+
             <Box
                 minH="700px"
                 h="auto"
             >
-                {cart.length === 0 ? (
-                    <Center>
-                        <Text
-                            fontSize={'2xl'}
-                            color={'#7F858D'}
-                        >
-                            Seu carrinho está vazio
-                        </Text>
-                    </Center>
-                ) : (
-                    <ProductCard />
-                )}
+                <ProductCard />
             </Box>
         </Flex>
     );

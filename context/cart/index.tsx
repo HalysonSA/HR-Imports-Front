@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 
 type Product = {
@@ -18,6 +19,7 @@ type CartContextType = {
     cart: Product[];
     totalValue: number;
     totalQuantity: number;
+    status: number;
     addItemToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
     clearCart: () => void;
@@ -73,9 +75,30 @@ export const CartProvider = ({ children }: any) => {
     const [cart, setCart] = useState<Product[]>([]);
     const [totalValue, setTotalValue] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(0);
+    const [status, setStatus] = useState(20);
+
+    const router = useRouter();
+    const path = router.pathname;
 
     useEffect(() => {
         setCart(JSON.parse(window.sessionStorage.getItem('cart') || '[]'));
+
+        switch (path) {
+            case '/cart':
+                setStatus(20);
+                break;
+            case '/checkout':
+                setStatus(40);
+                break;
+            case '/payment':
+                setStatus(60);
+                break;
+            case '/success':
+                setStatus(100);
+                break;
+            default:
+                setStatus(20);
+        }
     }, []);
 
     const totalValueCart = () => {
@@ -135,6 +158,7 @@ export const CartProvider = ({ children }: any) => {
                 cart,
                 totalValue,
                 totalQuantity,
+                status,
                 addItemToCart,
                 removeFromCart,
                 clearCart,

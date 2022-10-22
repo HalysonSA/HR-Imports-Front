@@ -3,7 +3,6 @@ import {
     Button,
     Flex,
     Text,
-    Stack,
     HStack,
     Image,
     Skeleton,
@@ -158,7 +157,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                                 {PriceFormat(priceInCard)}
                             </Text>
                             <Text transform={'translateY(-10px)'}>
-                                Em até 3x de
+                                Em até 3x de{' '}
                                 <b>{PriceFormat(priceInCard / 3)}</b> no cartão
                             </Text>
                         </Skeleton>
@@ -172,6 +171,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                             <Text fontSize={'lg'}>Quantidade:</Text>
                             <HStack>
                                 <Button
+                                    colorScheme={'transparent'}
                                     borderRadius="20px"
                                     onClick={() => {
                                         quantity > 1
@@ -191,6 +191,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                                     {quantity}
                                 </Text>
                                 <Button
+                                    colorScheme={'transparent'}
                                     borderRadius="20px"
                                     onClick={() => {
                                         setQuantity(quantity + 1);
