@@ -59,11 +59,54 @@ export default function RelatedProductSlider() {
 
     const dispatch = useDispatch();
 
+    
+    //Mudar do fake Api para o real Api
+
+    const serverResponse:any = [
+        {
+            "_id": "633b47cf279c61cf2e09fbc9",
+            "title": " Lenovo lp40 tws fones de ouvido sem fio bluetooth ",
+            "description": "O Lenovo LP40 traz um design moderno, sendo ideal para suas atividades. Possui um incrível sistema de alto falantes projetado com uma poderosa unidade de som de 13 mm interna, os fones de ouvido Lenovo LP40 tws oferecem um som limpo, alto e equilibrado, com altas frequências e feedback de voz. Para ficar ainda melhor, os fones de ouvido também são à prova d'água, capazes de suportar incidências de umidade, como respingos de suor durante exercícios físicos ou água da chuva durante uma aventura. A Sua bateria possui uma duração de 1,5 horas em uso contínuo.",
+            "price": 115,
+            "brand": "Lenovo",
+            "color": "Preto",
+            "material": "Plástico",
+            "category": "Eletrônico",
+            "size": [],
+            "stock": 0,
+            "image": "https://s2.glbimg.com/0J-B5BjlZ_iPoIxPgCMVqkmqM6U=/1200x/smart/filters:cover():strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/e/5/tjI8VlRcC483euipGUfw/lenovo2.jpg",
+            "createdAt": "2022-10-03T20:36:31.053Z",
+            "updatedAt": "2022-10-03T20:46:27.469Z",
+            "__v": 0
+        },
+        {
+            "_id": "634b06b01a9ef6b9a02ec914",
+            "title": "Relógio Inteligente SmartWatch D13 ",
+            "description": "Tempo de trabalho: Cerca de 7 dias Toque: um ponto de toque Nível impermeável: IP67 Sensor: sensor de Três Eixos/luz Verde ativo sensor de frequência cardíaca Mostrador do relógio função: Tempo de exibição, exibição do ícone da bateria, exibição da data, semana de exibição de esportes Padrão função (passo, distância, caloria) multi-modo de esportes (a pé, correr, andar de bicicleta, pular, badminton, basquete, futebol, natação) exame de Saúde função: freqüência cardíaca, pressão arterial, teste de teste de oxigênio no sangue (Você pode salvar os últimos registros de 7) Sono exibição de tempo, ajuste de brilho da tela, controle de música, interruptor de vibração vibração do motor, a história de armazenamento de mensagens (3) Função de lembrete: Chamada, SMS, QQ, WeChat lembrete (exibir o conteúdo e nome). Facebook, Whatsapp, Twitter, Skype, e outros estrangeiros lembretes de software social. alarm clock (três conjuntos de despertadores), lembrete sedentário. Anti-perdido inteligente: Encontrar a pulseira. (sem desconectar lembrete) Trajetória de movimento: apoio Android APLICATIVO saúde medição: freqüência cardíaca, pressão arterial, a medição. Monitoramento da freqüência cardíaca durante todo o dia (exibido em bares, mais alta registrada, menor freqüência cardíaca) Controle remoto da câmera: Apoio a longo imprensa a pulseira de telefone de controle remoto para tirar fotos Outros: não perturbe modo, levantar a mão para a tela brilhante, time format setting, restaurar a fábrica, longo de imprensa para rejeitar chamadas recebidas, três interface do relógio seleção, controle de música (suporte anterior, em seguida, play/pause), exposição do tempo, a apple para a saúde.",
+            "price": 80,
+            "brand": "D13",
+            "color": "Preto",
+            "material": "Plástico",
+            "category": "Eletrônico",
+            "size": [
+                "P",
+                "M",
+                "G"
+            ],
+            "stock": 0,
+            "image": "https://m.media-amazon.com/images/I/51bm67Iu8PL._AC_SX425_.jpg",
+            "createdAt": "2022-10-15T19:14:56.548Z",
+            "updatedAt": "2022-10-15T19:14:56.548Z",
+            "__v": 0
+        }
+    ]
+
     useEffect(() => {
         async function getProducts() {
             try {
                 const response = await api.get('/products');
-                dispatch(setProducts(response.data));
+                //mudar para response.data
+                dispatch(setProducts(serverResponse));
             } catch (err) {
                 console.log(err);
             }
