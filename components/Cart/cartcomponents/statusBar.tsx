@@ -16,12 +16,14 @@ const StatusBar = () => {
 
     const { status } = useContext(CartContext);
 
+
+
     return (
         <Flex direction={'row'}>
             <CircularProgress
                 size="100px"
                 thickness="15px"
-                value={20}
+                value={status}
                 color="purple.400"
                 mr="5"
             >
@@ -47,7 +49,7 @@ const StatusBar = () => {
                 <Flex
                     direction={'column'}
                     alignItems={'center'}
-                    color={'blackAlpha.300'}
+                    color={ status >= 40 ? 'purple.400' : 'blackAlpha.300'}
                 >
                     <FaUserAlt size={40} />
                     <Text>Identificação</Text>
@@ -55,7 +57,8 @@ const StatusBar = () => {
                 <Flex
                     direction={'column'}
                     alignItems={'center'}
-                    color={'blackAlpha.300'}
+                    
+                    color={ status >= 60 ? 'purple.400' : 'blackAlpha.300'}
                 >
                     <AiFillCreditCard size={40} />
                     <Text>Pagamento</Text>
@@ -63,7 +66,8 @@ const StatusBar = () => {
                 <Flex
                     direction={'column'}
                     alignItems={'center'}
-                    color={'blackAlpha.300'}
+                    
+                    color={ status >= 80 ? 'purple.400' : 'blackAlpha.300'}
                 >
                     <AiFillEye size={40} />
                     <Text>Confirmação</Text>
@@ -71,10 +75,11 @@ const StatusBar = () => {
                 <Flex
                     direction={'column'}
                     alignItems={'center'}
-                    color={'blackAlpha.300'}
+                   
+                    color={ status >= 100 ? 'purple.400' : 'blackAlpha.300'}
                 >
                     <MdVerified size={40} />
-                    <Text>Finalizar</Text>
+                    <Text>Sucesso</Text>
                 </Flex>
             </HStack>
         </Flex>
