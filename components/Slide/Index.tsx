@@ -35,6 +35,8 @@ export default function Carousel() {
                             bg="gray.50"
                         >
                             <Image
+                                w="auto"
+                                h="auto"
                                 src={item}
                                 alt="Banner"
                                 objectFit="scale-down"

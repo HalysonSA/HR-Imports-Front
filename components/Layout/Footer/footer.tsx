@@ -104,6 +104,20 @@ const InfoFooter = ({ icon, title, description }: FooterInfoProps) => {
 };
 
 export default function Footer() {
+    const PaymentMethod = (props: { image: string; alt: string }) => {
+        return (
+            <>
+                <Image
+                    bg="white"
+                    h="45px"
+                    w="72px"
+                    src={props.image}
+                    alt={props.alt}
+                />
+            </>
+        );
+    };
+
     return (
         <Box
             w="100%"
@@ -241,35 +255,24 @@ export default function Footer() {
                     gap="2"
                     wrap={'wrap'}
                 >
-                    <Image
-                        h="30px"
-                        w="60px"
-                        src="/visa.png"
+                    <PaymentMethod
+                        image="/visa.png"
                         alt="Visa"
                     />
-                    <Image
-                        h="30px"
-                        w="60px"
-                        src="/mastercard.png"
-                        alt="Mastercard"
+                    <PaymentMethod
+                        image="/mastercard.png"
+                        alt="mastercard"
                     />
-                    <Image
-                        bg="white"
-                        h="30px"
-                        w="60px"
-                        src="/pix.png"
-                        alt="Pix"
+                    <PaymentMethod
+                        image="/boleto.png"
+                        alt="boleto"
                     />
-                    <Image
-                        h="30px"
-                        w="60px"
-                        src="/boleto.png"
-                        alt="Boleto"
+                    <PaymentMethod
+                        image="/pix.png"
+                        alt="pix"
                     />
-                    <Image
-                        h="30px"
-                        w="60px"
-                        src="/mercadopago.png"
+                    <PaymentMethod
+                        image="/mercadopago.png"
                         alt="Mercado Pago"
                     />
                 </Flex>
