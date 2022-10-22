@@ -80,6 +80,7 @@ export default function Navbar() {
             bg="white"
             px={['4', '10']}
             maxW="1920px"
+            borderBottom={'1px solid #805AD5'}
         >
             <Flex
                 h={'70px'}

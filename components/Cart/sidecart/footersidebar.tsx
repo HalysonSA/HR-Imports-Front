@@ -16,6 +16,11 @@ const FooterSideBar = () => {
         router.push('/cart');
     };
 
+    const handleCartClose = () => {
+        router.push('/shop');
+        dispatch(cartIsOpen(false));
+    };
+
     return (
         <Stack
             w="100%"
@@ -51,7 +56,16 @@ const FooterSideBar = () => {
                 }}
                 onClick={() => handleCartOpen()}
             >
-                Finalizar compra
+                Ir para o carrinho
+            </Button>
+            <Button
+                colorScheme={'purple'}
+                fontWeight={'bold'}
+                textTransform={'uppercase'}
+                py="7"
+                onClick={() => handleCartClose()}
+            >
+                Continuar comprando
             </Button>
         </Stack>
     );

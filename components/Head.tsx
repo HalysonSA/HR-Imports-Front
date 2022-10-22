@@ -2,7 +2,7 @@ import Head from 'next/head'
 
 const Header = () => (
     <Head>
-        <title>HR-Imports</title>
+        <title>HR Imports - Produtos Importados</title>
         <link rel="apple-touch-icon" href=""></link>
         <meta
             name="description"

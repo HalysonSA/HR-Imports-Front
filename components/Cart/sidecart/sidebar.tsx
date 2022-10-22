@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartIsOpen } from '../../Redux/CartSlice';
 import { useContext } from 'react';
 import { CartContext } from '../../../context/cart';
+import React from 'react';
 
 type Props = {
     isCartOpen: boolean;
@@ -49,6 +50,7 @@ const CartSideBar = () => {
             isOpen={isCartOpen}
             placement="right"
             onClose={onClose}
+            onOverlayClick={() => dispatch(cartIsOpen(false))}
         >
             <DrawerOverlay />
             <DrawerContent>

@@ -7,9 +7,9 @@ import {
     Image,
     Skeleton,
     SkeletonText,
+    useMediaQuery,
 } from '@chakra-ui/react';
 import RelatedProductSlider from '../Slide/RelatedProducts';
-import { useMediaQuery } from '@chakra-ui/react';
 import { toast, ToastContainer } from 'react-toastify';
 
 import {
@@ -21,9 +21,10 @@ import { useState } from 'react';
 
 import { useContext } from 'react';
 import { CartContext } from '../../context/cart';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isLoading } from '../Redux/LoadingSlice';
 import PriceFormat from '../../utils/priceFormat';
+import { cartIsOpen } from '../Redux/CartSlice';
 
 type ProductInfo = {
     product: {
@@ -42,7 +43,9 @@ type ProductInfo = {
 const IndividualProductPage = ({ product }: ProductInfo) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const { addItemToCart, removeFromCart } = useContext(CartContext);
+
     const isLoading = useSelector((state: any) => state.isLoading);
+    const dispatch = useDispatch();
 
     const {
         _id,
@@ -76,8 +79,9 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
             quantity,
         });
         toast.success('Produto adicionado ao carrinho', {
-            position: 'top-center',
+            position: isLargerThan768 ? 'top-center' : 'bottom-center',
         });
+        dispatch(cartIsOpen(true));
     };
 
     return (
