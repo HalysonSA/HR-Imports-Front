@@ -165,7 +165,10 @@ export default function NewProductSlider() {
                                                     as="del"
                                                     color={'red'}
                                                 >
-                                                    {PriceFormat(product.price)}
+                                                    {PriceFormat(
+                                                        product.price +
+                                                            product.price * 0.3
+                                                    )}
                                                 </Text>
                                             </Box>
                                             <Text
@@ -173,10 +176,7 @@ export default function NewProductSlider() {
                                                 fontWeight={'extrabold'}
                                                 mt="4"
                                             >
-                                                {PriceFormat(
-                                                    product.price -
-                                                        product.price * 0.1
-                                                )}
+                                                {PriceFormat(product.price)}
                                             </Text>
                                             <Text
                                                 transform={'translateY(-10px)'}
