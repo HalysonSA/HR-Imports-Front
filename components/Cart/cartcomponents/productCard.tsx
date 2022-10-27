@@ -1,4 +1,12 @@
-import { Image, Flex, HStack, Text, Button, Stack } from '@chakra-ui/react';
+import {
+    Image,
+    Flex,
+    HStack,
+    Text,
+    Button,
+    Stack,
+    Box,
+} from '@chakra-ui/react';
 import { useContext } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
@@ -68,40 +76,44 @@ const ProductCard = () => {
                                 textAlign={'center'}
                             >
                                 <Flex>
-                                    <Stack spacing={0}>
-                                        <Text fontSize={'sm'}>Quantidade</Text>
-
-                                        <HStack spacing={0}>
-                                            <Button
-                                                colorScheme={'transparent'}
-                                                onClick={() =>
-                                                    removeFromCart(item)
-                                                }
-                                            >
-                                                <MdKeyboardArrowLeft
-                                                    fill={'#9F7AEA'}
-                                                    size={25}
-                                                />
-                                            </Button>
-
-                                            <Text
-                                                fontWeight={'bold'}
-                                                fontSize={'lg'}
-                                            >
-                                                {item.quantity}
+                                    <Stack spacing={5}>
+                                        <Box>
+                                            <Text fontSize={'sm'}>
+                                                Quantidade
                                             </Text>
-                                            <Button
-                                                colorScheme={'transparent'}
-                                                onClick={() =>
-                                                    addItemToCart(item)
-                                                }
-                                            >
-                                                <MdKeyboardArrowRight
-                                                    fill="#9F7AEA"
-                                                    size={25}
-                                                />
-                                            </Button>
-                                        </HStack>
+
+                                            <HStack spacing={0}>
+                                                <Button
+                                                    colorScheme={'transparent'}
+                                                    onClick={() =>
+                                                        removeFromCart(item)
+                                                    }
+                                                >
+                                                    <MdKeyboardArrowLeft
+                                                        fill={'#9F7AEA'}
+                                                        size={25}
+                                                    />
+                                                </Button>
+
+                                                <Text
+                                                    fontWeight={'bold'}
+                                                    fontSize={'lg'}
+                                                >
+                                                    {item.quantity}
+                                                </Text>
+                                                <Button
+                                                    colorScheme={'transparent'}
+                                                    onClick={() =>
+                                                        addItemToCart(item)
+                                                    }
+                                                >
+                                                    <MdKeyboardArrowRight
+                                                        fill="#9F7AEA"
+                                                        size={25}
+                                                    />
+                                                </Button>
+                                            </HStack>
+                                        </Box>
 
                                         <Button
                                             variant={'ghost'}
