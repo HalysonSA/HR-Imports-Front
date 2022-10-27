@@ -87,11 +87,14 @@ export const CartProvider = ({ children }: any) => {
             case '/cart':
                 setStatus(20);
                 break;
-            case '/checkout':
+            case '/identification':
                 setStatus(40);
                 break;
             case '/payment':
                 setStatus(60);
+                break;
+            case '/checkout':
+                setStatus(80);
                 break;
             case '/success':
                 setStatus(100);

@@ -6,7 +6,6 @@ import {
     Text,
     Button,
     Stack,
-    useMediaQuery,
 } from '@chakra-ui/react';
 
 import Layout from '../../components/Layout/Layout';
@@ -23,8 +22,6 @@ import { useRouter } from 'next/router';
 const Cart = () => {
     const { cart } = useContext(CartContext);
 
-    const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
-
     const router = useRouter();
 
     return (
@@ -33,7 +30,10 @@ const Cart = () => {
                 p={['4', '8', '10']}
                 bg="white"
             >
-                <Center m={5}>{isLargerThan768 ? <StatusBar /> : null}</Center>
+                <Center m={5}>
+                    {' '}
+                    <StatusBar />{' '}
+                </Center>
 
                 <Flex
                     direction={['column', 'column', 'row']}

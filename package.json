@@ -13,8 +13,10 @@
     "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@hookform/error-message": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.5",
     "@types/cookies": "^0.7.7",
+    "@types/react-input-mask": "^3.0.1",
     "axios": "^0.27.2",
     "framer-motion": "^7.3.2",
     "isomorphic-fetch": "^3.0.0",
@@ -25,6 +27,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
     "react-icons": "^4.4.0",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^8.0.2",
     "react-toastify": "^9.0.8",
     "swiper": "^8.4.2"
