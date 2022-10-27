@@ -1,8 +1,11 @@
 import Layout from '../components/Layout/Layout';
 import StatusBar from '../components/Cart/cartcomponents/statusBar';
 import CartItems from '../components/Cart/cartcomponents/cartItems';
+import validateCPF from '../utils/checkCpf';
 
 import { useForm } from 'react-hook-form';
+
+import { toast, ToastContainer } from 'react-toastify';
 
 import {
     Box,
@@ -20,9 +23,6 @@ import {
 } from '@chakra-ui/react';
 
 import InputMask from 'react-input-mask';
-
-import validatePhone from '../utils/checkPhoneNumber';
-import verifyString from '../utils/checkString';
 
 import { useEffect, useState } from 'react';
 
@@ -66,7 +66,8 @@ type Localization = {
 };
 
 type FormData = {
-    prop: string;
+    cpf: string;
+    cep: string;
     firstName: string;
     lastName: string;
     address: string;
@@ -81,6 +82,8 @@ type FormData = {
 
 const Identification = () => {
     const {
+        setValue,
+        getValues,
         register,
         handleSubmit,
         formState: { errors },
@@ -89,8 +92,9 @@ const Identification = () => {
     });
 
     const [loading, setLoading] = useState(false);
-    const [search, setSearch] = useState<Boolean>(false);
+    const [search, setSearch] = useState<boolean>(false);
     const [zipCode, setZipCode] = useState('');
+    const [cpf, setCpf] = useState<boolean>(false);
     const [localization, setLocalization] = useState<Localization>();
 
     const onSubmit = (data: FormData) => {
@@ -107,7 +111,12 @@ const Identification = () => {
             zipcode,
         } = data;
 
-        const telephoneIsValid = validatePhone(telephone);
+        setCpf(validateCPF(data.cpf));
+        cpf
+            ? null
+            : toast.error('Digite um CPF válido', {
+                  position: 'top-center',
+              });
     };
 
     useEffect(() => {
@@ -140,8 +149,13 @@ const Identification = () => {
         getLocalization();
     }, [search]);
 
+    localization ? setValue('city', localization?.localidade) : null;
+    localization ? setValue('state', localization?.uf) : null;
+    localization ? setValue('zipcode', localization?.cep) : null;
+
     return (
         <Layout>
+            <ToastContainer />
             <Center m="5">
                 <StatusBar />
             </Center>
@@ -149,7 +163,10 @@ const Identification = () => {
                 direction={['column', 'column', 'row']}
                 gap={5}
             >
-                <Box w={['100%', '100%', '85%', '75%']} mb={5}>
+                <Box
+                    w={['100%', '100%', '85%', '75%']}
+                    mb={5}
+                >
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Stack spacing={3}>
                             <Stack>
@@ -200,7 +217,13 @@ const Identification = () => {
                                         focusBorderColor="purple.400"
                                         {...register('firstName', {
                                             required:
-                                                'Este campo é obrigatório',
+                                                'Este campo é obrigatório.',
+
+                                            pattern: {
+                                                value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                                message:
+                                                    'Não pode conter números.',
+                                            },
                                         })}
                                     />
                                     {errors.firstName && (
@@ -222,7 +245,13 @@ const Identification = () => {
                                         focusBorderColor="purple.400"
                                         {...register('lastName', {
                                             required:
-                                                'Este campo é obrigatório',
+                                                'Este campo é obrigatório.',
+
+                                            pattern: {
+                                                value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                                message:
+                                                    'Não pode conter números.',
+                                            },
                                         })}
                                     />
                                     {errors.lastName && (
@@ -247,6 +276,11 @@ const Identification = () => {
                                         {...register('telephone', {
                                             required:
                                                 'Este campo é obrigatório',
+                                            pattern: {
+                                                value: /^\([1-9]{2}\) [9]{1}[0-9]{4}\-[0-9]{4}$/,
+                                                message:
+                                                    'Digite um telefone válido',
+                                            },
                                         })}
                                     />
                                     {errors.telephone && (
@@ -258,6 +292,36 @@ const Identification = () => {
                                             color={'red'}
                                         >
                                             {errors.telephone.message}
+                                        </Text>
+                                    )}
+                                </FormControl>
+                                <FormControl id="name">
+                                    <FormLabel>CPF</FormLabel>
+                                    <Input
+                                        type="text"
+                                        as={InputMask}
+                                        mask="999.999.999-99"
+                                        focusBorderColor="purple.400"
+                                        {...register('cpf', {
+                                            required:
+                                                'Este campo é obrigatório.',
+
+                                            pattern: {
+                                                value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/g,
+                                                message:
+                                                    'Por favor, digite um CPF válido.',
+                                            },
+                                        })}
+                                    />
+                                    {errors.cpf && (
+                                        <Text
+                                            p={'1'}
+                                            _before={{
+                                                content: '"⚠"',
+                                            }}
+                                            color={'red'}
+                                        >
+                                            {errors.cpf.message}
                                         </Text>
                                     )}
                                 </FormControl>
@@ -277,7 +341,13 @@ const Identification = () => {
                                         focusBorderColor="purple.400"
                                         {...register('address', {
                                             required:
-                                                'Este campo é obrigatório',
+                                                'Este campo é obrigatório.',
+
+                                            pattern: {
+                                                value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                                message:
+                                                    'Não pode conter números.',
+                                            },
                                         })}
                                     />
                                     {errors.address && (
@@ -301,7 +371,7 @@ const Identification = () => {
                                             focusBorderColor="purple.400"
                                             {...register('number', {
                                                 required:
-                                                    'Este campo é obrigatório',
+                                                    'Este campo é obrigatório.',
                                             })}
                                         />
                                         {errors.number && (
@@ -331,11 +401,22 @@ const Identification = () => {
 
                                     <Input
                                         type="text"
+                                        variant={
+                                            localization?.localidade
+                                                ? 'filled'
+                                                : 'outline'
+                                        }
                                         focusBorderColor="purple.400"
-                                        defaultValue={localization?.localidade}
+                                        value={localization?.localidade}
                                         {...register('city', {
                                             required:
-                                                'Este campo é obrigatório',
+                                                'Este campo é obrigatório.',
+
+                                            pattern: {
+                                                value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                                message:
+                                                    'Não pode conter números.',
+                                            },
                                         })}
                                     />
                                     {errors.city && (
@@ -359,7 +440,13 @@ const Identification = () => {
                                         defaultValue={localization?.bairro}
                                         {...register('neighborhood', {
                                             required:
-                                                'Este campo é obrigatório',
+                                                'Este campo é obrigatório.',
+
+                                            pattern: {
+                                                value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                                message:
+                                                    'Não pode conter números.',
+                                            },
                                         })}
                                     />
                                     {errors.neighborhood && (
@@ -380,8 +467,16 @@ const Identification = () => {
                                         <FormLabel>CEP</FormLabel>
                                         <Input
                                             type="text"
+                                            variant={
+                                                localization?.cep
+                                                    ? 'filled'
+                                                    : 'outline'
+                                            }
                                             focusBorderColor="purple.400"
-                                            defaultValue={localization?.cep}
+                                            value={localization?.cep.replace(
+                                                '-',
+                                                ''
+                                            )}
                                             as={InputMask}
                                             mask="99999-999"
                                             {...register('zipcode', {
@@ -408,6 +503,11 @@ const Identification = () => {
                                                 required:
                                                     'Este campo é obrigatório',
                                             })}
+                                            variant={
+                                                localization?.uf
+                                                    ? 'filled'
+                                                    : 'outline'
+                                            }
                                             focusBorderColor="purple.400"
                                             value={localization?.uf}
                                             placeholder="Selecione um estado"
@@ -439,6 +539,7 @@ const Identification = () => {
                             </Stack>
 
                             <Button
+                                size={'lg'}
                                 type="submit"
                                 colorScheme={'purple'}
                                 textTransform={'uppercase'}
