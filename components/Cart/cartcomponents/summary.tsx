@@ -8,7 +8,6 @@ import {
     Center,
     Divider,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
 import { useContext } from 'react';
 import { AiOutlineFileSearch } from 'react-icons/ai';
 import { CartContext } from '../../../context/cart';
@@ -16,7 +15,6 @@ import PriceFormat from '../../../utils/priceFormat';
 
 const Summary = () => {
     const { totalValue } = useContext(CartContext); 
-    const router = useRouter();
 
     return (
         <Box
@@ -112,7 +110,7 @@ const Summary = () => {
                             fontSize={['xl']}
                             fontWeight={'bold'}
                             textTransform={'uppercase'}
-                            onClick={() => router.push('/identification')}
+                            onClick={() => location.href = '/identification'}
                         >
                             Finalizar compra
                         </Text>

@@ -56,7 +56,9 @@ const CartItems = () => {
                         Seus Produtos
                     </Text>
                 </HStack>
-                <Box pt="2">
+                <Box
+                    pt="2"
+                >
                     <Button
                         variant={'outline'}
                         colorScheme={'red'}
