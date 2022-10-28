@@ -59,7 +59,7 @@ const BannerLogin = () => {
                                 type="button"
                                 w="100%"
                                 p="6"
-                                borderRadius={'0'}
+                                borderRadius={'25'}
                             >
                                 <Link href="/register">Cadastre-se</Link>
                             </Button>

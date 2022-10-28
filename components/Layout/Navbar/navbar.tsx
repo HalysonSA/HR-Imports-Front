@@ -18,10 +18,11 @@ import {
     Center,
     Container,
 } from '@chakra-ui/react';
+import {HiMenuAlt3 } from 'react-icons/hi';
 
 import { useRouter } from 'next/router';
 
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon } from '@chakra-ui/icons';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { useSession, signOut } from 'next-auth/react';
@@ -251,7 +252,7 @@ export default function Navbar() {
                                 bg="transparent"
                                 size={'lg'}
                                 icon={
-                                    isOpen ? <CloseIcon /> : <HamburgerIcon />
+                                    isOpen ? <CloseIcon /> : <HiMenuAlt3 size={30}/>
                                 }
                                 aria-label={'Open Menu'}
                                 display={{ md: 'none' }}

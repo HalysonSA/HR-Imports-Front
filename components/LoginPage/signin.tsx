@@ -118,7 +118,7 @@ const SignInLogin = () => {
                         <Button
                             w="100%"
                             p="6"
-                            borderRadius={'0'}
+                            borderRadius={'25'}
                             type="submit"
                             bgGradient={
                                 'linear(270deg, #CE8DF5 8.33%, #6B13B0 100%)'
@@ -152,8 +152,8 @@ const SignInLogin = () => {
                         w="100%"
                         p="6"
                         my="1"
-                        borderRadius={'0'}
-                        colorScheme="gray"
+                        borderRadius={'25'}
+                        colorScheme="purple"
                         onClick={() => router.push('/register')}
                     >
                         <Text color="black">Cadastre-se</Text>
@@ -166,7 +166,7 @@ const SignInLogin = () => {
                     w={['50%', '100%']}
                     p="6"
                     my="1"
-                    borderRadius={'0'}
+                    borderRadius={'25'}
                     colorScheme="red"
                     onClick={() => signIn('google')}
                     leftIcon={<FaGoogle />}
@@ -177,7 +177,7 @@ const SignInLogin = () => {
                     w={['50%', '100%']}
                     p="6"
                     my="1"
-                    borderRadius={'0'}
+                    borderRadius={'25'}
                     onClick={() => signIn('facebook')}
                     colorScheme="facebook"
                     leftIcon={<FaFacebook />}

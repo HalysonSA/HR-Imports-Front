@@ -50,7 +50,7 @@ const CartItems = () => {
                     />
                     <Text
                         fontWeight={'bold'}
-                        fontSize={'2xl'}
+                        fontSize={'3xl'}
                         textTransform={'uppercase'}
                     >
                         Seus Produtos

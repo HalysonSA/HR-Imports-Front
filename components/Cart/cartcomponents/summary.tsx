@@ -31,7 +31,7 @@ const Summary = () => {
                         fill={'#6B46C1'}
                     />
                     <Text
-                        fontSize={'2xl'}
+                        fontSize={'3xl'}
                         fontWeight={'extrabold'}
                         textTransform={'uppercase'}
                     >
