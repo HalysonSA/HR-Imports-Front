@@ -33,6 +33,7 @@ export default function Carousel() {
                             minH="50px"
                             maxH="750px"
                             bg="gray.50"
+                            cursor={'grab'}
                         >
                             <Image
                                 w="auto"

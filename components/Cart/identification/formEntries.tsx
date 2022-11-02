@@ -46,7 +46,6 @@ const FormEntries = () => {
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState<boolean>(false);
     const [zipCode, setZipCode] = useState('');
-    const [cpf, setCpf] = useState<boolean>(false);
     const [localization, setLocalization] = useState<Localization>();
 
     const stateCode = [
@@ -133,17 +132,17 @@ const FormEntries = () => {
             zipcode,
         } = data;
 
-        setCpf(validateCPF(data.cpf));
+      
        
         //enviar dados para o backend
 
-        cpf
-            ? null
+        validateCPF(data.cpf)
+            ? location.href = '/payment'
             : toast.error('Digite um CPF válido', {
                   position: 'top-center',
               });
 
-        location.href = '/payment';
+        
     };
 
     localization ? setValue('city', localization?.localidade) : null;

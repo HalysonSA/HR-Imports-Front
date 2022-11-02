@@ -119,12 +119,12 @@ export default function Footer() {
     };
 
     return (
-        <Box
+        
+        <Container
             w="100%"
+            maxW="1920px"
             bottom={'0'}
-            bg="white"
-            borderTopWidth={'1px'}
-            color="black"
+            p='0'
         >
             <Container maxW={'1366px'}>
                 <Flex
@@ -294,6 +294,6 @@ export default function Footer() {
                     </Text>
                 </Box>
             </Box>
-        </Box>
+        </Container>
     );
 }
