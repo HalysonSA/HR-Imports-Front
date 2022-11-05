@@ -29,7 +29,6 @@ import GetUser from '../../utils/checkUser';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../components/Redux/UserSlice';
 
-
 type SignInProps = {
     email: string;
     password: string;
@@ -51,8 +50,11 @@ const SignInLogin = () => {
 
         const user = await GetUser({ email, password });
 
-        user ? dispatch(signInUser(user)) : null;
-        user ? router.push('/') : toast.error('Email ou senha incorretos');
+        user &&
+            (dispatch(signInUser(user))
+                ? router.push('/')
+                : toast.error('Email ou senha incorretos'));
+
         setLoading(false);
         reset();
     }
