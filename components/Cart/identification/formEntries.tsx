@@ -1,5 +1,4 @@
 import validateCPF from '../../../utils/checkCpf';
-import { toast } from 'react-toastify';
 
 import {
     Input,
@@ -15,8 +14,13 @@ import {
 } from '@chakra-ui/react';
 
 import InputMask from 'react-input-mask';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
+
+import api from '../../../api/axios';
+import { CartContext } from '../../../context/cart';
+import { toast, ToastContainer } from 'react-toastify';
 
 type Localization = {
     cep: string;
@@ -30,16 +34,16 @@ type Localization = {
 type FormData = {
     cpf: string;
     cep: string;
-    firstName: string;
-    lastName: string;
-    address: string;
+    first_name: string;
+    last_name: string;
+    street_name: string;
+    street_number: string;
     city: string;
     complement: string;
     neighborhood: string;
-    number: number;
-    state: string;
+    federal_unit: string;
     telephone: string;
-    zipcode: string;
+    zip_code: string;
 };
 
 const FormEntries = () => {
@@ -47,6 +51,10 @@ const FormEntries = () => {
     const [search, setSearch] = useState<boolean>(false);
     const [zipCode, setZipCode] = useState('');
     const [localization, setLocalization] = useState<Localization>();
+
+    const { cart } = useContext(CartContext);
+
+    const router = useRouter();
 
     const stateCode = [
         { name: 'Acre', code: 'AC' },
@@ -120,37 +128,55 @@ const FormEntries = () => {
 
     const onSubmit = (data: FormData) => {
         const {
-            firstName,
-            lastName,
-            address,
+            first_name,
+            last_name,
+            cpf,
+            street_name,
+            street_number,
             city,
             complement,
             neighborhood,
-            number,
-            state,
+            federal_unit,
             telephone,
-            zipcode,
+            zip_code,
         } = data;
 
-      
-       
+        if (validateCPF(cpf)) {
+            api.post('/orders', {
+                user: {
+                    first_name,
+                    last_name,
+                    cpf,
+                    street_name,
+                    street_number,
+                    city,
+                    complement,
+                    neighborhood,
+                    federal_unit,
+                    telephone,
+                    zip_code,
+                },
+                cart: cart,
+                payment: {
+                    payment_status: 'pending',
+                },
+            }).then((response) => {
+                router.push('/payment');
+            }).catch((err) => {
+                toast.error('Ocorreu um erro ao realizar o pedido');
+            })
+
+        }
         //enviar dados para o backend
-
-        validateCPF(data.cpf)
-            ? location.href = '/payment'
-            : toast.error('Digite um CPF válido', {
-                  position: 'top-center',
-              });
-
-        
     };
-
-    localization ? setValue('city', localization?.localidade) : null;
-    localization ? setValue('state', localization?.uf) : null;
-    localization ? setValue('zipcode', localization?.cep) : null;
+    localization &&
+        (setValue('city', localization.localidade),
+        setValue('federal_unit', localization.uf),
+        setValue('zip_code', localization.cep));
 
     return (
         <Box>
+            <ToastContainer />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={3}>
                     <Stack>
@@ -195,7 +221,7 @@ const FormEntries = () => {
                             <Input
                                 type="text"
                                 focusBorderColor="purple.400"
-                                {...register('firstName', {
+                                {...register('first_name', {
                                     required: 'Este campo é obrigatório.',
 
                                     pattern: {
@@ -204,7 +230,7 @@ const FormEntries = () => {
                                     },
                                 })}
                             />
-                            {errors.firstName && (
+                            {errors.first_name && (
                                 <Text
                                     p={'1'}
                                     _before={{
@@ -212,7 +238,7 @@ const FormEntries = () => {
                                     }}
                                     color={'red'}
                                 >
-                                    {errors.firstName.message}
+                                    {errors.first_name.message}
                                 </Text>
                             )}
                         </FormControl>
@@ -221,7 +247,7 @@ const FormEntries = () => {
                             <Input
                                 type="text"
                                 focusBorderColor="purple.400"
-                                {...register('lastName', {
+                                {...register('last_name', {
                                     required: 'Este campo é obrigatório.',
 
                                     pattern: {
@@ -230,7 +256,7 @@ const FormEntries = () => {
                                     },
                                 })}
                             />
-                            {errors.lastName && (
+                            {errors.last_name && (
                                 <Text
                                     p={'1'}
                                     _before={{
@@ -238,7 +264,7 @@ const FormEntries = () => {
                                     }}
                                     color={'red'}
                                 >
-                                    {errors.lastName.message}
+                                    {errors.last_name.message}
                                 </Text>
                             )}
                         </FormControl>
@@ -312,7 +338,7 @@ const FormEntries = () => {
                             <Input
                                 type="text"
                                 focusBorderColor="purple.400"
-                                {...register('address', {
+                                {...register('street_name', {
                                     required: 'Este campo é obrigatório.',
 
                                     pattern: {
@@ -321,7 +347,7 @@ const FormEntries = () => {
                                     },
                                 })}
                             />
-                            {errors.address && (
+                            {errors.street_name && (
                                 <Text
                                     p={'1'}
                                     _before={{
@@ -329,7 +355,7 @@ const FormEntries = () => {
                                     }}
                                     color={'red'}
                                 >
-                                    {errors.address.message}
+                                    {errors.street_name.message}
                                 </Text>
                             )}
                         </FormControl>
@@ -340,11 +366,11 @@ const FormEntries = () => {
                                 <Input
                                     type="number"
                                     focusBorderColor="purple.400"
-                                    {...register('number', {
+                                    {...register('street_number', {
                                         required: 'Este campo é obrigatório.',
                                     })}
                                 />
-                                {errors.number && (
+                                {errors.street_number && (
                                     <Text
                                         p={'1'}
                                         _before={{
@@ -352,7 +378,7 @@ const FormEntries = () => {
                                         }}
                                         color={'red'}
                                     >
-                                        {errors.number.message}
+                                        {errors.street_number.message}
                                     </Text>
                                 )}
                             </FormControl>
@@ -441,11 +467,11 @@ const FormEntries = () => {
                                     value={localization?.cep.replace('-', '')}
                                     as={InputMask}
                                     mask="99999-999"
-                                    {...register('zipcode', {
+                                    {...register('zip_code', {
                                         required: 'Este campo é obrigatório',
                                     })}
                                 />
-                                {errors.zipcode && (
+                                {errors.zip_code && (
                                     <Text
                                         p={'1'}
                                         _before={{
@@ -453,14 +479,14 @@ const FormEntries = () => {
                                         }}
                                         color={'red'}
                                     >
-                                        {errors.zipcode.message}
+                                        {errors.zip_code.message}
                                     </Text>
                                 )}
                             </FormControl>
                             <FormControl id="state">
                                 <FormLabel>Estado</FormLabel>
                                 <Select
-                                    {...register('state', {
+                                    {...register('federal_unit', {
                                         required: 'Este campo é obrigatório',
                                     })}
                                     variant={
@@ -484,7 +510,7 @@ const FormEntries = () => {
                                         )
                                     )}
                                 </Select>
-                                {errors.state && (
+                                {errors.federal_unit && (
                                     <Text
                                         p={'1'}
                                         _before={{
@@ -492,7 +518,7 @@ const FormEntries = () => {
                                         }}
                                         color={'red'}
                                     >
-                                        {errors.state.message}
+                                        {errors.federal_unit.message}
                                     </Text>
                                 )}
                             </FormControl>
