@@ -1,8 +1,9 @@
 import api from '../../../api/axios';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CheckoutForm from './checkout';
+import { CartContext } from '../../../context/cart';
 
 const stripePromise = loadStripe(
     `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`
@@ -11,10 +12,14 @@ const stripePromise = loadStripe(
 const StripeComponent = () => {
     const [clientSecret, setClientSecret] = useState('');
 
+    const  { totalValue} = useContext(CartContext);
+
     useEffect(() => {
         (async () => {
             const response = await api.put('/payments', {
-                amount: '180,00',
+                email: '',
+                name:'',    
+                amount: totalValue,
             });
             response != null && setClientSecret(response.data.clientSecret);
         })();
@@ -46,7 +51,7 @@ const StripeComponent = () => {
                 <Elements
                     stripe={stripePromise}
                     options={options}
-                >
+                >   
                     <CheckoutForm />
                 </Elements>
             )}
