@@ -14,6 +14,7 @@ import {
 import StatusBar from '../components/Cart/cartcomponents/statusBar';
 import Layout from '../components/Layout/Layout';
 import api from '../api/axios';
+import StripeComponent from '../components/Cart/stripe';
 
 import { CartContext } from '../context/cart';
 import { useContext } from 'react';
@@ -76,7 +77,10 @@ const Payment = () => {
                         w="100%"
                         borderRadius={'15px'}
                         minH="600px"
-                    ></Box>
+                    >
+
+                        <StripeComponent />
+                    </Box>
                 </Flex>
             </Flex>
         </Layout>
