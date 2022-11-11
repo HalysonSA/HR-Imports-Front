@@ -20,8 +20,7 @@ import { CartContext } from '../context/cart';
 import { useContext } from 'react';
 
 const Payment = () => {
-    const { cart, checkFormOfPayment, formOfPayment } = useContext(CartContext);
-
+    const {  checkFormOfPayment, formOfPayment } = useContext(CartContext);
     const handleSubmit = async () => {
         return;
   

@@ -3,12 +3,10 @@ import StatusBar from '../components/Cart/cartcomponents/statusBar';
 import CartItems from '../components/Cart/cartcomponents/cartItems';
 import FormEntries from '../components/Cart/identification/formEntries';
 import { Box, Center, Flex } from '@chakra-ui/react';
-import { ToastContainer } from 'react-toastify';
 
 const Identification = () => {
     return (
         <Layout>
-            <ToastContainer />
             <Center m={5}>
                 <StatusBar />
             </Center>

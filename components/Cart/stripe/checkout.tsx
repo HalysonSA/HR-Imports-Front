@@ -1,21 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
     useStripe,
     useElements,
     PaymentElement,
 } from '@stripe/react-stripe-js';
 import {  Button, Center, Container } from '@chakra-ui/react';
+import api from '../../../api/axios';
+import { CustomerContext } from '../../../context/customer';
+import { CartContext } from '../../../context/cart';
+import { toast, ToastContainer } from 'react-toastify';
 
 const CheckoutForm = () => {
     const stripe = useStripe();
     const elements = useElements();
 
     const [errorMessage, setErrorMessage] = useState(null);
+    const { customer } = useContext(CustomerContext);
+    const { cart } = useContext(CartContext);
+     
 
     const handleSubmit = async (event: any) => {
-        // We don't want to let default form submission happen here,
-        // which would refresh the page.
         event.preventDefault();
+        
+        await api.post('/orders', {
+            user: customer,
+            cart: cart,
+            payment: {
+                payment_status: 'pending',
+            },
+        });
 
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
@@ -35,18 +48,18 @@ const CheckoutForm = () => {
             // This point will only be reached if there is an immediate error when
             // confirming the payment. Show error to your customer (for example, payment
             // details incomplete)
+            toast.error(error.message);
         } else {
-            // Your customer will be redirected to your `return_url`. For some payment
-            // methods like iDEAL, your customer will be redirected to an intermediate
-            // site first to authorize the payment, then redirected to the `return_url`.
+            toast.success('Pagamento realizado com sucesso!');
         }
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <Container bg='gray.100' borderRadius={'20px'} p={4}>
+                <ToastContainer />
                 <PaymentElement />
-                <Button  disabled={!stripe}>
+                <Button  disabled={!stripe} type={'submit'}>
                     <Center>Confirmar pagamento</Center>
                     
                 </Button>

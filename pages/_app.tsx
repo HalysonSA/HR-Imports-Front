@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import store from '../components/Redux/Storage';
 
 import { CartProvider } from '../context/cart';
+import { CustomerProvider } from '../context/customer';
 
 import type { NextComponentType } from 'next';
 import { Session } from 'next-auth';
@@ -21,6 +22,7 @@ type AppProps = {
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     return (
         <SessionProvider session={session}>
+           <CustomerProvider>
             <CartProvider>
                 <Provider store={store}>
                     <ChakraProvider>
@@ -29,6 +31,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
                     </ChakraProvider>
                 </Provider>
             </CartProvider>
+            </CustomerProvider>
         </SessionProvider>
     );
 }

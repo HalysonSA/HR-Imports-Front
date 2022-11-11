@@ -18,9 +18,10 @@ import { useEffect, useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
-import api from '../../../api/axios';
-import { CartContext } from '../../../context/cart';
 import { toast, ToastContainer } from 'react-toastify';
+
+import { CustomerContext } from '../../../context/customer';
+import { checkEmail } from '../../../utils/checkEmail';
 
 type Localization = {
     cep: string;
@@ -36,6 +37,7 @@ type FormData = {
     cep: string;
     first_name: string;
     last_name: string;
+    email: string;
     street_name: string;
     street_number: string;
     city: string;
@@ -52,7 +54,7 @@ const FormEntries = () => {
     const [zipCode, setZipCode] = useState('');
     const [localization, setLocalization] = useState<Localization>();
 
-    const { cart } = useContext(CartContext);
+    const { handleCustomer } = useContext(CustomerContext);
 
     const router = useRouter();
 
@@ -88,7 +90,6 @@ const FormEntries = () => {
 
     const {
         setValue,
-        getValues,
         register,
         handleSubmit,
         formState: { errors },
@@ -127,47 +128,15 @@ const FormEntries = () => {
     }, [search]);
 
     const onSubmit = (data: FormData) => {
-        const {
-            first_name,
-            last_name,
-            cpf,
-            street_name,
-            street_number,
-            city,
-            complement,
-            neighborhood,
-            federal_unit,
-            telephone,
-            zip_code,
-        } = data;
+        const { cpf, email } = data;
 
-        if (validateCPF(cpf)) {
-            api.post('/orders', {
-                user: {
-                    first_name,
-                    last_name,
-                    cpf,
-                    street_name,
-                    street_number,
-                    city,
-                    complement,
-                    neighborhood,
-                    federal_unit,
-                    telephone,
-                    zip_code,
-                },
-                cart: cart,
-                payment: {
-                    payment_status: 'pending',
-                },
-            }).then((response) => {
-                router.push('/payment');
-            }).catch((err) => {
-                toast.error('Ocorreu um erro ao realizar o pedido');
-            })
+        if (validateCPF(cpf) && checkEmail(email)) {
+            handleCustomer(data);
+            router.push('/payment');
 
+        } else {
+            toast.error('CPF ou E-mail inválido');
         }
-        //enviar dados para o backend
     };
     localization &&
         (setValue('city', localization.localidade),
@@ -216,7 +185,7 @@ const FormEntries = () => {
                         >
                             Dados do Destinatário
                         </Text>
-                        <FormControl id="name">
+                        <FormControl id="firstname">
                             <FormLabel>Nome</FormLabel>
                             <Input
                                 type="text"
@@ -295,7 +264,7 @@ const FormEntries = () => {
                                 </Text>
                             )}
                         </FormControl>
-                        <FormControl id="name">
+                        <FormControl id="cpf">
                             <FormLabel>CPF</FormLabel>
                             <Input
                                 type="text"
@@ -308,7 +277,7 @@ const FormEntries = () => {
                                     pattern: {
                                         value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/g,
                                         message:
-                                            'Por favor, digite um CPF válido.',
+                                            'Digite um CPF válido.',
                                     },
                                 })}
                             />
@@ -321,6 +290,31 @@ const FormEntries = () => {
                                     color={'red'}
                                 >
                                     {errors.cpf.message}
+                                </Text>
+                            )}
+                        </FormControl>
+                        <FormControl id="Email">
+                            <FormLabel>E-mail</FormLabel>
+                            <Input
+                                type="text"
+                                focusBorderColor="purple.400"
+                                {...register('email', {
+                                    required: 'Este campo é obrigatório.',
+                                    pattern: {
+                                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                        message: 'Digite um E-mail válido.',
+                                    },
+                                })}
+                            />
+                            {errors.email && (
+                                <Text
+                                    p={'1'}
+                                    _before={{
+                                        content: '"⚠"',
+                                    }}
+                                    color={'red'}
+                                >
+                                    {errors.email.message}
                                 </Text>
                             )}
                         </FormControl>
@@ -403,7 +397,7 @@ const FormEntries = () => {
                                         : 'outline'
                                 }
                                 focusBorderColor="purple.400"
-                                value={localization?.localidade}
+                                defaultValue={localization?.localidade}
                                 {...register('city', {
                                     required: 'Este campo é obrigatório.',
 
@@ -464,7 +458,7 @@ const FormEntries = () => {
                                         localization?.cep ? 'filled' : 'outline'
                                     }
                                     focusBorderColor="purple.400"
-                                    value={localization?.cep.replace('-', '')}
+                                    defaultValue={localization?.cep.replace('-', '')}
                                     as={InputMask}
                                     mask="99999-999"
                                     {...register('zip_code', {
@@ -493,7 +487,7 @@ const FormEntries = () => {
                                         localization?.uf ? 'filled' : 'outline'
                                     }
                                     focusBorderColor="purple.400"
-                                    value={localization?.uf}
+                                    defaultValue={localization?.uf}
                                     placeholder="Selecione um estado"
                                 >
                                     {stateCode.map(
