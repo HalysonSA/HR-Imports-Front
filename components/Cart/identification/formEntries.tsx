@@ -96,7 +96,6 @@ const FormEntries = () => {
     } = useForm<FormData>({
         criteriaMode: 'all',
     });
-
     useEffect(() => {
         setLoading(true);
         async function getLocalization() {
@@ -116,7 +115,10 @@ const FormEntries = () => {
                 }
 
                 const result = await response.json();
-                setLocalization(result);
+                !result.erro && setLocalization(result);
+                result.erro && toast.error('CEP não encontrado',{
+                    position: "top-center",
+                });
                 setLoading(false);
             } catch (err) {
                 console.log(err);
