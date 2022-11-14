@@ -80,11 +80,10 @@ export default function Navbar() {
             position="sticky"
             bg="white"
             px={['4', '10']}
-            maxW="1920px"
-            borderBottom={'1px solid #805AD5'}
+            maxW="1500px"
         >
             <Flex
-                h={'70px'}
+                h={'90px'}
                 alignItems={'center'}
                 justifyContent={'space-between'}
             >
@@ -108,36 +107,15 @@ export default function Navbar() {
                         spacing={4}
                         display={{ base: 'none', md: 'flex' }}
                     >
-                        <Menu>
-                            <MenuButton
-                                as={Button}
-                                cursor={'pointer'}
-                                p="2"
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
-                                bg={'transparent'}
-                                _hover={{
-                                    bg: 'transparent',
-                                    transform: 'scale(1.1)',
-                                }}
-                                _active={{ bg: 'transparent' }}
-                            >
-                                Categorias
-                            </MenuButton>
-                            <MenuList zIndex={99}>
-                                <MenuItem>Eletrônicos</MenuItem>
-                                <MenuItem>Utilitários de Cozinha</MenuItem>
-                            </MenuList>
-                        </Menu>
                         <Link
                             href="/shop"
                             fontSize={'lg'}
                             fontWeight={'bold'}
                             _hover={{
-                                transform: 'scale(1.1)',
+                                color: 'purple.600',
                             }}
                         >
-                            Produtos
+                            Nossos produtos
                         </Link>
 
                         <Link
@@ -145,7 +123,7 @@ export default function Navbar() {
                             fontSize={'lg'}
                             fontWeight={'bold'}
                             _hover={{
-                                transform: 'scale(1.1)',
+                                color: 'purple.600',
                             }}
                         >
                             Sobre
@@ -154,15 +132,43 @@ export default function Navbar() {
                 </HStack>
                 <Flex alignItems={'center'}>
                     <HStack>
+                    <Flex
+                                cursor={'pointer'}
+                                onClick={() => handleOpenCart()}
+                                _hover={{
+                                    color: 'purple.600',
+                                }}
+                            >
+                                <AiOutlineShoppingCart size={35} />
+
+                                <Center
+                                    w="18px"
+                                    h="18px"
+                                    transform={'translate(-10px, -5px)'}
+                                    borderRadius={'30px'}
+                                    bg="red"
+                                >
+                                    <Text
+                                        fontSize={'sm'}
+                                        color={'white'}
+                                        fontWeight={'bold'}
+                                    >
+                                        {totalQuantity}
+                                    </Text>
+                                </Center>
+                            </Flex>
                         <Menu>
                             <MenuButton
                                 as={Button}
+                                
+                                onClick={() => {
+                                    !(session || user.name) ? router.push('/login') : onOpen();
+                                }}
                                 rounded={'full'}
                                 variant={'link'}
                                 cursor={'pointer'}
                                 minW={0}
                             >
-                                <HStack>
                                     <Avatar
                                         size={'sm'}
                                         src={
@@ -177,20 +183,8 @@ export default function Navbar() {
                                             undefined
                                         }
                                     />
-                                    <Text
-                                        fontSize={'sm'}
-                                        fontWeight={'semi-bold'}
-                                        display={{ base: 'none', md: 'flex' }}
-                                    >
-                                        {session
-                                            ? 'Olá, ' + session?.user?.name
-                                            : user.name
-                                            ? 'Olá, ' + user.name
-                                            : 'Entre ou cadastre-se'}
-                                    </Text>
-                                </HStack>
                             </MenuButton>
-                            <MenuList zIndex={99}>
+                            <MenuList zIndex={99} color={'black'}>
                                 {session || user.name ? (
                                     <>
                                         <MenuItem
@@ -211,43 +205,14 @@ export default function Navbar() {
                                             Sair
                                         </MenuItem>
                                     </>
-                                ) : (
-                                    <MenuItem
-                                        w="100%"
-                                        bg="transparent"
-                                        onClick={() => router.push('/login')}
-                                    >
-                                        Entre ou cadastre-se
-                                    </MenuItem>
-                                )}
+                                ) : null}
                             </MenuList>
                             <Spacer />
-                            <Flex
-                                cursor={'pointer'}
-                                onClick={() => handleOpenCart()}
-                            >
-                                <AiOutlineShoppingCart size={30} />
-
-                                <Center
-                                    w="18px"
-                                    h="18px"
-                                    top="15px"
-                                    right={['4em', '5.5em', '35px']}
-                                    position={'absolute'}
-                                    borderRadius={'30px'}
-                                    bg="red"
-                                >
-                                    <Text
-                                        fontSize={'sm'}
-                                        color={'white'}
-                                        fontWeight={'bold'}
-                                    >
-                                        {totalQuantity}
-                                    </Text>
-                                </Center>
-                            </Flex>
+                           
 
                             <CartSideBar />
+
+
                             <IconButton
                                 bg="transparent"
                                 size={'lg'}
@@ -273,35 +238,13 @@ export default function Navbar() {
                         spacing={4}
                     >
                         <HStack>
-                            <Menu>
-                                <MenuButton
-                                    float={'left'}
-                                    as={Button}
-                                    p="0"
-                                    cursor={'pointer'}
-                                    fontSize={'lg'}
-                                    fontWeight={'bold'}
-                                    bg={'transparent'}
-                                    _hover={{ bg: 'transparent' }}
-                                    _active={{ bg: 'transparent' }}
-                                >
-                                    Categorias
-                                </MenuButton>
-                                <MenuList zIndex={99}>
-                                    <MenuItem>Blusas</MenuItem>
-                                    <MenuItem>Conjuntos</MenuItem>
-                                    <MenuItem>Legging</MenuItem>
-                                    <MenuItem>Shorts</MenuItem>
-                                    <MenuItem>Regatas</MenuItem>
-                                    <MenuItem>Top</MenuItem>
-                                </MenuList>
-                            </Menu>
+                            
                             <Link
                                 href="/shop"
                                 fontSize={'lg'}
                                 fontWeight={'bold'}
                             >
-                                Produtos
+                               Nossos produtos
                             </Link>
                             <Link
                                 href="/about"

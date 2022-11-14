@@ -27,6 +27,7 @@ const Cart = () => {
     return (
         <Layout>
             <Box
+            minH='100vh'
                 p={['4', '8', '10']}
                 bg="white"
             >

@@ -35,7 +35,7 @@ type Product = {
 const ItemSideBar = ({ item }: Product) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
-    const { addItemToCart, removeFromCart } = useContext(CartContext);
+    const { addItemToCart, removeFromCart, removeProduct } = useContext(CartContext);
 
     const handleRemoveFromCart = () => {
         removeFromCart(item);
@@ -47,8 +47,6 @@ const ItemSideBar = ({ item }: Product) => {
 
     return (
         <Flex
-            border={'1px solid'}
-            borderColor="purple.400"
             direction={'row'}
             minW={'200px'}
             bg="white"
@@ -121,6 +119,7 @@ const ItemSideBar = ({ item }: Product) => {
                             bg: 'white',
                             transform: 'scale(1.1)',
                         }}
+                        onClick={() => removeProduct(item)}
                     >
                         <FiTrash size={20} />
                     </Button>

@@ -8,18 +8,12 @@ import {
     Button,
     Image,
     Flex,
-    Divider,
     HStack,
-    Center,
+    Spacer,
 } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 
-import { FaInstagram, FaTwitter, FaYoutube, FaFacebookF } from 'react-icons/fa';
-import { IoIosCard } from 'react-icons/io';
-import { MdVerified } from 'react-icons/md';
-import { TbTruckDelivery } from 'react-icons/tb';
-import { BsWhatsapp } from 'react-icons/bs';
-import { MdOutlineMailOutline } from 'react-icons/md';
+import { FaInstagram, FaYoutube, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
 
 interface SocialProps {
     children?: ReactElement;
@@ -29,11 +23,10 @@ interface SocialProps {
 
 interface FooterInfoProps {
     title: string;
-    icon: ReactElement;
-    description: string;
+    link: string;
 }
 
-const SocialButton = ({ children, label, href }: SocialProps) => {
+const SocialButton = ({ children, href }: SocialProps) => {
     return (
         <Button
             bg={useColorModeValue('white', 'gray.100')}
@@ -49,251 +42,175 @@ const SocialButton = ({ children, label, href }: SocialProps) => {
             justifyContent={'center'}
             transition={'background 0.3s ease'}
             // @ts-ignore
-            _hover={
-                label == 'Facebook'
-                    ? {
-                          bg: 'facebook.500',
-                          color: 'white',
-                      }
-                    : label == 'Instagram'
-                    ? {
-                          bgGradient:
-                              'linear(220deg, #7928CA, #FF0080, #F0E68C)',
-                          color: 'white',
-                      }
-                    : null
-            }
+            _hover={{
+                transform: 'scale(1.1)',
+                bg: useColorModeValue('gray.100', 'gray.900'),
+                transition: 'all 0.2s ease',
+            }}
         >
             {children}
         </Button>
     );
 };
 
-const LinkFooter = ({ label, href }: SocialProps) => {
+const FooterInfo = ({ title, link }: FooterInfoProps) => {
     return (
         <Link
-            href={href}
-            _hover={{ transform: 'scale(1.2)', color: 'blackAlpha.800' }}
+            color="whiteAlpha.900"
+            href={link}
+            fontSize={'lg'}
+            _hover={{
+                color: 'white',
+                transform: 'translateX(5px)',
+                transition: 'all 0.2s ease-in-out',
+            }}
         >
-            {label}
+            {title}
         </Link>
     );
 };
 
-const InfoFooter = ({ icon, title, description }: FooterInfoProps) => {
+const PaymentMethod = (props: { image: string; alt: string }) => {
     return (
-        <Flex
-            p="5"
-            direction={'row'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            flex="1"
-        >
-            {icon}
-            <Flex direction={'column'}>
-                <Text
-                    fontSize={'xl'}
-                    fontWeight={'bold'}
-                >
-                    {title}
-                </Text>
-                <Text fontWeight={'medium'}>{description}</Text>
-            </Flex>
-        </Flex>
+        <>
+            <Image
+                bg="white"
+                h="45px"
+                w="72px"
+                src={props.image}
+                alt={props.alt}
+            />
+        </>
     );
 };
-
 export default function Footer() {
-    const PaymentMethod = (props: { image: string; alt: string }) => {
-        return (
-            <>
-                <Image
-                    bg="white"
-                    h="45px"
-                    w="72px"
-                    src={props.image}
-                    alt={props.alt}
-                />
-            </>
-        );
-    };
-
     return (
-        
         <Container
             w="100%"
-            maxW="1920px"
+            maxW="1500px"
+            bgColor={'purple.700'}
             bottom={'0'}
-            p='0'
         >
-            <Container maxW={'1366px'}>
-                <Flex
-                    minH="200px"
-                    direction={'row'}
-                    wrap={'wrap'}
-                    borderColor={'gray.200'}
-                >
-                    <InfoFooter
-                        icon={<IoIosCard size={'70px'} />}
-                        title={'Pagamentos'}
-                        description={'Cartão de Crédito/Debito, Boleto e PIX'}
-                    />
-                    <InfoFooter
-                        icon={<MdVerified size={'70px'} />}
-                        title={'Garantia de Satisfação'}
-                        description={'Garantia do Fabricante'}
-                    />
-                    <InfoFooter
-                        icon={<TbTruckDelivery size={'70px'} />}
-                        title={'Frete Grátis'}
-                        description={'Entrega em Todo o Brasil'}
-                    />
-                </Flex>
-            </Container>
-            <Divider />
-
             <Flex
-                minH="220px"
-                py="5"
-                gap={'20%'}
-                px="10"
+                justifyContent={'space-between'}
                 wrap={'wrap'}
-                direction={['column', 'column', 'column', 'row', 'row']}
-                bg="purple.500"
+                alignContent={'center'}
+                py={['4', '10']}
+                color={'white'}
+                fontSize={'md'}
             >
-                <Box mt="2">
+                <HStack>
+                    <Image
+                        src="/logo.svg"
+                        alt="Logo"
+                        w="80px"
+                        h="80px"
+                    />
+                    <Spacer w={'30px'} />
                     <Stack>
-                        <Text
-                            color="white"
-                            fontWeight={'bold'}
-                            fontSize={'xl'}
-                        >
-                            Institucional
-                        </Text>
-                        <Stack color={'whiteAlpha.800'}>
-                            <Text>Política de Privacidade</Text>
-                            <Text>Perguntas Frequentes</Text>
-                        </Stack>
+                        <FooterInfo
+                            title={'Inicio'}
+                            link={'/'}
+                        />
+                        <FooterInfo
+                            title={'Nossos produtos'}
+                            link={'/shop'}
+                        />
+                        <FooterInfo
+                            title={'Sobre nós'}
+                            link={'/about'}
+                        />
+                        <FooterInfo
+                            title={'Termos de uso'}
+                            link={'/terms/use'}
+                        />
+                        <FooterInfo
+                            title={'Política de privacidade'}
+                            link={'terms/privacy'}
+                        />
                     </Stack>
-                </Box>
-                <Stack mt="2">
+                </HStack>
+                <Stack>
                     <Text
-                        color="white"
+                        fontSize={'md'}
                         fontWeight={'bold'}
-                        fontSize={'xl'}
                     >
-                        Minha conta
+                        Formas de pagamento
                     </Text>
-                    <Text color={'whiteAlpha.800'}>Meus pedidos</Text>
-                </Stack>
+                    <HStack>
+                        <PaymentMethod
+                            image={'/visa.png'}
+                            alt={'Visa'}
+                        />
+                        <PaymentMethod
+                            image={'/mastercard.png'}
+                            alt={'Mastercard'}
+                        />
+                        <PaymentMethod
+                            image={'/boleto.png'}
+                            alt={'Boleto'}
+                        />
 
-                <Stack mt="2">
+                        <PaymentMethod
+                            image={'/pix.png'}
+                            alt={'pix'}
+                        />
+                    </HStack>
+                </Stack>
+                <Stack>
                     <Text
-                        color="white"
+                        fontSize={'md'}
                         fontWeight={'bold'}
-                        fontSize={'xl'}
                     >
-                        Atendimento
+                        Central de atendimento
                     </Text>
-                    <Stack color="whiteAlpha.800">
-                        <HStack>
-                            <BsWhatsapp size={20} />
-                            <Text>(99) 9 9999-9099</Text>
-                        </HStack>
-                        <HStack>
-                            <MdOutlineMailOutline size={20} />
-                            <Text>teste@gmail.com</Text>
-                        </HStack>
-                    </Stack>
-                </Stack>
+                    <HStack>
 
-                <Stack mt="2">
+                          <SocialButton
+
+                                label={'Whatsapp'}
+                                href={'https://api.whatsapp.com/send?phone=5584999999999&text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido.'}
+                            >
+                                <FaWhatsapp fill='black' size={20} />
+                            </SocialButton>
+                    </HStack>
                     <Text
-                        color="white"
+                        fontSize={'md'}
                         fontWeight={'bold'}
-                        fontSize={'xl'}
                     >
                         Redes sociais
                     </Text>
-                    <Stack
-                        direction={'row'}
-                        spacing={3}
-                    >
-                        <SocialButton
-                            label={'Instagram'}
-                            href={'https://www.instagram.com/'}
-                        >
-                            <FaInstagram size={20} />
-                        </SocialButton>
-
+                    <HStack>
                         <SocialButton
                             label={'Facebook'}
-                            href={'https://www.facebook.com/'}
+                            href={'https://facebook.com/'}
                         >
-                            <FaFacebookF size={20} />
+                            <FaFacebookF
+                                fill="black"
+                                size={20}
+                            />
                         </SocialButton>
-                    </Stack>
+                        <SocialButton
+                            label={'Instagram'}
+                            href={'https://instagram.com/'}
+                        >
+                            <FaInstagram
+                                fill="black"
+                                size={20}
+                            />
+                        </SocialButton>
+                        <SocialButton
+                            label={'Youtube'}
+                            href={'https://youtube.com/'}
+                        >
+                            <FaYoutube
+                                fill="black"
+                                size={20}
+                            />
+                        </SocialButton>
+                    </HStack>
                 </Stack>
             </Flex>
-            <Stack
-                minH="200px"
-                w="100%"
-                bg="purple.500"
-                px="10"
-                py="5"
-                borderTopWidth={'1px'}
-            >
-                <Text
-                    color="white"
-                    fontWeight={'bold'}
-                    fontSize={'2xl'}
-                >
-                    Formas de Pagamento
-                </Text>
-                <Flex
-                    direction={'row'}
-                    gap="2"
-                    wrap={'wrap'}
-                >
-                    <PaymentMethod
-                        image="/visa.png"
-                        alt="Visa"
-                    />
-                    <PaymentMethod
-                        image="/mastercard.png"
-                        alt="mastercard"
-                    />
-                    <PaymentMethod
-                        image="/boleto.png"
-                        alt="boleto"
-                    />
-                    <PaymentMethod
-                        image="/pix.png"
-                        alt="pix"
-                    />
-                    <PaymentMethod
-                        image="/mercadopago.png"
-                        alt="Mercado Pago"
-                    />
-                </Flex>
-            </Stack>
-
-            <Box
-                bg="purple.900"
-                color="white"
-                borderStyle={'solid'}
-                borderColor={useColorModeValue('gray.200', 'gray.700')}
-            >
-                <Box
-                    as={Stack}
-                    py={4}
-                    pl={4}
-                >
-                    <Text fontSize={'sm'}>
-                        ©2022 HALLCORP. Todos os direitos reservados.
-                    </Text>
-                </Box>
-            </Box>
         </Container>
     );
 }
