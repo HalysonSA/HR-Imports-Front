@@ -18,13 +18,16 @@ type Customer = {
 
 type CustomerContextData = {
     customer: Customer;
+    clientSecret: string;
     handleCustomer: (customer: Customer) => void;
+    handleClientSecret: (clientSecret: string) => void;
 }
 
 export const CustomerContext = createContext({} as CustomerContextData);
 
 export function CustomerProvider({ children }:any) {
     const [customer, setCustomer] = useState<Customer>({} as Customer);
+    const [clientSecret, setClientSecret] = useState('');
 
     useEffect(() => {
         const customer = sessionStorage.getItem('customer');
@@ -41,8 +44,12 @@ export function CustomerProvider({ children }:any) {
         setCustomer(customer);
     };
 
+    const handleClientSecret = (clientSecret: string) => {
+        setClientSecret(clientSecret);
+    };
+
     return (
-        <CustomerContext.Provider value={{ customer, handleCustomer }}>
+        <CustomerContext.Provider value={{ customer,clientSecret, handleCustomer, handleClientSecret }}>
             {children}
         </CustomerContext.Provider>
     );

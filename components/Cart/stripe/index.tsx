@@ -11,10 +11,10 @@ const stripePromise = loadStripe(
 );
 
 const StripeComponent = () => {
-    const [clientSecret, setClientSecret] = useState('');
 
     const  { totalValue} = useContext(CartContext);
-    const { customer } = useContext(CustomerContext);
+    const { customer, handleClientSecret, clientSecret } = useContext(CustomerContext);
+
     useEffect(() => {
         (async () => {
             const response = await api.put('/payments', {
@@ -22,7 +22,7 @@ const StripeComponent = () => {
                 name:customer.first_name + ' ' + customer.last_name,     
                 amount: totalValue*100, //stripe works with cents
             });
-            response != null && setClientSecret(response.data.clientSecret);
+            response != null && handleClientSecret(response.data.clientSecret);
         })();
     }, []);
 

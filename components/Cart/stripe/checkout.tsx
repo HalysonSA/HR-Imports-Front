@@ -36,7 +36,7 @@ const CheckoutForm = () => {
             return;
         }
 
-        const { error } = await stripe.confirmPayment({
+        const response = await stripe.confirmPayment({
             //`Elements` instance that was used to create the Payment Element
             elements,
             confirmParams: {
@@ -44,11 +44,12 @@ const CheckoutForm = () => {
             },
         });
 
-        if (error) {
+
+        if (response.error) {
             // This point will only be reached if there is an immediate error when
             // confirming the payment. Show error to your customer (for example, payment
             // details incomplete)
-            toast.error(error.message);
+            toast.error(response.error.message);
         } else {
             toast.success('Pagamento realizado com sucesso!');
         }
