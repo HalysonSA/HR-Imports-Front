@@ -88,7 +88,7 @@ export default function Footer() {
         <Container
             w="100%"
             maxW="1500px"
-            bgColor={'purple.700'}
+            bgColor={'purple.600'}
             bottom={'0'}
         >
             <Flex
@@ -99,7 +99,7 @@ export default function Footer() {
                 color={'white'}
                 fontSize={'md'}
             >
-                <HStack>
+                <HStack my='5'>
                     <Image
                         src="/logo.svg"
                         alt="Logo"
@@ -130,7 +130,7 @@ export default function Footer() {
                         />
                     </Stack>
                 </HStack>
-                <Stack>
+                <Stack my='5'>
                     <Text
                         fontSize={'md'}
                         fontWeight={'bold'}
@@ -157,7 +157,7 @@ export default function Footer() {
                         />
                     </HStack>
                 </Stack>
-                <Stack>
+                <Stack my='5'>
                     <Text
                         fontSize={'md'}
                         fontWeight={'bold'}

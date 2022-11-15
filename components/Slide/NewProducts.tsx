@@ -7,31 +7,12 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 import { Pagination, Navigation, Autoplay } from 'swiper';
-import {
-    Box,
-    Center,
-    Text,
-    Divider,
-    useMediaQuery,
-    Image,
-    HStack,
-    Stack,
-    Button,
-} from '@chakra-ui/react';
-import {
-    BsStarFill,
-    BsStarHalf,
-    BsStar,
-    BsHeart,
-    BsHeartFill,
-} from 'react-icons/bs';
+import { Box, Center, Text, Divider, useMediaQuery } from '@chakra-ui/react';
 
 import { setProducts } from '../Redux/ProductSlice';
 import api from '../../api/axios';
 
-import { useRouter } from 'next/router';
-import { isLoading } from '../Redux/LoadingSlice';
-import PriceFormat from '../../utils/priceFormat';
+import SlideProductCard from './productCard';
 
 type productInfo = {
     products: [] | null;
@@ -53,8 +34,6 @@ export default function NewProductSlider() {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
 
-    const router = useRouter();
-
     const myProducts = useSelector((state: productInfo) => state.products);
     const products = myProducts ? [...myProducts] : [];
     products.reverse();
@@ -73,33 +52,19 @@ export default function NewProductSlider() {
         getProducts();
     }, []);
 
-    const handleProductClick = (product: productInfo) => {
-        router.push(`/shop/${product._id}`, undefined, { shallow: true });
-    };
-
     return (
-        <>
-            <Center p={'5'}>
-                <Divider />
-                <Text
-                    fontSize={'2xl'}
-                    p={'5'}
-                >
-                    Novidades
-                </Text>
-                <Divider />
-            </Center>
+      
             <Box
-                mx={['2', '3', '4', '5']}
+                mx={['2', '3', '4', '4']}
                 py="5"
-                cursor={'grab'}
+                cursor={'pointer'}
             >
                 <Swiper
                     slidesPerView={
                         isLargerThan1280
-                            ? 5
-                            : isLargerThan768
                             ? 4
+                            : isLargerThan768
+                            ? 3
                             : isLargerThan425
                             ? 2
                             : 1
@@ -117,94 +82,12 @@ export default function NewProductSlider() {
                 >
                     {products.slice(0, 9).map((product: productInfo) => (
                         <SwiperSlide key={product._id}>
-                            <Center>
-                                <Box
-                                    borderRadius={10}
-                                    border="1px solid #e2e8f0"
-                                    w="280px"
-                                    minH="410px"
-                                    pb="2"
-                                    bg="white"
-                                    wordBreak={'break-word'}
-                                >
-                                    <Image
-                                        borderRadius={'10px 10px 0 0'}
-                                        h="180px"
-                                        w="100%"
-                                        objectFit={'cover'}
-                                        src={product.image}
-                                        alt={product.title}
-                                    />
-                                    <Box mx="5">
-                                        <HStack>
-                                            <Text
-                                                fontSize={'xl'}
-                                                fontWeight={'bold'}
-                                                mt="2"
-                                                wordBreak={'break-word'}
-                                            >
-                                                {product.title}
-                                            </Text>
-                                            <Box mt="2">
-                                                <BsHeart color="red" />
-                                            </Box>
-                                        </HStack>
-                                        <HStack>
-                                            <BsStarFill color="#9F7AEA" />
-                                            <BsStarFill color="#9F7AEA" />
-                                            <BsStarFill color="#9F7AEA" />
-                                            <BsStarFill color="#9F7AEA" />
-                                            <BsStarHalf color="#9F7AEA" />
-                                        </HStack>
-                                        <Stack spacing={0}>
-                                            {/*Exemplo com desconto*/}
-                                            <Box
-                                                transform={'translateY( 10px)'}
-                                            >
-                                                <Text
-                                                    as="del"
-                                                    color={'red'}
-                                                >
-                                                    {PriceFormat(
-                                                        product.price +
-                                                            product.price * 0.3
-                                                    )}
-                                                </Text>
-                                            </Box>
-                                            <Text
-                                                fontSize={'3xl'}
-                                                fontWeight={'extrabold'}
-                                                mt="4"
-                                            >
-                                                {PriceFormat(product.price)}
-                                            </Text>
-                                            <Text
-                                                transform={'translateY(-10px)'}
-                                            >
-                                                Á vista no PIX
-                                            </Text>
-                                        </Stack>
-                                        <Center
-                                            mt="5"
-                                            pb="2"
-                                        >
-                                            <Button
-                                                onClick={() => {
-                                                    handleProductClick(product);
-                                                }}
-                                                w="100%"
-                                                colorScheme={'purple'}
-                                            >
-                                                Comprar
-                                            </Button>
-                                        </Center>
-                                    </Box>
-                                </Box>
+                            <Center my="5">
+                                <SlideProductCard product={product} />
                             </Center>
                         </SwiperSlide>
                     ))}
                 </Swiper>
             </Box>
-        </>
     );
 }
