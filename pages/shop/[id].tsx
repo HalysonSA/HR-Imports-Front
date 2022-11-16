@@ -13,7 +13,7 @@ type Product = {
         material: string;
         brand: string;
         size: [];
-        color: string;
+        color: [];
     };
 };
 

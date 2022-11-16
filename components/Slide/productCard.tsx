@@ -20,7 +20,7 @@ type productInfo = {
 };
 
 const handleProductClick = (product: { _id: string }) => {
-    router.push(`/shop/${product._id}`, undefined, { shallow: true });
+    router.push(`/shop/${product._id}`, undefined, { shallow: false });
 };
 
 const SlideProductCard = (myProduct: productInfo) => {
@@ -32,7 +32,7 @@ const SlideProductCard = (myProduct: productInfo) => {
             borderRadius={10}
             border="1px solid #EBEBEB"
             _hover={{
-                boxShadow: '0px 0px 20px rgba(0, 0, 0, 0.25)',
+                boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
             }}
             w="280px"
             minH="410px"
