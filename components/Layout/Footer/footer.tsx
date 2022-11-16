@@ -13,7 +13,12 @@ import {
 } from '@chakra-ui/react';
 import React, { ReactElement } from 'react';
 
-import { FaInstagram, FaYoutube, FaFacebookF, FaWhatsapp } from 'react-icons/fa';
+import {
+    FaInstagram,
+    FaYoutube,
+    FaFacebookF,
+    FaWhatsapp,
+} from 'react-icons/fa';
 
 interface SocialProps {
     children?: ReactElement;
@@ -59,6 +64,7 @@ const FooterInfo = ({ title, link }: FooterInfoProps) => {
             color="whiteAlpha.900"
             href={link}
             fontSize={'lg'}
+            fontWeight={'medium'}
             _hover={{
                 color: 'white',
                 transform: 'translateX(5px)',
@@ -99,7 +105,7 @@ export default function Footer() {
                 color={'white'}
                 fontSize={'md'}
             >
-                <HStack my='5'>
+                <HStack my="5">
                     <Image
                         src="/logo.svg"
                         alt="Logo"
@@ -107,7 +113,7 @@ export default function Footer() {
                         h="80px"
                     />
                     <Spacer w={'30px'} />
-                    <Stack>
+                    <Stack >
                         <FooterInfo
                             title={'Inicio'}
                             link={'/'}
@@ -130,14 +136,18 @@ export default function Footer() {
                         />
                     </Stack>
                 </HStack>
-                <Stack my='5'>
+                <Stack my="5">
                     <Text
                         fontSize={'md'}
                         fontWeight={'bold'}
                     >
                         Formas de pagamento
                     </Text>
-                    <HStack>
+                    <HStack
+                        wrap={'wrap'}
+                        spacing={0}
+                        gap={'10px'}
+                    >
                         <PaymentMethod
                             image={'/visa.png'}
                             alt={'Visa'}
@@ -157,7 +167,7 @@ export default function Footer() {
                         />
                     </HStack>
                 </Stack>
-                <Stack my='5'>
+                <Stack my="5">
                     <Text
                         fontSize={'md'}
                         fontWeight={'bold'}
@@ -165,14 +175,17 @@ export default function Footer() {
                         Central de atendimento
                     </Text>
                     <HStack>
-
-                          <SocialButton
-
-                                label={'Whatsapp'}
-                                href={'https://api.whatsapp.com/send?phone=5584999999999&text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido.'}
-                            >
-                                <FaWhatsapp fill='black' size={20} />
-                            </SocialButton>
+                        <SocialButton
+                            label={'Whatsapp'}
+                            href={
+                                'https://api.whatsapp.com/send?phone=5584999999999&text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20pedido.'
+                            }
+                        >
+                            <FaWhatsapp
+                                fill="black"
+                                size={20}
+                            />
+                        </SocialButton>
                     </HStack>
                     <Text
                         fontSize={'md'}

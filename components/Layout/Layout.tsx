@@ -36,19 +36,27 @@ const Layout = ({ children }: any) => {
                             variant={'outline'}
                             color={'white'}
                             focusBorderColor={'white'}
-                            placeholder="email@gmail.com"
+                            placeholder="Insira seu e-mail"
+                            _placeholder={{ opacity: 1, color: 'white' }}
                         />
-                        <Button color='purple.700' fontWeight={'bold'}>Enviar</Button>
+                        <Button
+                            color="purple.700"
+                            bgColor={'white'}
+                            fontWeight={'bold'}
+                        >
+                            Enviar
+                        </Button>
                     </HStack>
                 </Stack>
             </Center>
+
             <Box bg="purple.600">
                 <Footer />
             </Box>
 
             <Flex
                 h="50px"
-                bg="black"
+                bg="purple.900"
                 alignItems={'center'}
                 w="100%"
                 pl="5"

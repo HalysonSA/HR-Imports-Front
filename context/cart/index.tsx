@@ -12,7 +12,7 @@ type Product = {
     material: string;
     category: string;
     size: [];
-    color: string;
+    color: [];
 };
 
 type CartContextType = {

@@ -18,7 +18,7 @@ import {
     Center,
     Container,
 } from '@chakra-ui/react';
-import {HiMenuAlt3 } from 'react-icons/hi';
+import { HiMenuAlt3 } from 'react-icons/hi';
 
 import { useRouter } from 'next/router';
 
@@ -75,12 +75,12 @@ export default function Navbar() {
 
     return (
         <Container
+            maxW="1500px"
             zIndex="100"
             top={0}
             position="sticky"
             bg="white"
             px={['4', '10']}
-            maxW="1500px"
         >
             <Flex
                 h={'90px'}
@@ -96,8 +96,8 @@ export default function Navbar() {
                         _hover={{ cursor: 'pointer' }}
                     >
                         <Image
-                            w="80px"
-                            h="80px"
+                            w="60px"
+                            h="60px"
                             src="/logo.svg"
                             alt="Logo"
                         />
@@ -132,59 +132,63 @@ export default function Navbar() {
                 </HStack>
                 <Flex alignItems={'center'}>
                     <HStack>
-                    <Flex
-                                cursor={'pointer'}
-                                onClick={() => handleOpenCart()}
-                                _hover={{
-                                    color: 'purple.600',
-                                }}
-                            >
-                                <AiOutlineShoppingCart size={35} />
+                        <Flex
+                            cursor={'pointer'}
+                            onClick={() => handleOpenCart()}
+                            _hover={{
+                                color: 'purple.600',
+                            }}
+                        >
+                            <AiOutlineShoppingCart size={35} />
 
-                                <Center
-                                    w="18px"
-                                    h="18px"
-                                    transform={'translate(-10px, -5px)'}
-                                    borderRadius={'30px'}
-                                    bg="red"
+                            <Center
+                                w="18px"
+                                h="18px"
+                                transform={'translate(-10px, -5px)'}
+                                borderRadius={'30px'}
+                                bg="red"
+                            >
+                                <Text
+                                    fontSize={'sm'}
+                                    color={'white'}
+                                    fontWeight={'bold'}
                                 >
-                                    <Text
-                                        fontSize={'sm'}
-                                        color={'white'}
-                                        fontWeight={'bold'}
-                                    >
-                                        {totalQuantity}
-                                    </Text>
-                                </Center>
-                            </Flex>
+                                    {totalQuantity}
+                                </Text>
+                            </Center>
+                        </Flex>
                         <Menu>
                             <MenuButton
                                 as={Button}
-                                
                                 onClick={() => {
-                                    !(session || user.name) ? router.push('/login') : onOpen();
+                                    !(session || user.name)
+                                        ? router.push('/login')
+                                        : onOpen();
                                 }}
                                 rounded={'full'}
                                 variant={'link'}
                                 cursor={'pointer'}
                                 minW={0}
                             >
-                                    <Avatar
-                                        size={'sm'}
-                                        src={
-                                            session?.user?.image ||
-                                            user.name ||
-                                            undefined
-                                        }
-                                        referrerPolicy={'no-referrer'}
-                                        name={
-                                            session?.user?.name ||
-                                            user.name ||
-                                            undefined
-                                        }
-                                    />
+                                <Avatar
+                                    size={'sm'}
+                                    src={
+                                        session?.user?.image ||
+                                        user.name ||
+                                        undefined
+                                    }
+                                    referrerPolicy={'no-referrer'}
+                                    name={
+                                        session?.user?.name ||
+                                        user.name ||
+                                        undefined
+                                    }
+                                />
                             </MenuButton>
-                            <MenuList zIndex={99} color={'black'}>
+                            <MenuList
+                                zIndex={99}
+                                color={'black'}
+                            >
                                 {session || user.name ? (
                                     <>
                                         <MenuItem
@@ -208,16 +212,18 @@ export default function Navbar() {
                                 ) : null}
                             </MenuList>
                             <Spacer />
-                           
 
                             <CartSideBar />
-
 
                             <IconButton
                                 bg="transparent"
                                 size={'lg'}
                                 icon={
-                                    isOpen ? <CloseIcon /> : <HiMenuAlt3 size={30}/>
+                                    isOpen ? (
+                                        <CloseIcon />
+                                    ) : (
+                                        <HiMenuAlt3 size={30} />
+                                    )
                                 }
                                 aria-label={'Open Menu'}
                                 display={{ md: 'none' }}
@@ -238,13 +244,12 @@ export default function Navbar() {
                         spacing={4}
                     >
                         <HStack>
-                            
                             <Link
                                 href="/shop"
                                 fontSize={'lg'}
                                 fontWeight={'bold'}
                             >
-                               Nossos produtos
+                                Nossos produtos
                             </Link>
                             <Link
                                 href="/about"
