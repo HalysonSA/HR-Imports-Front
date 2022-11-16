@@ -54,14 +54,6 @@ const ProductCard = () => {
                                     Á Vista no PIX:
                                     <b>{PriceFormat(item.price)}</b>
                                 </Text>
-                                <Text color={'#7F858D'}>
-                                    Parcelado no cartão em até 3x sem juros:
-                                    <b>
-                                        {PriceFormat(
-                                            (item.price * 5) / 100 + item.price
-                                        )}
-                                    </b>
-                                </Text>
                             </Flex>
                         </HStack>
                         <HStack

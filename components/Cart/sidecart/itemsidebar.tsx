@@ -28,7 +28,7 @@ type Product = {
         quantity: number;
         brand: string;
         size: [];
-        color: string;
+        color: [];
     };
 };
 

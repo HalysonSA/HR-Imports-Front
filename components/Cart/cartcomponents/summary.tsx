@@ -14,7 +14,7 @@ import { CartContext } from '../../../context/cart';
 import PriceFormat from '../../../utils/priceFormat';
 
 const Summary = () => {
-    const { totalValue } = useContext(CartContext); 
+    const { totalValue } = useContext(CartContext);
 
     return (
         <Box
@@ -22,7 +22,7 @@ const Summary = () => {
             maxW={'450px'}
             top={'100px'}
             position={'sticky'}
-            h="400px"
+            h="500px"
         >
             <Flex direction={'column'}>
                 <HStack>
@@ -105,17 +105,21 @@ const Summary = () => {
                             </Text>
                         </Center>
                     </Box>
-                    <Button colorScheme="purple">
+                    <Button
+                        p="7"
+                        colorScheme="purple"
+                    >
                         <Text
                             fontSize={['xl']}
                             fontWeight={'bold'}
                             textTransform={'uppercase'}
-                            onClick={() => location.href = '/identification'}
+                            onClick={() => (location.href = '/identification')}
                         >
                             Finalizar compra
                         </Text>
                     </Button>
                     <Button
+                        p="7"
                         variant={'outline'}
                         colorScheme={'purple'}
                     >

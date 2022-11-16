@@ -46,10 +46,7 @@ const CheckoutForm = () => {
 
 
         if (response.error) {
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Show error to your customer (for example, payment
-            // details incomplete)
-            toast.error(response.error.message);
+            toast.error('Seu pagamento foi recusado');
         } else {
             toast.success('Pagamento realizado com sucesso!');
         }
