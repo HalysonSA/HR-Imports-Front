@@ -42,7 +42,7 @@ const Cart = () => {
                     direction={['column', 'column', 'row']}
                     gap={5}
                 >
-                    {cart.length === 0 ? (
+                    {cart?.length === 0 ? (
                         <Center w="100%">
                             <Stack>
                                 <Text fontSize={'3xl'}>

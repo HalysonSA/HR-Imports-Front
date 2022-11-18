@@ -21,7 +21,7 @@ const ProductCard = () => {
         <>
             {cart.map((item) => (
                 <Flex
-                    key={item._id}
+                    key={item._id + item.size[0] + item.color[0]}
                     direction={['column', 'column', 'column', 'row']}
                     my={2}
                     gap={3}
@@ -54,6 +54,37 @@ const ProductCard = () => {
                                     Á Vista no PIX:
                                     <b>{PriceFormat(item.price)}</b>
                                 </Text>
+                                <HStack>
+                                    <Button
+                                        w={'40px'}
+                                        h={'40px'}
+                                        color={'white'}
+                                        borderRadius="20px"
+                                        bgColor={'#6B46C1'}
+                                        _hover={{
+                                            transform: 'scale(1.1)',
+                                            transition: 'all 0.2s ease-in-out',
+                                        }}
+                                    >
+                                        <Text
+                                            fontSize={'lg'}
+                                            fontWeight={'bold'}
+                                        >
+                                            {item.size[0]}
+                                        </Text>
+                                    </Button>
+                                    <Button
+                                        w={'40px'}
+                                        h={'40px'}
+                                        bgColor={item.color[0]}
+                                        borderRadius="50px"
+                                        colorScheme={'transparent'}
+                                        _hover={{
+                                            transform: 'scale(1.1)',
+                                            transition: 'all 0.2s ease-in-out',
+                                        }}
+                                    ></Button>
+                                </HStack>
                             </Flex>
                         </HStack>
                         <HStack
