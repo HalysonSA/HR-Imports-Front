@@ -1,3 +1,4 @@
+import { color } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 
@@ -11,8 +12,8 @@ type Product = {
     brand: string;
     material: string;
     category: string;
-    size: [];
-    color: [];
+    size: string[];
+    color: string[];
 };
 
 type CartContextType = {
@@ -32,12 +33,17 @@ export const CartContext = createContext({} as CartContextType);
 
 const addProductToCart = (cartItems: Product[], productToAdd: Product) => {
     const existingProduct = cartItems.find(
-        (product: Product) => product._id === productToAdd._id
+        (product: Product) =>
+            product._id === productToAdd._id &&
+            product.color[0] === productToAdd.color[0] &&
+            product.size[0] === productToAdd.size[0]
     );
 
     if (existingProduct) {
         return cartItems.map((product: Product) =>
-            product._id === productToAdd._id
+            product._id === productToAdd._id &&
+            product.color[0] === productToAdd.color[0] &&
+            product.size[0] === productToAdd.size[0]
                 ? {
                       ...product,
                       quantity:
@@ -49,7 +55,15 @@ const addProductToCart = (cartItems: Product[], productToAdd: Product) => {
         );
     }
 
-    return [...cartItems, { ...productToAdd, quantity: productToAdd.quantity }];
+    return [
+        ...cartItems,
+        {
+            ...productToAdd,
+            quantity: productToAdd.quantity,
+            color: productToAdd.color,
+            size: productToAdd.size,
+        },
+    ];
 };
 
 const removeProductFromCart = (
@@ -57,17 +71,24 @@ const removeProductFromCart = (
     productToRemove: Product
 ) => {
     const existingProduct = cartItems.find(
-        (product: Product) => product._id === productToRemove._id
+        (product: Product) =>
+            product._id === productToRemove._id &&
+            product.color[0] === productToRemove.color[0] &&
+            product.size[0] === productToRemove.size[0]
     );
 
     if (existingProduct?.quantity === 1) {
         return cartItems.filter(
-            (product: any) => product._id !== productToRemove._id
+            (product: any) =>
+                product.color[0] !== productToRemove.color[0] ||
+                product.size[0] !== productToRemove.size[0]
         );
     }
 
     return cartItems.map((product: Product) =>
-        product._id === productToRemove._id
+        product._id === productToRemove._id &&
+        product.size[0] === productToRemove.size[0] &&
+        product.color[0] === productToRemove.color[0]
             ? { ...product, quantity: product.quantity - 1 }
             : product
     );
@@ -161,7 +182,7 @@ export const CartProvider = ({ children }: any) => {
 
     const checkFormOfPayment = (form: string) => {
         setFormOfPayment(form);
-    }
+    };
 
     return (
         <CartContext.Provider

@@ -16,6 +16,8 @@ import StatusBar from '../../components/Cart/cartcomponents/statusBar';
 import { CartContext } from '../../context/cart';
 import { useContext } from 'react';
 
+import { ToastContainer } from 'react-toastify';
+
 import { MdShoppingCart } from 'react-icons/md';
 import { useRouter } from 'next/router';
 
@@ -26,13 +28,13 @@ const Cart = () => {
 
     return (
         <Layout>
+            <ToastContainer />
             <Box
-            minH='100vh'
+                minH="100vh"
                 p={['4', '8', '10']}
                 bg="white"
             >
                 <Center m={5}>
-                    {' '}
                     <StatusBar />{' '}
                 </Center>
 

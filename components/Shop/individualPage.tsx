@@ -11,6 +11,8 @@ import {
     AccordionIcon,
     AccordionPanel,
     Stack,
+    Breadcrumb,
+    BreadcrumbItem,
 } from '@chakra-ui/react';
 import RelatedProductSlider from '../Slide/RelatedProducts';
 import { toast, ToastContainer } from 'react-toastify';
@@ -31,6 +33,7 @@ import PriceFormat from '../../utils/priceFormat';
 import { cartIsOpen } from '../Redux/CartSlice';
 
 import ProductGallery from './productGallery';
+import { ChevronRightIcon } from '@chakra-ui/icons';
 
 type ProductInfo = {
     product: {
@@ -42,22 +45,22 @@ type ProductInfo = {
         category: string;
         material: string;
         brand: string;
-        size: [];
-        color: [];
+        size: string[];
+        color: string[];
     };
 };
 const IndividualProductPage = ({ product }: ProductInfo) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
-    const { addItemToCart, removeFromCart } = useContext(CartContext);
+    const { addItemToCart } = useContext(CartContext);
 
-    const [selected, setSelected] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
     const [quantity, setQuantity] = useState(1);
 
     const dispatch = useDispatch();
 
-    const {
+    var {
         _id,
         title,
         description,
@@ -71,23 +74,34 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
     } = product;
 
     const handleAddToCart = () => {
-        addItemToCart({
-            _id,
-            title,
-            description,
-            price,
-            image,
-            category,
-            material,
-            size,
-            color,
-            brand,
-            quantity,
-        });
-        toast.success('Produto adicionado ao carrinho', {
-            position: isLargerThan768 ? 'top-center' : 'bottom-center',
-        });
-        dispatch(cartIsOpen(true));
+        size = [];
+        color = [];
+        size.push(selectedSize);
+        color.push(selectedColor);
+
+        if (size[0] !== '' && color[0] !== '') {
+            addItemToCart({
+                _id,
+                title,
+                description,
+                price,
+                image,
+                category,
+                material,
+                size,
+                color,
+                brand,
+                quantity,
+            });
+            toast.success('Produto adicionado ao carrinho', {
+                position: isLargerThan768 ? 'top-center' : 'bottom-center',
+            });
+            dispatch(cartIsOpen(true));
+        } else {
+            toast.error('Escolha uma cor e um tamanho', {
+                position: 'top-center',
+            });
+        }
     };
 
     return (
@@ -100,7 +114,35 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                 pl={isLargerThan768 ? 20 : 0}
                 py="5"
             >
-                Shop/<b>{title}</b>
+                <Breadcrumb
+                    spacing={'8px'}
+                    separator={<ChevronRightIcon color="gray.500" />}
+                >
+                    <BreadcrumbItem>
+                        <Text
+                            color="gray.500"
+                            fontSize="sm"
+                        >
+                            Home
+                        </Text>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem>
+                        <Text
+                            color="gray.500"
+                            fontSize="sm"
+                        >
+                            Shop
+                        </Text>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem>
+                        <Text
+                            color="gray.500"
+                            fontSize="sm"
+                        >
+                            {title}
+                        </Text>
+                    </BreadcrumbItem>
+                </Breadcrumb>
             </Box>
             <Flex direction={isLargerThan768 ? 'row' : 'column'}>
                 <Box
@@ -120,9 +162,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                     >
                         {title}
                     </Text>
-                    <Box mt={
-                        isLargerThan768 ? 0 : 5
-                    }>
+                    <Box mt={isLargerThan768 ? 0 : 5}>
                         <Text
                             fontWeight={'extrabold'}
                             fontSize={'3xl'}
@@ -235,7 +275,7 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                                         borderRadius="20px"
                                         colorScheme={'transparent'}
                                         transform={
-                                            selected === color
+                                            selectedColor === color
                                                 ? 'scale(1.2)'
                                                 : 'scale(1)'
                                         }
@@ -243,10 +283,11 @@ const IndividualProductPage = ({ product }: ProductInfo) => {
                                             transform: 'scale(1.1)',
                                             transition: 'all 0.2s ease-in-out',
                                         }}
-                                        onClick={() => setSelected(color)}
+                                        onClick={() => setSelectedColor(color)}
                                     >
-
-                                        {selected === color && (<RiCheckLine size={18} />)}
+                                        {selectedColor === color && (
+                                            <RiCheckLine size={18} />
+                                        )}
                                     </Button>
                                 ))}
                             </HStack>
