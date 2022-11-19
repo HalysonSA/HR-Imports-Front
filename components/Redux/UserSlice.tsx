@@ -5,6 +5,8 @@ type InitialState = {
     email?: string;
     password?: string;
     phone?: string;
+    accountType?: string | undefined;
+    status?: string | undefined;
 };
 
 const UserSlice = createSlice({
@@ -15,8 +17,11 @@ const UserSlice = createSlice({
             Object.assign(state, action.payload);
             sessionStorage.setItem('user', JSON.stringify(state));
         },
+        checkUser: (state, action: PayloadAction<InitialState>) => {
+            Object.assign(state, action.payload);
+        },
     },
 });
 
-export const { signInUser } = UserSlice.actions;
+export const { signInUser, checkUser } = UserSlice.actions;
 export default UserSlice.reducer;

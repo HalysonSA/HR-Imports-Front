@@ -25,7 +25,8 @@ import { passwordMatch } from '../../utils/checkPassword';
 import api from '../../api/axios';
 import ValidateCPF from '../../utils/checkCpf';
 import { signInUser } from '../Redux/UserSlice';
-import GetUser from '../../utils/checkUser';
+import { GetUser } from '../../utils/checkUser';
+import { toast, ToastContainer } from 'react-toastify';
 
 type User = {
     first_name: string;
@@ -69,16 +70,22 @@ const SignUpRegister = () => {
 
         const getUserByNewUser = async () => {
             const user = await GetUser({ email, password });
-            user && (dispatch(signInUser(user)));
+            user && dispatch(signInUser(user));
             window.location.href = '/';
         };
 
         if (emailIsValid && match) {
-            api.post('/users', data).then(() => {
-                setIsLoading(false);
-                reset();
-                getUserByNewUser();
-            });
+            api.post('/users', data)
+                .then(() => {
+                    setIsLoading(false);
+                    reset();
+                    getUserByNewUser();
+                })
+                .catch((error) => {
+                    toast.error(error.response.data);
+                    setIsLoading(false);
+                    reset();
+                });
         } else {
             setIsLoading(false);
         }
@@ -91,6 +98,7 @@ const SignUpRegister = () => {
             w={['100%', '70%', '60%', '40%']}
             minH={['15em', '20em']}
         >
+            <ToastContainer />
             <Stack
                 w={['90%', '80%']}
                 maxW="700px"

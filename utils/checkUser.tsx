@@ -19,7 +19,7 @@ type UserType = {
     phone?: string;
 };
 
-const GetUser = async ({ email, password }: UserType) => {
+export const GetUser = async ({ email, password }: UserType) => {
     try {
         const response: ResponseUserType = await api.patch('/users', {
             email,
@@ -37,4 +37,12 @@ const GetUser = async ({ email, password }: UserType) => {
         console.log(error);
     }
 };
-export default GetUser;
+
+export const checkUserExists = async (email: string | undefined) => {
+    try {
+        const response = await api.get(`/users/${email}`);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

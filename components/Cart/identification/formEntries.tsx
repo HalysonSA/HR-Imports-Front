@@ -22,8 +22,23 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import { CustomerContext } from '../../../context/customer';
 import { checkEmail } from '../../../utils/checkEmail';
-import { useDispatch, useSelector } from 'react-redux';
-import { isLoading } from '../../Redux/LoadingSlice';
+
+type UserInfo = {
+    name?: string;
+    email?: string;
+    password?: string;
+    phone?: string;
+    accountType?: string | undefined;
+    status?: string | undefined;
+};
+
+type UserType = {
+    user: UserInfo;
+};
+
+type LoadingType = {
+    isLoading: Boolean;
+};
 
 type Localization = {
     cep: string;
@@ -51,9 +66,7 @@ type FormData = {
 };
 
 const FormEntries = () => {
-    const itsLoading = useSelector((state: any) => state.isLoading);
-    const dispatch = useDispatch();
-
+    const [itsLoading, setLoading] = useState(false);
     const [search, setSearch] = useState<boolean>(false);
     const [zipCode, setZipCode] = useState('');
     const [localization, setLocalization] = useState<Localization>();
@@ -101,8 +114,8 @@ const FormEntries = () => {
         criteriaMode: 'all',
     });
     useEffect(() => {
-        dispatch(isLoading(true));
         async function getLocalization() {
+            setLoading(true);
             try {
                 const response = await fetch(
                     `https://viacep.com.br/ws/${zipCode}/json/`,
@@ -124,10 +137,10 @@ const FormEntries = () => {
                     toast.error('CEP não encontrado', {
                         position: 'top-center',
                     });
-                dispatch(isLoading(false));
+                setLoading(false);
             } catch (err) {
                 console.log(err);
-                dispatch(isLoading(false));
+                setLoading(false);
             }
         }
 
@@ -135,16 +148,16 @@ const FormEntries = () => {
     }, [search]);
 
     const onSubmit = (data: FormData) => {
-        dispatch(isLoading(true));
+        setLoading(true);
 
         const { cpf, email } = data;
 
         if (validateCPF(cpf) && checkEmail(email)) {
-            dispatch(isLoading(false));
+            setLoading(true);
             handleCustomer(data);
             router.push('/payment');
         } else {
-            dispatch(isLoading(false));
+            setLoading(false);
             toast.error('CPF ou E-mail inválido');
         }
     };
@@ -156,6 +169,7 @@ const FormEntries = () => {
     return (
         <Box mb={5}>
             <ToastContainer />
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={3}>
                     <Stack>

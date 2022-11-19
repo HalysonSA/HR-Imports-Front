@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 
 import { signIn } from 'next-auth/react';
 
-import GetUser from '../../utils/checkUser';
+import { GetUser } from '../../utils/checkUser';
 
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../components/Redux/UserSlice';
@@ -50,10 +50,9 @@ const SignInLogin = () => {
 
         const user = await GetUser({ email, password });
 
-        user &&
-            (dispatch(signInUser(user))
-                ? router.push('/')
-                : toast.error('Email ou senha incorretos'));
+        user && dispatch(signInUser(user)) && router.push('/');
+
+        !user && toast.error('Email ou senha incorretos');
 
         setLoading(false);
         reset();
@@ -122,17 +121,7 @@ const SignInLogin = () => {
                             p="6"
                             borderRadius={'25'}
                             type="submit"
-                            bgGradient={
-                                'linear(270deg, #CE8DF5 8.33%, #6B13B0 100%)'
-                            }
-                            _hover={{
-                                bgGradient:
-                                    'linear(270deg, #CE8DF5 8.33%, #6B13B0 100%)',
-                            }}
-                            _focus={{
-                                bgGradient:
-                                    'linear(270deg, #6B13B0 8.33%, #CE8DF5 100%)',
-                            }}
+                            colorScheme={'purple'}
                         >
                             <Text color="white">
                                 {isLoading ? (
@@ -154,11 +143,12 @@ const SignInLogin = () => {
                         w="100%"
                         p="6"
                         my="1"
+                        color={'white'}
                         borderRadius={'25'}
                         colorScheme="purple"
                         onClick={() => router.push('/register')}
                     >
-                        <Text color="black">Cadastre-se</Text>
+                        <Text>Cadastre-se</Text>
                     </Button>
                 )}
                 <Center m="4">
