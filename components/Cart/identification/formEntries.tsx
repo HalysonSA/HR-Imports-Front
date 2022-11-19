@@ -22,6 +22,8 @@ import { toast, ToastContainer } from 'react-toastify';
 
 import { CustomerContext } from '../../../context/customer';
 import { checkEmail } from '../../../utils/checkEmail';
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoading } from '../../Redux/LoadingSlice';
 
 type Localization = {
     cep: string;
@@ -49,7 +51,9 @@ type FormData = {
 };
 
 const FormEntries = () => {
-    const [loading, setLoading] = useState(false);
+    const itsLoading = useSelector((state: any) => state.isLoading);
+    const dispatch = useDispatch();
+
     const [search, setSearch] = useState<boolean>(false);
     const [zipCode, setZipCode] = useState('');
     const [localization, setLocalization] = useState<Localization>();
@@ -97,7 +101,7 @@ const FormEntries = () => {
         criteriaMode: 'all',
     });
     useEffect(() => {
-        setLoading(true);
+        dispatch(isLoading(true));
         async function getLocalization() {
             try {
                 const response = await fetch(
@@ -116,13 +120,14 @@ const FormEntries = () => {
 
                 const result = await response.json();
                 !result.erro && setLocalization(result);
-                result.erro && toast.error('CEP não encontrado',{
-                    position: "top-center",
-                });
-                setLoading(false);
+                result.erro &&
+                    toast.error('CEP não encontrado', {
+                        position: 'top-center',
+                    });
+                dispatch(isLoading(false));
             } catch (err) {
                 console.log(err);
-                setLoading(false);
+                dispatch(isLoading(false));
             }
         }
 
@@ -130,13 +135,16 @@ const FormEntries = () => {
     }, [search]);
 
     const onSubmit = (data: FormData) => {
+        dispatch(isLoading(true));
+
         const { cpf, email } = data;
 
         if (validateCPF(cpf) && checkEmail(email)) {
+            dispatch(isLoading(false));
             handleCustomer(data);
             router.push('/payment');
-
         } else {
+            dispatch(isLoading(false));
             toast.error('CPF ou E-mail inválido');
         }
     };
@@ -146,7 +154,7 @@ const FormEntries = () => {
         setValue('zip_code', localization.cep));
 
     return (
-        <Box>
+        <Box mb={5}>
             <ToastContainer />
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Stack spacing={3}>
@@ -174,153 +182,15 @@ const FormEntries = () => {
                                 colorScheme={'purple'}
                                 onClick={() => setSearch(!search)}
                             >
-                                {loading ? <Spinner color="white" /> : 'Buscar'}
+                                {itsLoading ? (
+                                    <Spinner color="white" />
+                                ) : (
+                                    'Buscar'
+                                )}
                             </Button>
                         </HStack>
                     </Stack>
 
-                    <Stack>
-                        <Text
-                            fontWeight={'bold'}
-                            fontSize={'3xl'}
-                            textTransform={'uppercase'}
-                        >
-                            Dados do Destinatário
-                        </Text>
-                        <FormControl id="firstname">
-                            <FormLabel>Nome</FormLabel>
-                            <Input
-                                type="text"
-                                focusBorderColor="purple.400"
-                                {...register('first_name', {
-                                    required: 'Este campo é obrigatório.',
-
-                                    pattern: {
-                                        value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
-                                        message: 'Não pode conter números.',
-                                    },
-                                })}
-                            />
-                            {errors.first_name && (
-                                <Text
-                                    p={'1'}
-                                    _before={{
-                                        content: '"⚠"',
-                                    }}
-                                    color={'red'}
-                                >
-                                    {errors.first_name.message}
-                                </Text>
-                            )}
-                        </FormControl>
-                        <FormControl id="lastname">
-                            <FormLabel>Sobrenome</FormLabel>
-                            <Input
-                                type="text"
-                                focusBorderColor="purple.400"
-                                {...register('last_name', {
-                                    required: 'Este campo é obrigatório.',
-
-                                    pattern: {
-                                        value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
-                                        message: 'Não pode conter números.',
-                                    },
-                                })}
-                            />
-                            {errors.last_name && (
-                                <Text
-                                    p={'1'}
-                                    _before={{
-                                        content: '"⚠"',
-                                    }}
-                                    color={'red'}
-                                >
-                                    {errors.last_name.message}
-                                </Text>
-                            )}
-                        </FormControl>
-                        <FormControl id="telephone">
-                            <FormLabel>Telefone</FormLabel>
-                            <Input
-                                type="text"
-                                focusBorderColor="purple.400"
-                                as={InputMask}
-                                mask="(99) 99999-9999"
-                                {...register('telephone', {
-                                    required: 'Este campo é obrigatório',
-                                    pattern: {
-                                        value: /^\([1-9]{2}\) [9]{1}[0-9]{4}\-[0-9]{4}$/,
-                                        message: 'Digite um telefone válido',
-                                    },
-                                })}
-                            />
-                            {errors.telephone && (
-                                <Text
-                                    p={'1'}
-                                    _before={{
-                                        content: '"⚠"',
-                                    }}
-                                    color={'red'}
-                                >
-                                    {errors.telephone.message}
-                                </Text>
-                            )}
-                        </FormControl>
-                        <FormControl id="cpf">
-                            <FormLabel>CPF</FormLabel>
-                            <Input
-                                type="text"
-                                as={InputMask}
-                                mask="999.999.999-99"
-                                focusBorderColor="purple.400"
-                                {...register('cpf', {
-                                    required: 'Este campo é obrigatório.',
-
-                                    pattern: {
-                                        value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/g,
-                                        message:
-                                            'Digite um CPF válido.',
-                                    },
-                                })}
-                            />
-                            {errors.cpf && (
-                                <Text
-                                    p={'1'}
-                                    _before={{
-                                        content: '"⚠"',
-                                    }}
-                                    color={'red'}
-                                >
-                                    {errors.cpf.message}
-                                </Text>
-                            )}
-                        </FormControl>
-                        <FormControl id="Email">
-                            <FormLabel>E-mail</FormLabel>
-                            <Input
-                                type="text"
-                                focusBorderColor="purple.400"
-                                {...register('email', {
-                                    required: 'Este campo é obrigatório.',
-                                    pattern: {
-                                        value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                                        message: 'Digite um E-mail válido.',
-                                    },
-                                })}
-                            />
-                            {errors.email && (
-                                <Text
-                                    p={'1'}
-                                    _before={{
-                                        content: '"⚠"',
-                                    }}
-                                    color={'red'}
-                                >
-                                    {errors.email.message}
-                                </Text>
-                            )}
-                        </FormControl>
-                    </Stack>
                     <Stack>
                         <Text
                             fontWeight={'bold'}
@@ -460,7 +330,10 @@ const FormEntries = () => {
                                         localization?.cep ? 'filled' : 'outline'
                                     }
                                     focusBorderColor="purple.400"
-                                    defaultValue={localization?.cep.replace('-', '')}
+                                    defaultValue={localization?.cep.replace(
+                                        '-',
+                                        ''
+                                    )}
                                     as={InputMask}
                                     mask="99999-999"
                                     {...register('zip_code', {
@@ -520,6 +393,148 @@ const FormEntries = () => {
                             </FormControl>
                         </HStack>
                     </Stack>
+                </Stack>
+
+                <Stack>
+                    <Text
+                        fontWeight={'bold'}
+                        fontSize={'3xl'}
+                        textTransform={'uppercase'}
+                    >
+                        Dados do Destinatário
+                    </Text>
+                    <FormControl id="firstname">
+                        <FormLabel>Nome</FormLabel>
+                        <Input
+                            type="text"
+                            focusBorderColor="purple.400"
+                            {...register('first_name', {
+                                required: 'Este campo é obrigatório.',
+
+                                pattern: {
+                                    value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                    message: 'Não pode conter números.',
+                                },
+                            })}
+                        />
+                        {errors.first_name && (
+                            <Text
+                                p={'1'}
+                                _before={{
+                                    content: '"⚠"',
+                                }}
+                                color={'red'}
+                            >
+                                {errors.first_name.message}
+                            </Text>
+                        )}
+                    </FormControl>
+                    <FormControl id="lastname">
+                        <FormLabel>Sobrenome</FormLabel>
+                        <Input
+                            type="text"
+                            focusBorderColor="purple.400"
+                            {...register('last_name', {
+                                required: 'Este campo é obrigatório.',
+
+                                pattern: {
+                                    value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
+                                    message: 'Não pode conter números.',
+                                },
+                            })}
+                        />
+                        {errors.last_name && (
+                            <Text
+                                p={'1'}
+                                _before={{
+                                    content: '"⚠"',
+                                }}
+                                color={'red'}
+                            >
+                                {errors.last_name.message}
+                            </Text>
+                        )}
+                    </FormControl>
+                    <FormControl id="telephone">
+                        <FormLabel>Telefone</FormLabel>
+                        <Input
+                            type="text"
+                            focusBorderColor="purple.400"
+                            as={InputMask}
+                            mask="(99) 99999-9999"
+                            {...register('telephone', {
+                                required: 'Este campo é obrigatório',
+                                pattern: {
+                                    value: /^\([1-9]{2}\) [9]{1}[0-9]{4}\-[0-9]{4}$/,
+                                    message: 'Digite um telefone válido',
+                                },
+                            })}
+                        />
+                        {errors.telephone && (
+                            <Text
+                                p={'1'}
+                                _before={{
+                                    content: '"⚠"',
+                                }}
+                                color={'red'}
+                            >
+                                {errors.telephone.message}
+                            </Text>
+                        )}
+                    </FormControl>
+                    <FormControl id="cpf">
+                        <FormLabel>CPF</FormLabel>
+                        <Input
+                            type="text"
+                            as={InputMask}
+                            mask="999.999.999-99"
+                            focusBorderColor="purple.400"
+                            {...register('cpf', {
+                                required: 'Este campo é obrigatório.',
+
+                                pattern: {
+                                    value: /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/g,
+                                    message: 'Digite um CPF válido.',
+                                },
+                            })}
+                        />
+                        {errors.cpf && (
+                            <Text
+                                p={'1'}
+                                _before={{
+                                    content: '"⚠"',
+                                }}
+                                color={'red'}
+                            >
+                                {errors.cpf.message}
+                            </Text>
+                        )}
+                    </FormControl>
+                    <FormControl id="Email">
+                        <FormLabel>E-mail</FormLabel>
+                        <Input
+                            type="text"
+                            focusBorderColor="purple.400"
+                            {...register('email', {
+                                required: 'Este campo é obrigatório.',
+                                pattern: {
+                                    value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                                    message: 'Digite um E-mail válido.',
+                                },
+                            })}
+                        />
+                        {errors.email && (
+                            <Text
+                                p={'1'}
+                                _before={{
+                                    content: '"⚠"',
+                                }}
+                                color={'red'}
+                            >
+                                {errors.email.message}
+                            </Text>
+                        )}
+                    </FormControl>
 
                     <Button
                         size={'lg'}

@@ -13,6 +13,7 @@ import {
     Center,
     Text,
     Stack,
+    Circle,
 } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartIsOpen } from '../../Redux/CartSlice';
@@ -35,8 +36,8 @@ type Product = {
     brand: string;
     material: string;
     category: string;
-    size: [];
-    color: [];
+    size: string[];
+    color: string[];
 };
 
 const CartSideBar = () => {
@@ -46,7 +47,6 @@ const CartSideBar = () => {
     const { cart } = useContext(CartContext);
 
     const isCartOpen = useSelector((state: Props) => state.isCartOpen);
-
 
     return (
         <Drawer
@@ -75,18 +75,15 @@ const CartSideBar = () => {
                     ) : (
                         <Center>
                             <Stack color={'#7F858D'}>
-                                <Center
-                                >
-                                    <Center
-                                        borderRadius={'50px'}
-                                        bg="gray.200"
-                                        w="80px"
-                                        h="80px"
+                                <Center>
+                                    <Circle
+                                        size={90}
+                                        border={'1px dashed #7F858D '}
                                     >
                                         <FiShoppingBag size={30} />
-                                    </Center>
+                                    </Circle>
                                 </Center>
-                               
+
                                 <Text fontSize={'xl'}>
                                     Seu carrinho está vazio
                                 </Text>

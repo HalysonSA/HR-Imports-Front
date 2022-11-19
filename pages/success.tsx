@@ -14,11 +14,11 @@ const Success = () => {
         clearCart();
 
         function redirectToHome() {
-            router.push('/');
+            location.href = '/';
         }
 
         if (typeof window !== 'undefined') {
-            setTimeout(redirectToHome, 5000);
+            setTimeout(redirectToHome, 3000);
         }
     }, []);
 

@@ -6,6 +6,7 @@ import {
     Button,
     Stack,
     Box,
+    Circle,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { FiTrash } from 'react-icons/fi';
@@ -55,16 +56,10 @@ const ProductCard = () => {
                                     <b>{PriceFormat(item.price)}</b>
                                 </Text>
                                 <HStack>
-                                    <Button
-                                        w={'40px'}
-                                        h={'40px'}
-                                        color={'white'}
-                                        borderRadius="20px"
-                                        bgColor={'#6B46C1'}
-                                        _hover={{
-                                            transform: 'scale(1.1)',
-                                            transition: 'all 0.2s ease-in-out',
-                                        }}
+                                    <Circle
+                                        size="40px"
+                                        bg="purple.600"
+                                        color="white"
                                     >
                                         <Text
                                             fontSize={'lg'}
@@ -72,18 +67,12 @@ const ProductCard = () => {
                                         >
                                             {item.size[0]}
                                         </Text>
-                                    </Button>
-                                    <Button
-                                        w={'40px'}
-                                        h={'40px'}
-                                        bgColor={item.color[0]}
-                                        borderRadius="50px"
-                                        colorScheme={'transparent'}
-                                        _hover={{
-                                            transform: 'scale(1.1)',
-                                            transition: 'all 0.2s ease-in-out',
-                                        }}
-                                    ></Button>
+                                    </Circle>
+                                    <Circle
+                                        size="40px"
+                                        bg={item.color[0]}
+                                        color="white"
+                                    ></Circle>
                                 </HStack>
                             </Flex>
                         </HStack>

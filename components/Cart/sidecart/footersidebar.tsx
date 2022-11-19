@@ -45,15 +45,8 @@ const FooterSideBar = () => {
                 fontWeight={'bold'}
                 textTransform={'uppercase'}
                 variant={'outline'}
-                bg="white"
-                borderColor={'purple.400'}
+                colorScheme={'purple'}
                 py="7"
-                _hover={{
-                    bg: 'purple.50',
-                }}
-                _active={{
-                    bg: 'purple.100',
-                }}
                 onClick={() => handleCartOpen()}
             >
                 Ir para o carrinho

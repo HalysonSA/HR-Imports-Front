@@ -1,4 +1,3 @@
-import { color } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 
@@ -21,12 +20,10 @@ type CartContextType = {
     totalValue: number;
     totalQuantity: number;
     status: number;
-    formOfPayment: string;
     addItemToCart: (product: Product) => void;
     removeFromCart: (product: Product) => void;
     clearCart: () => void;
     removeProduct: (product: Product) => void;
-    checkFormOfPayment: (formOfPayment: string) => void;
 };
 
 export const CartContext = createContext({} as CartContextType);
@@ -99,7 +96,6 @@ export const CartProvider = ({ children }: any) => {
     const [totalValue, setTotalValue] = useState(0);
     const [totalQuantity, setTotalQuantity] = useState(0);
     const [status, setStatus] = useState(20);
-    const [formOfPayment, setFormOfPayment] = useState('');
 
     const router = useRouter();
     const path = router.pathname;
@@ -180,10 +176,6 @@ export const CartProvider = ({ children }: any) => {
         setCart([]);
     };
 
-    const checkFormOfPayment = (form: string) => {
-        setFormOfPayment(form);
-    };
-
     return (
         <CartContext.Provider
             value={{
@@ -191,12 +183,10 @@ export const CartProvider = ({ children }: any) => {
                 totalValue,
                 totalQuantity,
                 status,
-                formOfPayment,
                 addItemToCart,
                 removeFromCart,
                 clearCart,
                 removeProduct,
-                checkFormOfPayment,
             }}
         >
             {children}

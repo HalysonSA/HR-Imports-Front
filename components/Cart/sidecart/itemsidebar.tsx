@@ -15,7 +15,6 @@ import { CartContext } from '../../../context/cart';
 import { useContext } from 'react';
 import PriceFormat from '../../../utils/priceFormat';
 
-
 type Product = {
     item: {
         _id: string;
@@ -27,15 +26,16 @@ type Product = {
         material: string;
         quantity: number;
         brand: string;
-        size: [];
-        color: [];
+        size: string[];
+        color: string[];
     };
 };
 
 const ItemSideBar = ({ item }: Product) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
-    const { addItemToCart, removeFromCart, removeProduct } = useContext(CartContext);
+    const { addItemToCart, removeFromCart, removeProduct } =
+        useContext(CartContext);
 
     const handleRemoveFromCart = () => {
         removeFromCart(item);
