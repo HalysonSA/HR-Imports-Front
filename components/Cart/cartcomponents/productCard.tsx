@@ -56,10 +56,16 @@ const ProductCard = () => {
                                     <b>{PriceFormat(item.price)}</b>
                                 </Text>
                                 <HStack>
-                                    <Circle
-                                        size="40px"
-                                        bg="purple.600"
-                                        color="white"
+                                    <Button
+                                        key={item.size[0]}
+                                        color={'purple.600'}
+                                        borderRadius="20px"
+                                        border={'1px solid #6B46C1'}
+                                        bgColor={'white'}
+                                        _hover={{
+                                            transform: 'scale(1.1)',
+                                            transition: 'all 0.2s ease-in-out',
+                                        }}
                                     >
                                         <Text
                                             fontSize={'lg'}
@@ -67,7 +73,7 @@ const ProductCard = () => {
                                         >
                                             {item.size[0]}
                                         </Text>
-                                    </Circle>
+                                    </Button>
                                     <Circle
                                         size="40px"
                                         bg={item.color[0]}

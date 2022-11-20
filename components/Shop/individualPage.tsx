@@ -292,6 +292,12 @@ const IndividualProductPage = () => {
                                             <Button
                                                 key={color}
                                                 bgColor={color}
+                                                border={
+                                                    color === 'white' ||
+                                                    color === '#ffffff'
+                                                        ? '1px solid #000000'
+                                                        : 'none'
+                                                }
                                                 borderRadius="20px"
                                                 colorScheme={'transparent'}
                                                 transform={
@@ -309,7 +315,15 @@ const IndividualProductPage = () => {
                                                 }
                                             >
                                                 {selectedColor === color && (
-                                                    <RiCheckLine size={18} />
+                                                    <RiCheckLine
+                                                        size={18}
+                                                        fill={
+                                                            color === 'white' ||
+                                                            color === '#ffffff'
+                                                                ? 'black'
+                                                                : 'white'
+                                                        }
+                                                    />
                                                 )}
                                             </Button>
                                         ))}

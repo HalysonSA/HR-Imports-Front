@@ -1,14 +1,14 @@
 import {
-    Center,
     Box,
-    Text,
-    Input,
-    Stack,
     Button,
+    Center,
+    CircularProgress,
+    Input,
     InputGroup,
     InputRightElement,
+    Stack,
+    Text,
     useMediaQuery,
-    CircularProgress,
 } from '@chakra-ui/react';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -17,8 +17,8 @@ import { useForm } from 'react-hook-form';
 
 import { useState } from 'react';
 
-import { FaFacebook, FaGoogle } from 'react-icons/fa';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
+import { FaFacebook, FaGoogle } from 'react-icons/fa';
 
 import { useRouter } from 'next/router';
 
@@ -26,6 +26,7 @@ import { signIn } from 'next-auth/react';
 
 import { GetUser } from '../../utils/checkUser';
 
+import { signOut } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../components/Redux/UserSlice';
 
@@ -54,6 +55,7 @@ const SignInLogin = () => {
 
         !user && toast.error('Email ou senha incorretos');
 
+        signOut();
         setLoading(false);
         reset();
     }
