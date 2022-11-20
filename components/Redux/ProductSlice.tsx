@@ -10,7 +10,8 @@ type InitialState = {
     stock: number;
     brand: string;
     material: string;
-    size: [];
+    size: string[];
+    color: string[];
 };
 
 const ProductSlice = createSlice({
@@ -40,8 +41,8 @@ const ProductSlice = createSlice({
         },
 
         orderProduct: (state, action) => {
-            const  isDown  = action.payload.isDown;
-            const  description  = action.payload.description;
+            const isDown = action.payload.isDown;
+            const description = action.payload.description;
 
             switch (description) {
                 case 'price':

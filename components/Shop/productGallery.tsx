@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Image, Box, HStack, useMediaQuery, Stack } from '@chakra-ui/react';
+import { Box, HStack, Image, Stack, useMediaQuery } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import GallerySlider from './gallerySlider';
 
 const ProductGallery = () => {

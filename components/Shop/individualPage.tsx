@@ -1,21 +1,22 @@
 import {
-    Box,
-    Button,
-    Flex,
-    Text,
-    HStack,
-    useMediaQuery,
-    AccordionItem,
-    AccordionButton,
     Accordion,
+    AccordionButton,
     AccordionIcon,
+    AccordionItem,
     AccordionPanel,
-    Stack,
+    Box,
     Breadcrumb,
     BreadcrumbItem,
+    Button,
+    Center,
+    Flex,
+    HStack,
+    Stack,
+    Text,
+    useMediaQuery,
 } from '@chakra-ui/react';
-import RelatedProductSlider from '../Slide/RelatedProducts';
 import { toast, ToastContainer } from 'react-toastify';
+import RelatedProductSlider from '../Slide/RelatedProducts';
 
 import {
     MdOutlineAddCircleOutline,
@@ -27,377 +28,424 @@ import { RiCheckLine } from 'react-icons/ri';
 import { useState } from 'react';
 
 import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CartContext } from '../../context/cart';
-import { useDispatch } from 'react-redux';
 import PriceFormat from '../../utils/priceFormat';
 import { cartIsOpen } from '../Redux/CartSlice';
 
-import ProductGallery from './productGallery';
 import { ChevronRightIcon } from '@chakra-ui/icons';
+import ProductGallery from './productGallery';
+
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+import FetchProducts from '../../utils/fetchProducts';
 
 type ProductInfo = {
-    product: {
-        _id: string;
-        title: string;
-        description: string;
-        price: number;
-        image: string;
-        category: string;
-        material: string;
-        brand: string;
-        size: string[];
-        color: string[];
-    };
+    _id: string;
+    title: string;
+    description: string;
+    price: number;
+    image: string;
+    category: string;
+    material: string;
+    brand: string;
+    size: string[];
+    color: string[];
 };
-const IndividualProductPage = ({ product }: ProductInfo) => {
+
+type ReduxState = {
+    products: ProductInfo[];
+};
+
+const IndividualProductPage = () => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
+    const router = useRouter();
+    const dispatch = useDispatch();
+
     const { addItemToCart } = useContext(CartContext);
+    const id = router.asPath.split('/')[2];
+
+    FetchProducts();
+
+    const product = useSelector((state: ReduxState) =>
+        state.products.find((item: ProductInfo) => item._id === id)
+    );
 
     const [selectedColor, setSelectedColor] = useState('');
     const [selectedSize, setSelectedSize] = useState('');
     const [quantity, setQuantity] = useState(1);
 
-    const dispatch = useDispatch();
+    if (product !== undefined && product !== null) {
+        const {
+            _id,
+            title,
+            description,
+            price,
+            image,
+            category,
+            material,
+            brand,
+        } = product;
+        var { size, color } = product;
 
-    var {
-        _id,
-        title,
-        description,
-        price,
-        image,
-        category,
-        material,
-        size,
-        color,
-        brand,
-    } = product;
+        const handleAddToCart = () => {
+            size = ['T'];
+            color = ['T'];
+            size.push(selectedSize);
+            color.push(selectedColor);
 
-    const handleAddToCart = () => {
-        size = [];
-        color = [];
-        size.push(selectedSize);
-        color.push(selectedColor);
+            if (size[0] !== '' && color[0] !== '') {
+                addItemToCart({
+                    _id,
+                    title,
+                    description,
+                    price,
+                    image,
+                    category,
+                    material,
+                    size,
+                    color,
+                    brand,
+                    quantity,
+                });
+                toast.success('Produto adicionado ao carrinho', {
+                    position: isLargerThan768 ? 'top-center' : 'bottom-center',
+                });
+                dispatch(cartIsOpen(true));
+            } else {
+                toast.error('Escolha uma cor e um tamanho', {
+                    position: 'top-center',
+                });
+            }
+        };
 
-        if (size[0] !== '' && color[0] !== '') {
-            addItemToCart({
-                _id,
-                title,
-                description,
-                price,
-                image,
-                category,
-                material,
-                size,
-                color,
-                brand,
-                quantity,
-            });
-            toast.success('Produto adicionado ao carrinho', {
-                position: isLargerThan768 ? 'top-center' : 'bottom-center',
-            });
-            dispatch(cartIsOpen(true));
-        } else {
-            toast.error('Escolha uma cor e um tamanho', {
-                position: 'top-center',
-            });
-        }
-    };
-
-    return (
-        <Box
-            py={5}
-            px={2}
-        >
-            <ToastContainer />
+        return (
             <Box
-                pl={isLargerThan768 ? 20 : 0}
-                py="5"
+                py={5}
+                px={2}
             >
-                <Breadcrumb
-                    spacing={'8px'}
-                    separator={<ChevronRightIcon color="gray.500" />}
+                <ToastContainer />
+                <Box
+                    pl={isLargerThan768 ? 20 : 0}
+                    py="5"
                 >
-                    <BreadcrumbItem>
+                    <Breadcrumb
+                        spacing={'8px'}
+                        separator={<ChevronRightIcon color="gray.500" />}
+                    >
+                        <BreadcrumbItem>
+                            <Text
+                                color="gray.500"
+                                fontSize="sm"
+                            >
+                                Home
+                            </Text>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem>
+                            <Text
+                                color="gray.500"
+                                fontSize="sm"
+                            >
+                                Shop
+                            </Text>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem>
+                            <Text
+                                color="gray.500"
+                                fontSize="sm"
+                            >
+                                {title}
+                            </Text>
+                        </BreadcrumbItem>
+                    </Breadcrumb>
+                </Box>
+                <Flex direction={isLargerThan768 ? 'row' : 'column'}>
+                    <Box
+                        w="100%"
+                        pl={isLargerThan768 ? 20 : 0}
+                    >
+                        <ProductGallery />
+                    </Box>
+                    <Box
+                        mt={isLargerThan768 ? 0 : 5}
+                        w="100%"
+                        pl={isLargerThan768 ? 10 : 0}
+                    >
                         <Text
-                            color="gray.500"
-                            fontSize="sm"
-                        >
-                            Home
-                        </Text>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <Text
-                            color="gray.500"
-                            fontSize="sm"
-                        >
-                            Shop
-                        </Text>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <Text
-                            color="gray.500"
-                            fontSize="sm"
+                            fontWeight={'bold'}
+                            fontSize={'3xl'}
                         >
                             {title}
                         </Text>
-                    </BreadcrumbItem>
-                </Breadcrumb>
-            </Box>
-            <Flex direction={isLargerThan768 ? 'row' : 'column'}>
-                <Box
-                    w="100%"
-                    pl={isLargerThan768 ? 20 : 0}
-                >
-                    <ProductGallery />
-                </Box>
-                <Box
-                    mt={isLargerThan768 ? 0 : 5}
-                    w="100%"
-                    pl={isLargerThan768 ? 10 : 0}
-                >
-                    <Text
-                        fontWeight={'bold'}
-                        fontSize={'3xl'}
-                    >
-                        {title}
-                    </Text>
-                    <Box mt={isLargerThan768 ? 0 : 5}>
-                        <Text
-                            fontWeight={'extrabold'}
-                            fontSize={'3xl'}
-                            color={'purple.600'}
-                        >
-                            {PriceFormat(price)}
-                        </Text>
-                        <Text transform={'translateY(-10px)'}>
-                            Á Vista no PIX ou <b>1x</b> no Cartão
-                        </Text>
-                    </Box>
-
-                    <Box>
-                        <Text
-                            fontSize={'lg'}
-                            fontWeight={'bold'}
-                            color={'purple.600'}
-                        >
-                            Quantidade
-                        </Text>
-                        <HStack>
-                            <Button
-                                colorScheme={'transparent'}
-                                borderRadius="20px"
-                                onClick={() => {
-                                    quantity > 1
-                                        ? setQuantity(quantity - 1)
-                                        : null;
-                                }}
-                            >
-                                <MdOutlineRemoveCircleOutline
-                                    fill={'gray'}
-                                    size={20}
-                                />
-                            </Button>
+                        <Box mt={isLargerThan768 ? 0 : 5}>
                             <Text
-                                fontSize={'lg'}
-                                fontWeight={'semibold'}
+                                fontWeight={'extrabold'}
+                                fontSize={'3xl'}
+                                color={'purple.600'}
                             >
-                                {quantity}
+                                {PriceFormat(price)}
                             </Text>
-                            <Button
-                                colorScheme={'transparent'}
-                                borderRadius="20px"
-                                onClick={() => {
-                                    setQuantity(quantity + 1);
-                                }}
-                            >
-                                <MdOutlineAddCircleOutline
-                                    fill={'gray'}
-                                    size={20}
-                                />
-                            </Button>
-                        </HStack>
-                    </Box>
-                    <Stack>
+                            <Text transform={'translateY(-10px)'}>
+                                Á Vista no PIX ou <b>1x</b> no Cartão
+                            </Text>
+                        </Box>
+
                         <Box>
                             <Text
                                 fontSize={'lg'}
                                 fontWeight={'bold'}
                                 color={'purple.600'}
                             >
-                                Tamanho
+                                Quantidade
                             </Text>
                             <HStack>
-                                {size.map((size) => (
-                                    <Button
-                                        key={size}
-                                        color={
-                                            selectedSize === size
-                                                ? 'white'
-                                                : 'purple.600'
-                                        }
-                                        borderRadius="20px"
-                                        border={'1px solid #6B46C1'}
-                                        bgColor={
-                                            selectedSize === size
-                                                ? '#6B46C1'
-                                                : 'white'
-                                        }
-                                        _hover={{
-                                            transform: 'scale(1.1)',
-                                            transition: 'all 0.2s ease-in-out',
-                                        }}
-                                        onClick={() => setSelectedSize(size)}
+                                <Button
+                                    colorScheme={'transparent'}
+                                    borderRadius="20px"
+                                    onClick={() => {
+                                        quantity > 1
+                                            ? setQuantity(quantity - 1)
+                                            : null;
+                                    }}
+                                >
+                                    <MdOutlineRemoveCircleOutline
+                                        fill={'gray'}
+                                        size={20}
+                                    />
+                                </Button>
+                                <Text
+                                    fontSize={'lg'}
+                                    fontWeight={'semibold'}
+                                >
+                                    {quantity}
+                                </Text>
+                                <Button
+                                    colorScheme={'transparent'}
+                                    borderRadius="20px"
+                                    onClick={() => {
+                                        setQuantity(quantity + 1);
+                                    }}
+                                >
+                                    <MdOutlineAddCircleOutline
+                                        fill={'gray'}
+                                        size={20}
+                                    />
+                                </Button>
+                            </HStack>
+                        </Box>
+                        <Stack>
+                            <Box>
+                                <Text
+                                    fontSize={'lg'}
+                                    fontWeight={'bold'}
+                                    color={'purple.600'}
+                                >
+                                    Tamanho
+                                </Text>
+                                <HStack>
+                                    {size &&
+                                        size.map((size: string) => (
+                                            <Button
+                                                key={size}
+                                                color={
+                                                    selectedSize === size
+                                                        ? 'white'
+                                                        : 'purple.600'
+                                                }
+                                                borderRadius="20px"
+                                                border={'1px solid #6B46C1'}
+                                                bgColor={
+                                                    selectedSize === size
+                                                        ? '#6B46C1'
+                                                        : 'white'
+                                                }
+                                                _hover={{
+                                                    transform: 'scale(1.1)',
+                                                    transition:
+                                                        'all 0.2s ease-in-out',
+                                                }}
+                                                onClick={() =>
+                                                    setSelectedSize(size)
+                                                }
+                                            >
+                                                <Text
+                                                    fontSize={'lg'}
+                                                    fontWeight={'bold'}
+                                                >
+                                                    {size}
+                                                </Text>
+                                            </Button>
+                                        ))}
+                                </HStack>
+                            </Box>
+                            <Box>
+                                <Text
+                                    fontSize={'lg'}
+                                    fontWeight={'bold'}
+                                    color={'purple.600'}
+                                >
+                                    Cor
+                                </Text>
+                                <HStack>
+                                    {color &&
+                                        color.map((color: string) => (
+                                            <Button
+                                                key={color}
+                                                bgColor={color}
+                                                borderRadius="20px"
+                                                colorScheme={'transparent'}
+                                                transform={
+                                                    selectedColor === color
+                                                        ? 'scale(1.2)'
+                                                        : 'scale(1)'
+                                                }
+                                                _hover={{
+                                                    transform: 'scale(1.1)',
+                                                    transition:
+                                                        'all 0.2s ease-in-out',
+                                                }}
+                                                onClick={() =>
+                                                    setSelectedColor(color)
+                                                }
+                                            >
+                                                {selectedColor === color && (
+                                                    <RiCheckLine size={18} />
+                                                )}
+                                            </Button>
+                                        ))}
+                                </HStack>
+                            </Box>
+                            <Box>
+                                <Text
+                                    fontSize={'lg'}
+                                    fontWeight={'bold'}
+                                    color={'purple.600'}
+                                >
+                                    Material
+                                </Text>
+                                <HStack>
+                                    <Text>{material}</Text>
+                                </HStack>
+                            </Box>
+                            <Box>
+                                <Text
+                                    fontSize={'lg'}
+                                    fontWeight={'bold'}
+                                    color={'purple.600'}
+                                >
+                                    Marca
+                                </Text>
+                                <HStack>
+                                    <Text>{brand}</Text>
+                                </HStack>
+                            </Box>
+                            <Box>
+                                <Text
+                                    fontSize={'lg'}
+                                    fontWeight={'bold'}
+                                    color={'purple.600'}
+                                >
+                                    Categoria
+                                </Text>
+                                <HStack>
+                                    <Text>{category}</Text>
+                                </HStack>
+                            </Box>
+                        </Stack>
+                        <Box my="5">
+                            <Button
+                                name="Adicionar ao carrinho"
+                                colorScheme={'purple'}
+                                minW="180px"
+                                width={['100%', '100%']}
+                                p="8"
+                                fontSize={'xl'}
+                                fontWeight={'bold'}
+                                variant={'solid'}
+                                textTransform={'uppercase'}
+                                onClick={() => {
+                                    handleAddToCart();
+                                }}
+                            >
+                                Adicionar ao carrinho
+                            </Button>
+                        </Box>
+                        <Accordion allowMultiple>
+                            <AccordionItem>
+                                <AccordionButton>
+                                    <Box
+                                        flex="1"
+                                        textAlign="left"
                                     >
                                         <Text
                                             fontSize={'lg'}
                                             fontWeight={'bold'}
+                                            color={'purple.600'}
                                         >
-                                            {size}
+                                            Detalhes
                                         </Text>
-                                    </Button>
-                                ))}
-                            </HStack>
-                        </Box>
-                        <Box>
-                            <Text
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
-                                color={'purple.600'}
-                            >
-                                Cor
-                            </Text>
-                            <HStack>
-                                {color.map((color) => (
-                                    <Button
-                                        key={color}
-                                        bgColor={color}
-                                        borderRadius="20px"
-                                        colorScheme={'transparent'}
-                                        transform={
-                                            selectedColor === color
-                                                ? 'scale(1.2)'
-                                                : 'scale(1)'
-                                        }
-                                        _hover={{
-                                            transform: 'scale(1.1)',
-                                            transition: 'all 0.2s ease-in-out',
-                                        }}
-                                        onClick={() => setSelectedColor(color)}
+                                    </Box>
+                                    <AccordionIcon />
+                                </AccordionButton>
+                                <AccordionPanel pb={4}>
+                                    <Text>
+                                        Duração da bateria: 10 horas, Produto
+                                        com 1 ano de garantia, Peso: 0,5 kg,
+                                        Dimensões: 20x20x20, Material: Plástico,
+                                        Cor: Preto, Marca: D13.
+                                    </Text>
+                                </AccordionPanel>
+                            </AccordionItem>
+                            <AccordionItem>
+                                <AccordionButton>
+                                    <Box
+                                        flex="1"
+                                        textAlign="left"
                                     >
-                                        {selectedColor === color && (
-                                            <RiCheckLine size={18} />
-                                        )}
-                                    </Button>
-                                ))}
-                            </HStack>
-                        </Box>
-                        <Box>
-                            <Text
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
-                                color={'purple.600'}
-                            >
-                                Material
-                            </Text>
-                            <HStack>
-                                <Text>{material}</Text>
-                            </HStack>
-                        </Box>
-                        <Box>
-                            <Text
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
-                                color={'purple.600'}
-                            >
-                                Marca
-                            </Text>
-                            <HStack>
-                                <Text>{brand}</Text>
-                            </HStack>
-                        </Box>
-                        <Box>
-                            <Text
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
-                                color={'purple.600'}
-                            >
-                                Categoria
-                            </Text>
-                            <HStack>
-                                <Text>{category}</Text>
-                            </HStack>
-                        </Box>
-                    </Stack>
-                    <Box my="5">
-                        <Button
-                            name="Adicionar ao carrinho"
-                            colorScheme={'purple'}
-                            minW="180px"
-                            width={['100%', '100%']}
-                            p="8"
-                            fontSize={'xl'}
-                            fontWeight={'bold'}
-                            variant={'solid'}
-                            textTransform={'uppercase'}
-                            onClick={() => {
-                                handleAddToCart();
-                            }}
-                        >
-                            Adicionar ao carrinho
-                        </Button>
+                                        <Text
+                                            fontSize={'lg'}
+                                            fontWeight={'bold'}
+                                            color={'purple.600'}
+                                        >
+                                            Descrição
+                                        </Text>
+                                    </Box>
+                                    <AccordionIcon />
+                                </AccordionButton>
+                                <AccordionPanel pb={4}>
+                                    <Text>{description}</Text>
+                                </AccordionPanel>
+                            </AccordionItem>
+                        </Accordion>
                     </Box>
-                    <Accordion allowMultiple>
-                        <AccordionItem>
-                            <AccordionButton>
-                                <Box
-                                    flex="1"
-                                    textAlign="left"
-                                >
-                                    <Text
-                                        fontSize={'lg'}
-                                        fontWeight={'bold'}
-                                        color={'purple.600'}
-                                    >
-                                        Detalhes
-                                    </Text>
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                            <AccordionPanel pb={4}>
-                                <Text>
-                                    Duração da bateria: 10 horas, Produto com 1
-                                    ano de garantia, Peso: 0,5 kg, Dimensões:
-                                    20x20x20, Material: Plástico, Cor: Preto,
-                                    Marca: D13.
-                                </Text>
-                            </AccordionPanel>
-                        </AccordionItem>
-                        <AccordionItem>
-                            <AccordionButton>
-                                <Box
-                                    flex="1"
-                                    textAlign="left"
-                                >
-                                    <Text
-                                        fontSize={'lg'}
-                                        fontWeight={'bold'}
-                                        color={'purple.600'}
-                                    >
-                                        Descrição
-                                    </Text>
-                                </Box>
-                                <AccordionIcon />
-                            </AccordionButton>
-                            <AccordionPanel pb={4}>
-                                <Text>{description}</Text>
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </Accordion>
-                </Box>
-            </Flex>
-            <RelatedProductSlider />
-        </Box>
-    );
+                </Flex>
+                <RelatedProductSlider />
+            </Box>
+        );
+    } else {
+        return (
+            <Center h={'60vh'}>
+                <motion.div
+                    style={{
+                        width: '60px',
+                        height: '60px',
+                        backgroundColor: '#6B46C1',
+                    }}
+                    animate={{
+                        x: [-150, 150, -150],
+                        scale: [1, 1.5, 1, 1.5, 1],
+                        rotate: [270, 0, 270],
+                        borderRadius: ['50%', '20%', '50%', '20%', '50%'],
+                        opacity: 1,
+                    }}
+                    transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                    }}
+                />
+            </Center>
+        );
+    }
 };
 export default IndividualProductPage;
