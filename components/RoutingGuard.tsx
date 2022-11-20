@@ -1,13 +1,12 @@
-import { NextComponentType, NextPageContext } from 'next';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkUserExists } from '../utils/checkUser';
 import { checkUser } from './Redux/UserSlice';
-import { useSession } from 'next-auth/react';
-import { useDispatch } from 'react-redux';
 
+import { Box } from '@chakra-ui/react';
 import { LoginAlert } from '../utils/alertLoginIsRequired';
-import { Box, Container, Skeleton, Spinner } from '@chakra-ui/react';
+import LoadingPage from '../utils/loadingPage';
 
 const RouterGuard = ({ children }: any) => {
     const [itsLoading, setLoading] = useState(true);
@@ -50,7 +49,9 @@ const RouterGuard = ({ children }: any) => {
 
     return (
         <>
-            {itsLoading ? null : user.status === 'active' ? (
+            {itsLoading ? (
+                <LoadingPage />
+            ) : user.status === 'active' ? (
                 children
             ) : (
                 <Box>

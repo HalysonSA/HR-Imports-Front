@@ -8,7 +8,6 @@ import {
     Breadcrumb,
     BreadcrumbItem,
     Button,
-    Center,
     Flex,
     HStack,
     Stack,
@@ -36,9 +35,9 @@ import { cartIsOpen } from '../Redux/CartSlice';
 import { ChevronRightIcon } from '@chakra-ui/icons';
 import ProductGallery from './productGallery';
 
-import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import FetchProducts from '../../utils/fetchProducts';
+import LoadingPage from '../../utils/loadingPage';
 
 type ProductInfo = {
     _id: string;
@@ -90,8 +89,8 @@ const IndividualProductPage = () => {
         var { size, color } = product;
 
         const handleAddToCart = () => {
-            size = ['T'];
-            color = ['T'];
+            size = [];
+            color = [];
             size.push(selectedSize);
             color.push(selectedColor);
 
@@ -424,28 +423,7 @@ const IndividualProductPage = () => {
             </Box>
         );
     } else {
-        return (
-            <Center h={'60vh'}>
-                <motion.div
-                    style={{
-                        width: '60px',
-                        height: '60px',
-                        backgroundColor: '#6B46C1',
-                    }}
-                    animate={{
-                        x: [-150, 150, -150],
-                        scale: [1, 1.5, 1, 1.5, 1],
-                        rotate: [270, 0, 270],
-                        borderRadius: ['50%', '20%', '50%', '20%', '50%'],
-                        opacity: 1,
-                    }}
-                    transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                    }}
-                />
-            </Center>
-        );
+        return <LoadingPage />;
     }
 };
 export default IndividualProductPage;
