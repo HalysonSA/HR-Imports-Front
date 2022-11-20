@@ -8,7 +8,7 @@ type productInfo = {
         _id: string;
         title: string;
         price: number;
-        image: string;
+        image: string[];
         description: string;
         category: string;
         brand: string;
@@ -24,7 +24,6 @@ const handleProductClick = (product: { _id: string }) => {
 };
 
 const SlideProductCard = (myProduct: productInfo) => {
-
     const { product } = myProduct;
 
     return (
@@ -46,7 +45,7 @@ const SlideProductCard = (myProduct: productInfo) => {
                 h="270px"
                 w="100%"
                 objectFit={'cover'}
-                src={product.image}
+                src={product.image[0]}
                 alt={product.title}
             />
             <Box mx="5">

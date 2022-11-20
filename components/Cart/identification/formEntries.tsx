@@ -1,22 +1,22 @@
 import validateCPF from '../../../utils/checkCpf';
 
 import {
-    Input,
-    Select,
+    Box,
     Button,
-    Stack,
-    HStack,
     FormControl,
     FormLabel,
-    Text,
+    HStack,
+    Input,
+    Select,
     Spinner,
-    Box,
+    Stack,
+    Text,
 } from '@chakra-ui/react';
 
-import InputMask from 'react-input-mask';
-import { useEffect, useState, useContext } from 'react';
-import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 import { toast, ToastContainer } from 'react-toastify';
 
@@ -153,9 +153,9 @@ const FormEntries = () => {
         const { cpf, email } = data;
 
         if (validateCPF(cpf) && checkEmail(email)) {
-            setLoading(true);
+            setLoading(false);
             handleCustomer(data);
-            router.push('/payment');
+            location.href = '/payment';
         } else {
             setLoading(false);
             toast.error('CPF ou E-mail inválido');
@@ -315,7 +315,6 @@ const FormEntries = () => {
                                 defaultValue={localization?.bairro}
                                 {...register('neighborhood', {
                                     required: 'Este campo é obrigatório.',
-
                                     pattern: {
                                         value: /^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$/,
                                         message: 'Não pode conter números.',
@@ -352,6 +351,10 @@ const FormEntries = () => {
                                     mask="99999-999"
                                     {...register('zip_code', {
                                         required: 'Este campo é obrigatório',
+                                        pattern: {
+                                            value: /^[0-9]{5}-[0-9]{3}$/,
+                                            message: 'CEP inválido',
+                                        },
                                     })}
                                 />
                                 {errors.zip_code && (

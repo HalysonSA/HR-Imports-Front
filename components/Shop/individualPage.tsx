@@ -44,7 +44,7 @@ type ProductInfo = {
     title: string;
     description: string;
     price: number;
-    image: string;
+    image: string[];
     category: string;
     material: string;
     brand: string;

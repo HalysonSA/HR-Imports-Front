@@ -1,18 +1,18 @@
 import {
-    Flex,
-    Image,
-    Text,
-    Button,
-    Stack,
     Box,
-    HStack,
+    Button,
     Center,
+    Flex,
+    HStack,
+    Image,
+    Stack,
+    Text,
     useMediaQuery,
 } from '@chakra-ui/react';
-import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
-import { FiTrash } from 'react-icons/fi';
-import { CartContext } from '../../../context/cart';
 import { useContext } from 'react';
+import { FiTrash } from 'react-icons/fi';
+import { MdAddCircleOutline, MdRemoveCircleOutline } from 'react-icons/md';
+import { CartContext } from '../../../context/cart';
 import PriceFormat from '../../../utils/priceFormat';
 
 type Product = {
@@ -21,7 +21,7 @@ type Product = {
         title: string;
         description: string;
         price: number;
-        image: string;
+        image: string[];
         category: string;
         material: string;
         quantity: number;
@@ -55,7 +55,7 @@ const ItemSideBar = ({ item }: Product) => {
         >
             <Image
                 alt=""
-                src={item.image}
+                src={item.image[0]}
                 w="120px"
                 h="120px"
                 objectFit={'cover'}

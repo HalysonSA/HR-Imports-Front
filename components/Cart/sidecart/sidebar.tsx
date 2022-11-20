@@ -2,26 +2,24 @@ import FooterSideBar from './footersidebar';
 import ItemSideBar from './itemsidebar';
 
 import {
+    Center,
+    Circle,
     Drawer,
     DrawerBody,
+    DrawerCloseButton,
+    DrawerContent,
     DrawerFooter,
     DrawerHeader,
     DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-    useDisclosure,
-    Center,
-    Text,
     Stack,
-    Circle,
+    Text,
+    useDisclosure,
 } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { cartIsOpen } from '../../Redux/CartSlice';
 import { useContext } from 'react';
-import { CartContext } from '../../../context/cart';
 import { FiShoppingBag } from 'react-icons/fi';
-
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { CartContext } from '../../../context/cart';
+import { cartIsOpen } from '../../Redux/CartSlice';
 
 type Props = {
     isCartOpen: boolean;
@@ -32,7 +30,7 @@ type Product = {
     description: string;
     price: number;
     quantity: number;
-    image: string;
+    image: string[];
     brand: string;
     material: string;
     category: string;

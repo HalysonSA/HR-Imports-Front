@@ -1,12 +1,12 @@
 import {
-    Image,
+    Box,
+    Button,
+    Circle,
     Flex,
     HStack,
-    Text,
-    Button,
+    Image,
     Stack,
-    Box,
-    Circle,
+    Text,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { FiTrash } from 'react-icons/fi';
@@ -34,7 +34,7 @@ const ProductCard = () => {
                         h="150px"
                         w="150px"
                         alt=""
-                        src={item.image}
+                        src={item.image[0]}
                     />
                     <Flex
                         direction={['column', 'column', 'row']}
