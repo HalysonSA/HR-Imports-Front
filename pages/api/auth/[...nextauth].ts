@@ -8,8 +8,16 @@ export const authOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_ID as string,
             clientSecret: process.env.GOOGLE_SECRET as string,
-            authorization:
-                'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code',
+            authorization: {
+                params: {
+                    access_type: 'offline',
+                    authorization: {
+                        params: { scope: 'openid email profile' },
+                    },
+                    idToken: true,
+                    checks: ['pkce', 'state'],
+                },
+            },
         }),
         FacebookProvider({
             clientId: process.env.FACEBOOK_ID as string,
