@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type InitialState = {
-    _id: number;
+    _id: string;
     title: string;
     description: string;
-    image: string;
+    image: string[];
     price: number;
     category: string;
     stock: number;
