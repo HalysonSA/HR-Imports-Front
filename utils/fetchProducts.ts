@@ -74,6 +74,7 @@ const FetchProducts = async () => {
                         __v: 0,
                     },
                 ];
+                //@ts-ignore - Não precisa se preocupar com isso
                 dispatch(setProducts(products));
                 //dispatch(setProducts(response.data));
             } catch (err) {
