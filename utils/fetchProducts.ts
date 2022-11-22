@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import api from '../api/axios';
+import api from '../components/api/axios';
 import { setProducts } from '../components/Redux/ProductSlice';
 
 const FetchProducts = async () => {

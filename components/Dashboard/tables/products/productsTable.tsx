@@ -1,36 +1,39 @@
 import {
     Box,
+    Button,
+    ButtonGroup,
     Center,
     Table,
-    Thead,
-    Tbody,
-    Tr,
-    Th,
-    Td,
     TableContainer,
-    ButtonGroup,
-    Button,
+    Tbody,
+    Td,
     Text,
-    useDisclosure,
+    Th,
+    Thead,
+    Tr,
     useBoolean,
+    useDisclosure,
 } from '@chakra-ui/react';
 
 import { ArrowDownIcon, ArrowUpIcon } from '@chakra-ui/icons';
 
 import ScreenCreation from './creationScreen';
 
-import { FaEdit, FaTrash } from 'react-icons/fa';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 import { IoAddCircleOutline, IoCloseCircleOutline } from 'react-icons/io5';
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import api from '../../../../api/axios';
+import api from '../../../api/axios';
 
 import { toast, ToastContainer } from 'react-toastify';
 
-import { orderProduct, setProducts } from '../../../Redux/ProductSlice';
-import { deleteProduct } from '../../../Redux/ProductSlice';
+import {
+    deleteProduct,
+    orderProduct,
+    setProducts,
+} from '../../../Redux/ProductSlice';
 
 import EditModal from './editModal';
 
@@ -255,9 +258,11 @@ const ProductsTable = () => {
                                     >
                                         <Center>
                                             <Text>
-                                                {product.size ? product.size.map(
-                                                    (size) => size + ' '
-                                                ) : 'NA'}
+                                                {product.size
+                                                    ? product.size.map(
+                                                          (size) => size + ' '
+                                                      )
+                                                    : 'NA'}
                                             </Text>
                                         </Center>
                                     </Td>

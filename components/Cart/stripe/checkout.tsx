@@ -1,9 +1,3 @@
-import React, { useContext, useState } from 'react';
-import {
-    useStripe,
-    useElements,
-    PaymentElement,
-} from '@stripe/react-stripe-js';
 import {
     Box,
     Button,
@@ -12,12 +6,18 @@ import {
     Spinner,
     Text,
 } from '@chakra-ui/react';
-import api from '../../../api/axios';
-import { CustomerContext } from '../../../context/customer';
-import { CartContext } from '../../../context/cart';
-import { toast, ToastContainer } from 'react-toastify';
-import { isLoading } from '../../Redux/LoadingSlice';
+import {
+    PaymentElement,
+    useElements,
+    useStripe,
+} from '@stripe/react-stripe-js';
+import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
+import { CartContext } from '../../../context/cart';
+import { CustomerContext } from '../../../context/customer';
+import api from '../../api/axios';
+import { isLoading } from '../../Redux/LoadingSlice';
 
 const CheckoutForm = () => {
     const stripe = useStripe();

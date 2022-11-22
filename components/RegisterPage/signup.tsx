@@ -1,32 +1,32 @@
 import {
-    Center,
-    Text,
-    Input,
-    Stack,
     Button,
-    InputGroup,
-    InputRightElement,
+    Center,
+    Flex,
     FormControl,
     FormLabel,
     HStack,
+    Input,
+    InputGroup,
+    InputRightElement,
     Spinner,
-    Flex,
+    Stack,
+    Text,
 } from '@chakra-ui/react';
 
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import InputMask from 'react-input-mask';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import InputMask from 'react-input-mask';
 
 import { useDispatch } from 'react-redux';
 
+import { toast, ToastContainer } from 'react-toastify';
+import ValidateCPF from '../../utils/checkCpf';
 import { checkEmail } from '../../utils/checkEmail';
 import { passwordMatch } from '../../utils/checkPassword';
-import api from '../../api/axios';
-import ValidateCPF from '../../utils/checkCpf';
-import { signInUser } from '../Redux/UserSlice';
 import { GetUser } from '../../utils/checkUser';
-import { toast, ToastContainer } from 'react-toastify';
+import api from '../api/axios';
+import { signInUser } from '../Redux/UserSlice';
 
 type User = {
     first_name: string;

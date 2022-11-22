@@ -1,5 +1,5 @@
 import { setCookie } from 'nookies';
-import api from '../api/axios';
+import api from '../components/api/axios';
 
 type ResponseUserType = {
     data: {

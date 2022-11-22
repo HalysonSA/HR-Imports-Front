@@ -1,8 +1,7 @@
-import { Center, Flex, Box } from '@chakra-ui/react';
+import { Box, Center, Flex } from '@chakra-ui/react';
 import StatusBar from '../components/Cart/cartcomponents/statusBar';
-import Layout from '../components/Layout/Layout';
-import api from '../api/axios';
 import StripeComponent from '../components/Cart/stripe';
+import Layout from '../components/Layout/Layout';
 import RouterGuard from '../components/RoutingGuard';
 
 const Payment = () => {

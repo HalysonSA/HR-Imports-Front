@@ -1,16 +1,9 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { useRouter } from 'next/router';
-
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import { Box, Text, useMediaQuery } from '@chakra-ui/react';
+import { Box, Text } from '@chakra-ui/react';
 
-import { setProducts } from '../Redux/ProductSlice';
-import api from '../../api/axios';
 import NewProductSlider from './NewProducts';
 
 type productInfo = {
@@ -29,7 +22,6 @@ type productInfo = {
 };
 
 export default function RelatedProductSlider() {
-
     return (
         <Box>
             <Text

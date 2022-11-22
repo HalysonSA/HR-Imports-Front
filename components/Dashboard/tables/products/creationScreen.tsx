@@ -1,18 +1,17 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 
-import api from '../../../../api/axios';
+import api from '../../../api/axios';
 
 import {
     Box,
     Button,
-    Input,
-    Textarea,
+    Checkbox,
     FormControl,
     FormLabel,
-    Select,
-    Checkbox,
     HStack,
+    Input,
+    Select,
+    Textarea,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../../../Redux/ProductSlice';
@@ -75,7 +74,7 @@ const ScreenCreation = () => {
                     <FormLabel>Preço</FormLabel>
 
                     <Input
-                    type={'number'}
+                        type={'number'}
                         focusBorderColor="white"
                         placeholder="R$ 0,00"
                         {...register('price')}

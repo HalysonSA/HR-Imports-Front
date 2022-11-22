@@ -1,11 +1,10 @@
-import api from '../../../api/axios';
-import React, { useContext, useEffect, useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import CheckoutForm from './checkout';
+import { loadStripe } from '@stripe/stripe-js';
+import { useContext, useEffect } from 'react';
 import { CartContext } from '../../../context/cart';
 import { CustomerContext } from '../../../context/customer';
-import { Center } from '@chakra-ui/react';
+import api from '../../api/axios';
+import CheckoutForm from './checkout';
 
 const stripePromise = loadStripe(
     `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`

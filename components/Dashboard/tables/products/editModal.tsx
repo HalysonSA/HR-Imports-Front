@@ -1,23 +1,21 @@
-import React from 'react';
-
-import api from '../../../../api/axios';
+import api from '../../../api/axios';
 
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
     Button,
-    Input,
-    Textarea,
+    Checkbox,
     FormControl,
     FormLabel,
-    Select,
-    Checkbox,
     HStack,
+    Input,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Select,
+    Textarea,
 } from '@chakra-ui/react';
 
 import { useForm } from 'react-hook-form';
@@ -153,12 +151,10 @@ const EditModal = ({ product, isOpen, onClose }: Props) => {
                                     <option>Outros</option>
                                 </Select>
                             </FormControl>
-                            <FormControl
-                                m="2"
-                            >
+                            <FormControl m="2">
                                 <FormLabel>Cor</FormLabel>
                                 <Select
-                                defaultValue={product.color}
+                                    defaultValue={product.color}
                                     placeholder="Escolha a cor"
                                     focusBorderColor="white"
                                     {...register('color')}

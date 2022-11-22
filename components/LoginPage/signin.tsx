@@ -145,9 +145,9 @@ const SignInLogin = () => {
                         w="100%"
                         p="6"
                         my="1"
-                        color={'white'}
-                        borderRadius={'25'}
+                        variant={'outline'}
                         colorScheme="purple"
+                        borderRadius={'25'}
                         onClick={() => router.push('/register')}
                     >
                         <Text>Cadastre-se</Text>
