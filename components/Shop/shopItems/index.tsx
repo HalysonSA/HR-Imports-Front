@@ -3,31 +3,17 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FetchProducts from '../../../utils/fetchProducts';
+import { ProductInfo, ReduxState } from '../../Redux/type';
 import SlideProductCard from '../../Slide/productCard';
 
-type ProductInfo = {
-    products: [];
-    _id: string;
-    title: string;
-    price: number;
-    image: string[];
-    description: string;
-    category: string;
-    brand: string;
-    material: string;
-    stock: number;
-    size: string[];
-    color: string[];
-};
 const ShopItems = () => {
     const router = useRouter();
     const query = router.query;
     const search = query.search?.toString();
 
     FetchProducts();
-    const { products } = useSelector((state: ProductInfo) => state);
-
-    const [filteredProducts, setFilteredProducts] = useState([]);
+    const { products } = useSelector((state: ReduxState) => state);
+    const [filteredProducts, setFilteredProducts] = useState<ProductInfo[]>([]);
 
     useEffect(() => {
         const filter = products.filter((product: { title: string }) =>
@@ -41,7 +27,6 @@ const ShopItems = () => {
     return (
         <>
             <HStack
-                borderRadius={'xl'}
                 bg="purple.600"
                 color="white"
                 w="100%"
@@ -52,6 +37,7 @@ const ShopItems = () => {
                     ml={5}
                 >
                     {filteredProducts.length} resultados
+                    {search != undefined && search != '' && ` para "${search}"`}
                 </Text>
             </HStack>
             <Flex

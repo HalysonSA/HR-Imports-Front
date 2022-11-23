@@ -1,24 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-type InitialState = {
-    _id: string;
-    title: string;
-    description: string;
-    image: string[];
-    price: number;
-    category: string;
-    stock: number;
-    brand: string;
-    material: string;
-    size: string[];
-    color: string[];
-};
+import { ProductInfo, ShopFiltersInfo } from './type';
 
 const ProductSlice = createSlice({
     name: 'product',
-    initialState: [] as InitialState[],
+    initialState: [] as ProductInfo[],
     reducers: {
-        setProducts: (state, action: PayloadAction<InitialState>) => {
+        setProducts: (state, action: PayloadAction<ProductInfo>) => {
             Object.assign(state, action.payload);
         },
         addProduct: (state, action) => {
@@ -83,6 +70,30 @@ const ProductSlice = createSlice({
                     break;
             }
         },
+        setShopFilters: (state, action: PayloadAction<ShopFiltersInfo>) => {
+            switch (action.payload._orderBy) {
+                case 'lowPrice':
+                    state.sort((a, b) => a.price - b.price);
+                    break;
+                case 'higPrice':
+                    state.sort((a, b) => b.price - a.price);
+                    break;
+                case 'hot':
+                    const promotionalProducts = state.filter(
+                        (product) => product.promotional === true
+                    );
+                    const notPromotionalProducts = state.filter(
+                        (product) => product.promotional === false
+                    );
+
+                    return promotionalProducts.concat(notPromotionalProducts);
+
+                    return;
+                    break;
+                default:
+                    break;
+            }
+        },
     },
 });
 
@@ -92,6 +103,7 @@ export const {
     updateProduct,
     addProduct,
     orderProduct,
+    setShopFilters,
 } = ProductSlice.actions;
 
 export default ProductSlice.reducer;

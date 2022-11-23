@@ -21,6 +21,7 @@ const FetchProducts = async () => {
                         category: 'Eletrônico',
                         size: ['único'],
                         stock: null,
+                        promotional: false,
                         image: [
                             'https://images-americanas.b2w.io/produtos/4889477486/imagens/fone-de-ouvido-in-ear-sem-fio-lenovo-livepods-lp40/4889477494_1_xlarge.jpg',
                             'https://images-americanas.b2w.io/produtos/4889477486/imagens/fone-de-ouvido-in-ear-sem-fio-lenovo-livepods-lp40/4889477494_5_xlarge.jpg',
@@ -41,6 +42,7 @@ const FetchProducts = async () => {
                         category: 'Eletrônico',
                         size: ['único'],
                         stock: 0,
+                        promotional: false,
                         image: [
                             'https://m.media-amazon.com/images/I/61H4YN-l7ZL._AC_SX679_.jpg',
                             'https://m.media-amazon.com/images/I/51BFLEB7gjL._AC_SX679_.jpg',
@@ -63,6 +65,7 @@ const FetchProducts = async () => {
                         category: 'Eletrônico',
                         size: ['único'],
                         stock: null,
+                        promotional: true,
                         image: [
                             'https://images.kabum.com.br/produtos/fotos/117217/mouse-gamer-razer-viper-mini-chroma-optical-switch-6-botoes-8500dpi-rz01-03250100-r3u1_1630596362_gg.jpg',
                             'https://images.kabum.com.br/produtos/fotos/117217/mouse-gamer-razer-viper-mini-chroma-6-botoes-8500dpi-rz01-03250100-r3u1_1597330052_gg.jpg',

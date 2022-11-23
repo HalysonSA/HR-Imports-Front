@@ -10,7 +10,20 @@ import {
     Select,
     Text,
 } from '@chakra-ui/react';
+import { useDispatch } from 'react-redux';
+import { setShopFilters } from '../../Redux/ProductSlice';
+
 const ShopFilters = () => {
+    const dispatch = useDispatch();
+
+    const sortingCheck = (orderBy: string) => {
+        dispatch(
+            setShopFilters({
+                _orderBy: orderBy,
+            })
+        );
+    };
+
     return (
         <Flex
             w="100%"
@@ -158,11 +171,14 @@ const ShopFilters = () => {
             </Flex>
             <HStack minW="300px">
                 <Text fontSize="lg"> Ordernar por:</Text>
-                <Select maxW="170px">
-                    <option value="option0">Mais populares</option>
-                    <option value="option1">Menor preço</option>
-                    <option value="option2">Maior preço</option>
-                    <option value="option3">Ofertas</option>
+                <Select
+                    maxW="170px"
+                    onChange={(e) => sortingCheck(e.target.value)}
+                >
+                    <option value="default">Mais populares</option>
+                    <option value="lowPrice">Menor preço</option>
+                    <option value="higPrice">Maior preço</option>
+                    <option value="hot">Ofertas</option>
                 </Select>
             </HStack>
         </Flex>

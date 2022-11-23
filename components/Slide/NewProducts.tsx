@@ -9,33 +9,16 @@ import { Box, Center, useMediaQuery } from '@chakra-ui/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 
 import FetchProducts from '../../utils/fetchProducts';
+import { ProductInfo, ReduxState } from '../Redux/type';
 import SlideProductCard from './productCard';
-
-type productInfo = {
-    products: [] | null;
-    _id: string;
-    title: string;
-    price: number;
-    image: string[];
-    description: string;
-    category: string;
-    brand: string;
-    material: string;
-    stock: number;
-    size: string[];
-    color: string[];
-};
 
 export default function NewProductSlider() {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
 
-    const myProducts = useSelector((state: productInfo) => state.products);
-    const products = myProducts ? [...myProducts] : [];
-    products.reverse();
-
     FetchProducts();
+    const { products } = useSelector((state: ReduxState) => state);
 
     return (
         <Box
@@ -64,13 +47,16 @@ export default function NewProductSlider() {
                 modules={[Pagination, Navigation, Autoplay]}
                 className="mySwiper"
             >
-                {products.slice(0, 9).map((product: productInfo) => (
-                    <SwiperSlide key={product._id}>
-                        <Center my="5">
-                            <SlideProductCard product={product} />
-                        </Center>
-                    </SwiperSlide>
-                ))}
+                {products
+                    .slice(0, 9)
+                    .reverse()
+                    .map((product: ProductInfo) => (
+                        <SwiperSlide key={product._id}>
+                            <Center my="5">
+                                <SlideProductCard product={product} />
+                            </Center>
+                        </SwiperSlide>
+                    ))}
             </Swiper>
         </Box>
     );
