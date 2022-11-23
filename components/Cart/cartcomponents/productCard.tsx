@@ -78,7 +78,13 @@ const ProductCard = () => {
                                         size="40px"
                                         bg={item.color[0]}
                                         color="white"
-                                    ></Circle>
+                                        border={
+                                            item.color[0] === 'white' ||
+                                            item.color[0] === '#ffffff'
+                                                ? '1px solid #7F858D'
+                                                : 'none'
+                                        }
+                                    />
                                 </HStack>
                             </Flex>
                         </HStack>

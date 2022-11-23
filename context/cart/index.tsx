@@ -76,9 +76,7 @@ const removeProductFromCart = (
 
     if (existingProduct?.quantity === 1) {
         return cartItems.filter(
-            (product: any) =>
-                product.color[0] !== productToRemove.color[0] ||
-                product.size[0] !== productToRemove.size[0]
+            (product: Product) => existingProduct !== product
         );
     }
 
@@ -161,13 +159,13 @@ export const CartProvider = ({ children }: any) => {
 
     const removeProduct = (productToRemove: Product) => {
         const existingProduct = cart.find(
-            (product: Product) => product._id === productToRemove._id
+            (product: Product) =>
+                product._id === productToRemove._id &&
+                product.size[0] === productToRemove.size[0] &&
+                product.color[0] === productToRemove.color[0]
         );
         if (existingProduct) {
-            const filteredCart = cart.filter(
-                (product: Product) => product._id !== productToRemove._id
-            );
-            setCart(filteredCart);
+            setCart(cart.filter((product) => existingProduct !== product));
         }
     };
 

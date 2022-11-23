@@ -19,7 +19,7 @@ const FetchProducts = async () => {
                         color: ['#000000', '#ffffff'],
                         material: 'Plástico',
                         category: 'Eletrônico',
-                        size: [],
+                        size: ['único'],
                         stock: null,
                         image: [
                             'https://images-americanas.b2w.io/produtos/4889477486/imagens/fone-de-ouvido-in-ear-sem-fio-lenovo-livepods-lp40/4889477494_1_xlarge.jpg',
@@ -39,7 +39,7 @@ const FetchProducts = async () => {
                         color: ['#FED7E2', '#ffffff', 'black'],
                         material: 'Plástico',
                         category: 'Eletrônico',
-                        size: ['unico'],
+                        size: ['único'],
                         stock: 0,
                         image: [
                             'https://m.media-amazon.com/images/I/61H4YN-l7ZL._AC_SX679_.jpg',
@@ -61,7 +61,7 @@ const FetchProducts = async () => {
                         color: ['#000000'],
                         material: 'Plástico',
                         category: 'Eletrônico',
-                        size: ['unico'],
+                        size: ['único'],
                         stock: null,
                         image: [
                             'https://images.kabum.com.br/produtos/fotos/117217/mouse-gamer-razer-viper-mini-chroma-optical-switch-6-botoes-8500dpi-rz01-03250100-r3u1_1630596362_gg.jpg',

@@ -1,25 +1,25 @@
 import {
     Box,
+    Button,
+    Center,
     Flex,
     Spacer,
-    Center,
-    Text,
-    Button,
     Stack,
+    Text,
 } from '@chakra-ui/react';
 
 import Layout from '../../components/Layout/Layout';
 
-import Summary from '../../components/Cart/cartcomponents/summary';
+import { useContext } from 'react';
 import CartItems from '../../components/Cart/cartcomponents/cartItems';
 import StatusBar from '../../components/Cart/cartcomponents/statusBar';
+import Summary from '../../components/Cart/cartcomponents/summary';
 import { CartContext } from '../../context/cart';
-import { useContext } from 'react';
 
 import { ToastContainer } from 'react-toastify';
 
-import { MdShoppingCart } from 'react-icons/md';
 import { useRouter } from 'next/router';
+import { MdShoppingCart } from 'react-icons/md';
 
 const Cart = () => {
     const { cart } = useContext(CartContext);

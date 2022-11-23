@@ -24,7 +24,7 @@ import {
 
 import { RiCheckLine } from 'react-icons/ri';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -75,6 +75,13 @@ const IndividualProductPage = () => {
     const [selectedSize, setSelectedSize] = useState('');
     const [quantity, setQuantity] = useState(1);
 
+    useEffect(() => {
+        if (product) {
+            setSelectedColor(product.color[0]);
+            setSelectedSize(product.size[0]);
+        }
+    }, [product]);
+
     if (product !== undefined && product !== null) {
         const {
             _id,
@@ -86,11 +93,13 @@ const IndividualProductPage = () => {
             material,
             brand,
         } = product;
+
         var { size, color } = product;
 
         const handleAddToCart = () => {
             size = [];
             color = [];
+
             size.push(selectedSize);
             color.push(selectedColor);
 

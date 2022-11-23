@@ -1,21 +1,18 @@
 import {
+    AlertDialog,
+    AlertDialogBody,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogOverlay,
     Box,
+    Button,
     Flex,
     HStack,
     Text,
-    Button,
-    Center,
     useDisclosure,
 } from '@chakra-ui/react';
-import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay,
-} from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { BsBasket2Fill } from 'react-icons/bs';
 import { FiTrash } from 'react-icons/fi';
 import { CartContext } from '../../../context/cart';
@@ -56,9 +53,7 @@ const CartItems = () => {
                         Seus Produtos
                     </Text>
                 </HStack>
-                <Box
-                    pt="2"
-                >
+                <Box pt="2">
                     <Button
                         variant={'outline'}
                         colorScheme={'red'}
@@ -111,7 +106,7 @@ const CartItems = () => {
             </AlertDialog>
 
             <Box
-                minH="700px"
+                minH={['100px', '100px', '700px']}
                 h="auto"
             >
                 <ProductCard />
