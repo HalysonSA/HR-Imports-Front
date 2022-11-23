@@ -1,7 +1,7 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react';
 
-import BannerLogin from '../components/LoginPage/banner'
-import SignInLogin from '../components/LoginPage/signin'
+import BannerLogin from '../components/LoginPage/banner';
+import SignInLogin from '../components/LoginPage/signin';
 
 const Login = () => {
     return (
@@ -10,23 +10,11 @@ const Login = () => {
             minH="100vh"
             justifyContent={'center'}
             alignItems={'center'}
-            bgGradient={'linear(180deg, #CE8DF5 8.33%, #8816CE 100%)'}
+            direction={'row'}
         >
-            <Flex
-                minW="90%"
-                maxW="92%"
-                height={['80vh', '90vh']}
-                maxH="800px"
-                minH="500px"
-                my='2'
-                bg="white"
-                borderRadius={['0.5em', '1em', '1.5em', '2em']}
-                direction={'row'}
-            >
-                <BannerLogin />
-                <SignInLogin />
-            </Flex>
+            <BannerLogin />
+            <SignInLogin />
         </Flex>
-    )
-}
+    );
+};
 export default Login;

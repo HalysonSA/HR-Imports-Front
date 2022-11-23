@@ -3,6 +3,7 @@ import {
     Button,
     Center,
     CircularProgress,
+    HStack,
     Input,
     InputGroup,
     InputRightElement,
@@ -156,28 +157,30 @@ const SignInLogin = () => {
                 <Center m="4">
                     <Text color="#808080"> Ou Entre com sua rede social</Text>
                 </Center>
-                <Button
-                    w={['50%', '100%']}
-                    p="6"
-                    my="1"
-                    borderRadius={'25'}
-                    colorScheme="red"
-                    onClick={() => signIn('google')}
-                    leftIcon={<FaGoogle />}
-                >
-                    <Text color="white">Google</Text>
-                </Button>
-                <Button
-                    w={['50%', '100%']}
-                    p="6"
-                    my="1"
-                    borderRadius={'25'}
-                    onClick={() => signIn('facebook')}
-                    colorScheme="facebook"
-                    leftIcon={<FaFacebook />}
-                >
-                    <Text color="white">Facebook</Text>
-                </Button>
+                <HStack>
+                    <Button
+                        w={['50%', '100%']}
+                        p="6"
+                        my="1"
+                        borderRadius={'25'}
+                        colorScheme="red"
+                        onClick={() => signIn('google')}
+                        leftIcon={<FaGoogle />}
+                    >
+                        <Text color="white">Google</Text>
+                    </Button>
+                    <Button
+                        w={['50%', '100%']}
+                        p="6"
+                        my="1"
+                        borderRadius={'25'}
+                        onClick={() => signIn('facebook')}
+                        colorScheme="facebook"
+                        leftIcon={<FaFacebook />}
+                    >
+                        <Text color="white">Facebook</Text>
+                    </Button>
+                </HStack>
             </Box>
         </Center>
     );

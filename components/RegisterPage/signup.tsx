@@ -376,7 +376,7 @@ const SignUpRegister = () => {
                                         color="white"
                                     />
                                 ) : (
-                                    'Cadastrar'
+                                    'Salvar'
                                 )}
                             </Button>
                         </Flex>
