@@ -1,4 +1,4 @@
-import { Divider, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import Layout from '../components/Layout/Layout';
 import Carousel from '../components/Slide/Index';
 import NewProductSlider from '../components/Slide/NewProducts';
@@ -8,25 +8,54 @@ const Home = () => {
         <Layout>
             <Carousel />
             <Flex
+                bg="purple.600"
+                borderRadius={25}
                 justifyContent={'center'}
                 alignItems={'center'}
                 my={5}
             >
-                <Divider
-                    mr={3}
-                    orientation="horizontal"
-                />
                 <Text
+                    color={'white'}
                     fontSize="3xl"
                     fontWeight="bold"
-                    color="purple.600"
+                    px={3}
                 >
                     Novidades
                 </Text>
-                <Divider
-                    ml={3}
-                    orientation="horizontal"
-                />
+            </Flex>
+            <NewProductSlider />
+            <Flex
+                bg="purple.600"
+                borderRadius={25}
+                justifyContent={'center'}
+                alignItems={'center'}
+                my={5}
+            >
+                <Text
+                    color={'white'}
+                    fontSize="3xl"
+                    fontWeight="bold"
+                    px={3}
+                >
+                    Destaques
+                </Text>
+            </Flex>
+            <NewProductSlider />
+            <Flex
+                bg="purple.600"
+                borderRadius={25}
+                justifyContent={'center'}
+                alignItems={'center'}
+                my={5}
+            >
+                <Text
+                    color={'white'}
+                    fontSize="3xl"
+                    fontWeight="bold"
+                    px={3}
+                >
+                    Mais populares
+                </Text>
             </Flex>
             <NewProductSlider />
         </Layout>

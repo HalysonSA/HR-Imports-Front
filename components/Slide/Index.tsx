@@ -1,14 +1,14 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 import { Box, Image } from '@chakra-ui/react';
 
-import { Pagination, Navigation, Autoplay } from 'swiper';
+import { Autoplay, Navigation, Pagination } from 'swiper';
 
-const test = ['/smart.png', '/frete.png'];
+const slide = ['/smart.png', '/frete.png'];
 
 export default function Carousel() {
     return (
@@ -27,20 +27,21 @@ export default function Carousel() {
                 modules={[Pagination, Navigation, Autoplay]}
                 className="mySwiper"
             >
-                {test.map((item) => (
+                {slide.map((item) => (
                     <SwiperSlide key={item}>
                         <Box
-                            minH="50px"
+                            minH="500px"
                             maxH="750px"
                             bg="gray.50"
                             cursor={'grab'}
                         >
                             <Image
                                 w="auto"
-                                h="auto"
+                                minH={'500px'}
                                 src={item}
                                 alt="Banner"
-                                objectFit="scale-down"
+                                objectFit="cover"
+                                objectPosition={'10%'}
                             />
                         </Box>
                     </SwiperSlide>
