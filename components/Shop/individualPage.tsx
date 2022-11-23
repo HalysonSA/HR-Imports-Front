@@ -411,12 +411,7 @@ const IndividualProductPage = () => {
                                     <AccordionIcon />
                                 </AccordionButton>
                                 <AccordionPanel pb={4}>
-                                    <Text>
-                                        Duração da bateria: 10 horas, Produto
-                                        com 1 ano de garantia, Peso: 0,5 kg,
-                                        Dimensões: 20x20x20, Material: Plástico,
-                                        Cor: Preto, Marca: D13.
-                                    </Text>
+                                    <Text>Detalhes técnicos do produto</Text>
                                 </AccordionPanel>
                             </AccordionItem>
                             <AccordionItem>
