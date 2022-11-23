@@ -297,15 +297,25 @@ export default function Navbar() {
                             Sobre
                         </Link>
                         <InputGroup maxW="300px">
-                            <Input
-                                borderRadius={'20px 0 0 20px'}
-                                type="text"
-                                placeholder="O Que você procura?"
-                                focusBorderColor="purple.600"
-                            />
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    onSearch();
+                                }}
+                            >
+                                <Input
+                                    type="text"
+                                    borderRadius={'20px 0 0 20px'}
+                                    placeholder="O Que você procura?"
+                                    focusBorderColor="purple.600"
+                                    onChange={(e) =>
+                                        setSearchTerm(e.target.value)
+                                    }
+                                />
+                            </form>
                             <Button
-                                type="submit"
-                                bgColor={'purple.600'}
+                                onClick={() => onSearch()}
+                                colorScheme="purple"
                                 borderRadius={'0 20px 20px 0'}
                                 color={'white'}
                                 _hover={{

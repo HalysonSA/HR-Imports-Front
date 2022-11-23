@@ -14,8 +14,8 @@ type productInfo = {
         brand: string;
         material: string;
         stock: number;
-        size: [];
-        color: string;
+        size: string[];
+        color: string[];
     };
 };
 
