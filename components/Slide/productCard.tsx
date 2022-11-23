@@ -32,6 +32,7 @@ const SlideProductCard = (myProduct: productInfo) => {
             border="1px solid #EBEBEB"
             _hover={{
                 boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
+                cursor: 'pointer',
             }}
             w="280px"
             minH="410px"
