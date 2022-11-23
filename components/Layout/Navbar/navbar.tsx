@@ -1,33 +1,35 @@
 import {
-    Box,
-    Flex,
     Avatar,
-    HStack,
-    Link,
-    IconButton,
+    Box,
     Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    useDisclosure,
-    Stack,
-    Image,
-    Text,
-    Spacer,
     Center,
     Container,
+    Flex,
+    HStack,
+    IconButton,
+    Image,
+    Input,
+    InputGroup,
+    Link,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    Spacer,
+    Stack,
+    Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { HiMenuAlt3 } from 'react-icons/hi';
 
 import { useRouter } from 'next/router';
 
-import { CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon, Search2Icon } from '@chakra-ui/icons';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-import { useSession, signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useContext, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../../components/Redux/UserSlice';
@@ -49,14 +51,16 @@ type UserType = {
 
 export default function Navbar() {
     const dispatch = useDispatch();
-    const user = useSelector((state: UserType) => state.user);
-
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const user = useSelector((state: UserType) => state.user);
     const router = useRouter();
 
     const { data: session } = useSession();
 
     const { totalQuantity } = useContext(CartContext);
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         sessionStorage.getItem('user')
@@ -71,6 +75,10 @@ export default function Navbar() {
 
     function handleOpenCart() {
         dispatch(cartIsOpen(true));
+    }
+
+    function onSearch() {
+        router.push(`/shop?search=${searchTerm}`);
     }
 
     return (
@@ -130,6 +138,37 @@ export default function Navbar() {
                         </Link>
                     </HStack>
                 </HStack>
+
+                <InputGroup
+                    maxW="300px"
+                    display={{ base: 'none', md: 'flex' }}
+                >
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            onSearch();
+                        }}
+                    >
+                        <Input
+                            type="text"
+                            borderRadius={'20px 0 0 20px'}
+                            placeholder="O Que você procura?"
+                            focusBorderColor="purple.600"
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                    </form>
+                    <Button
+                        onClick={() => onSearch()}
+                        colorScheme="purple"
+                        borderRadius={'0 20px 20px 0'}
+                        color={'white'}
+                        _hover={{
+                            cursor: 'pointer',
+                        }}
+                    >
+                        <Search2Icon />
+                    </Button>
+                </InputGroup>
                 <Flex alignItems={'center'}>
                     <HStack>
                         <Flex
@@ -243,22 +282,39 @@ export default function Navbar() {
                         as={'nav'}
                         spacing={4}
                     >
-                        <HStack>
-                            <Link
-                                href="/shop"
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
+                        <Link
+                            href="/shop"
+                            fontSize={'lg'}
+                            fontWeight={'bold'}
+                        >
+                            Nossos produtos
+                        </Link>
+                        <Link
+                            href="/about"
+                            fontSize={'lg'}
+                            fontWeight={'bold'}
+                        >
+                            Sobre
+                        </Link>
+                        <InputGroup maxW="300px">
+                            <Input
+                                borderRadius={'20px 0 0 20px'}
+                                type="text"
+                                placeholder="O Que você procura?"
+                                focusBorderColor="purple.600"
+                            />
+                            <Button
+                                type="submit"
+                                bgColor={'purple.600'}
+                                borderRadius={'0 20px 20px 0'}
+                                color={'white'}
+                                _hover={{
+                                    cursor: 'pointer',
+                                }}
                             >
-                                Nossos produtos
-                            </Link>
-                            <Link
-                                href="/about"
-                                fontSize={'lg'}
-                                fontWeight={'bold'}
-                            >
-                                Sobre
-                            </Link>
-                        </HStack>
+                                <Search2Icon />
+                            </Button>
+                        </InputGroup>
                     </Stack>
                 </Box>
             ) : null}
