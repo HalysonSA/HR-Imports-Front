@@ -38,23 +38,7 @@ import ProductGallery from './productGallery';
 import { useRouter } from 'next/router';
 import FetchProducts from '../../utils/fetchProducts';
 import LoadingPage from '../../utils/loadingPage';
-
-type ProductInfo = {
-    _id: string;
-    title: string;
-    description: string;
-    price: number;
-    image: string[];
-    category: string;
-    material: string;
-    brand: string;
-    size: string[];
-    color: string[];
-};
-
-type ReduxState = {
-    products: ProductInfo[];
-};
+import { ProductInfo, ReduxState } from '../Redux/type';
 
 const IndividualProductPage = () => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');

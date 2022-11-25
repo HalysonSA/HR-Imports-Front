@@ -15,7 +15,7 @@ interface ProductCardProps {
 const SlideProductCard = (myProduct: ProductCardProps) => {
     const { product } = myProduct;
     if (product) {
-        const { title, price, image, _id } = product;
+        const { title, price, image, _id, promotional } = product;
 
         return (
             <Box
@@ -25,8 +25,8 @@ const SlideProductCard = (myProduct: ProductCardProps) => {
                     boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
                     cursor: 'pointer',
                 }}
-                w="280px"
-                minH="410px"
+                w={['145px', '280px']}
+                minH={['280px', '410px']}
                 pb="2"
                 bg="white"
                 wordBreak={'break-word'}
@@ -34,15 +34,30 @@ const SlideProductCard = (myProduct: ProductCardProps) => {
             >
                 <Image
                     borderRadius={'10px 10px 0 0'}
-                    h="270px"
+                    h={['144px', '270px']}
                     w="100%"
                     objectFit={'cover'}
                     src={image[0]}
                     alt={title}
                 />
-                <Box mx="5">
+                {promotional && (
+                    <Box
+                        color="white"
+                        bgColor={'red'}
+                        textAlign={'center'}
+                    >
+                        <Text
+                            fontSize={['sm', 'lg']}
+                            fontWeight={'semibold'}
+                            textTransform={'uppercase'}
+                        >
+                            Preço Promocional
+                        </Text>
+                    </Box>
+                )}
+                <Box mx={['3', '5']}>
                     <Text
-                        fontSize={'xl'}
+                        fontSize={['lg', 'xl']}
                         fontWeight={'bold'}
                         mt="2"
                         wordBreak={'break-word'}
@@ -52,7 +67,7 @@ const SlideProductCard = (myProduct: ProductCardProps) => {
                     <Stack spacing={0}>
                         {/*Exemplo com desconto*/}
                         <Text
-                            fontSize={'3xl'}
+                            fontSize={['xl', '3xl']}
                             fontWeight={'extrabold'}
                             mt="4"
                             color={'purple.600'}

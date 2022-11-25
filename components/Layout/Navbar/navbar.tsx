@@ -20,11 +20,10 @@ import {
     Text,
     useDisclosure,
 } from '@chakra-ui/react';
-import { HiMenuAlt3 } from 'react-icons/hi';
 
 import { useRouter } from 'next/router';
 
-import { CloseIcon, Search2Icon } from '@chakra-ui/icons';
+import { CloseIcon, HamburgerIcon, Search2Icon } from '@chakra-ui/icons';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import { signOut, useSession } from 'next-auth/react';
@@ -255,13 +254,18 @@ export default function Navbar() {
                             <CartSideBar />
 
                             <IconButton
-                                bg="transparent"
+                                colorScheme={'transparent'}
+                                color="black"
                                 size={'lg'}
+                                p={0}
                                 icon={
                                     isOpen ? (
                                         <CloseIcon />
                                     ) : (
-                                        <HiMenuAlt3 size={30} />
+                                        <HamburgerIcon
+                                            w="25px"
+                                            h="25px"
+                                        />
                                     )
                                 }
                                 aria-label={'Open Menu'}

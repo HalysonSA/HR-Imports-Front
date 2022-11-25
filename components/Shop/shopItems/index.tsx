@@ -45,7 +45,7 @@ const ShopItems = () => {
                 w="100%"
                 wrap="wrap"
                 justifyContent="center"
-                gap={5}
+                gap={[2, 5]}
             >
                 {filteredProducts.map((product: ProductInfo) => (
                     <Box

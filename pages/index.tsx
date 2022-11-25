@@ -9,14 +9,13 @@ const Home = () => {
             <Carousel />
             <Flex
                 bg="purple.600"
-                borderRadius={25}
                 justifyContent={'center'}
                 alignItems={'center'}
                 my={5}
             >
                 <Text
                     color={'white'}
-                    fontSize="3xl"
+                    fontSize={['xl', '2xl']}
                     fontWeight="bold"
                     px={3}
                 >
@@ -26,14 +25,13 @@ const Home = () => {
             <NewProductSlider />
             <Flex
                 bg="purple.600"
-                borderRadius={25}
                 justifyContent={'center'}
                 alignItems={'center'}
                 my={5}
             >
                 <Text
                     color={'white'}
-                    fontSize="3xl"
+                    fontSize={['xl', '2xl']}
                     fontWeight="bold"
                     px={3}
                 >
@@ -43,14 +41,13 @@ const Home = () => {
             <NewProductSlider />
             <Flex
                 bg="purple.600"
-                borderRadius={25}
                 justifyContent={'center'}
                 alignItems={'center'}
                 my={5}
             >
                 <Text
                     color={'white'}
-                    fontSize="3xl"
+                    fontSize={['xl', '2xl']}
                     fontWeight="bold"
                     px={3}
                 >

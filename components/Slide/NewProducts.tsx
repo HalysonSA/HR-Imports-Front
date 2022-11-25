@@ -15,7 +15,6 @@ import SlideProductCard from './productCard';
 export default function NewProductSlider() {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
-    const [isLargerThan425] = useMediaQuery('(min-width: 425px)');
 
     FetchProducts();
     const { products } = useSelector((state: ReduxState) => state);
@@ -24,20 +23,12 @@ export default function NewProductSlider() {
         <Box
             mx={['2', '3', '4', '4']}
             py="5"
-            cursor={'pointer'}
+            cursor={'grab'}
         >
             <Swiper
-                slidesPerView={
-                    isLargerThan1280
-                        ? 4
-                        : isLargerThan768
-                        ? 3
-                        : isLargerThan425
-                        ? 2
-                        : 1
-                }
+                slidesPerView={isLargerThan1280 ? 4 : isLargerThan768 ? 3 : 2}
                 slidesPerGroup={1}
-                spaceBetween={10}
+                spaceBetween={5}
                 loop={true}
                 loopFillGroupWithBlank={true}
                 autoplay={{

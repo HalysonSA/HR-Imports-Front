@@ -1,23 +1,27 @@
-import Navbar from './Navbar/navbar';
-import Footer from './Footer/footer';
-import React from 'react';
 import {
     Box,
+    Button,
+    Center,
     Container,
     Flex,
-    Text,
-    Input,
-    Center,
-    Stack,
-    Button,
     HStack,
+    Input,
+    Stack,
+    Text,
 } from '@chakra-ui/react';
+import Footer from './Footer/footer';
+import Navbar from './Navbar/navbar';
 
 const Layout = ({ children }: any) => {
     return (
         <Box bgColor="white">
             <Navbar />
-            <Container maxW="1500px">{children}</Container>
+            <Container
+                maxW="1500px"
+                p="2"
+            >
+                {children}
+            </Container>
 
             <Center
                 bgColor={'purple.700'}
