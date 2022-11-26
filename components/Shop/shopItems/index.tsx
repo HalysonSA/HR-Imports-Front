@@ -20,7 +20,7 @@ const ShopItems = () => {
     const [filteredProducts, setFilteredProducts] = useState<ProductInfo[]>([]);
 
     const priceBefore = priceParams?.split('-')[0].replace('+', '') || '0';
-    const priceAfter = priceParams?.split('-')[1] || '9999';
+    const priceAfter = priceParams?.split('-')[1] || '99999999';
 
     useEffect(() => {
         const filtered = products.filter(
