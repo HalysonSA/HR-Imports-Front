@@ -22,6 +22,15 @@ export type UserInfo = {
     status?: string | undefined;
 };
 
+export type Filters = {
+    colors: string[];
+    sizes: string[];
+    brands: string[];
+    categories: string[];
+    materials: string[];
+    prices: number[];
+};
+
 export type ShopFiltersInfo = {
     _orderBy: string;
 };
@@ -32,4 +41,5 @@ export type ReduxState = {
     isCartOpen: Boolean;
     isLoading: Boolean;
     shopFilters: ShopFiltersInfo;
+    filters: Filters;
 };

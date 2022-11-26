@@ -77,7 +77,15 @@ export default function Navbar() {
     }
 
     function onSearch() {
-        router.push(`/shop?search=${searchTerm}`);
+        const searchRestored = router.query;
+
+        router.push({
+            pathname: '/shop',
+            query: {
+                ...searchRestored,
+                search: searchTerm,
+            },
+        });
     }
 
     return (

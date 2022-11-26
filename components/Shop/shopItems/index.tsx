@@ -9,20 +9,71 @@ import SlideProductCard from '../../Slide/productCard';
 const ShopItems = () => {
     const router = useRouter();
     const query = router.query;
-    const search = query.search?.toString();
-
+    const searchParams = query.search?.toString();
+    const colorParams = query.color?.toString();
+    const priceParams = query.price?.toString();
+    const categoryParams = query.category?.toString();
+    const brandParams = query.brand?.toString();
+    const materialParams = query.material?.toString();
     FetchProducts();
     const { products } = useSelector((state: ReduxState) => state);
     const [filteredProducts, setFilteredProducts] = useState<ProductInfo[]>([]);
 
+    const priceBefore = priceParams?.split('-')[0].replace('+', '') || '0';
+    const priceAfter = priceParams?.split('-')[1] || '9999';
+
     useEffect(() => {
-        const filter = products.filter((product: { title: string }) =>
-            product.title
-                .toLowerCase()
-                .includes(search ? search.toLowerCase() : '')
+        const filtered = products.filter(
+            (product: ProductInfo) =>
+                (colorParams
+                    ? Object.values(product.color).includes(colorParams)
+                    : true) &&
+                product.title
+                    .toLowerCase()
+                    .includes(searchParams ? searchParams.toLowerCase() : '') &&
+                product.category
+                    .toLowerCase()
+                    .includes(categoryParams?.toLocaleLowerCase() || '') &&
+                product.brand
+                    .toLowerCase()
+                    .includes(brandParams?.toLowerCase() || '') &&
+                product.material
+                    .toLowerCase()
+                    .includes(materialParams?.toLowerCase() || '') &&
+                (priceParams
+                    ? product.price >= parseInt(priceBefore) &&
+                      product.price <= parseInt(priceAfter)
+                    : true)
         );
-        setFilteredProducts(filter);
-    }, [search, products]);
+
+        setFilteredProducts(filtered);
+
+        /*  const filter = products.filter(
+            (product: ProductInfo) =>
+                Object.values(product.color).includes(colorParams || '') &&
+                product.title
+                    .toLowerCase()
+                    .includes(searchParams ? searchParams.toLowerCase() : '') &&
+                product.category
+                    .toLowerCase()
+                    .includes(categoryParams?.toLocaleLowerCase() || '') &&
+                product.brand
+                    .toLowerCase()
+                    .includes(brandParams?.toLowerCase() || '') &&
+                product.material
+                    .toLowerCase()
+                    .includes(materialParams?.toLowerCase() || '')
+        );
+        setFilteredProducts(filter);*/
+    }, [
+        searchParams,
+        products,
+        colorParams,
+        categoryParams,
+        brandParams,
+        materialParams,
+        priceParams,
+    ]);
 
     return (
         <>
@@ -37,7 +88,9 @@ const ShopItems = () => {
                     ml={5}
                 >
                     {filteredProducts.length} resultados
-                    {search != undefined && search != '' && ` para "${search}"`}
+                    {searchParams != undefined &&
+                        searchParams != '' &&
+                        ` para "${searchParams}"`}
                 </Text>
             </HStack>
             <Flex

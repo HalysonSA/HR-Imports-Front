@@ -87,9 +87,6 @@ const ProductSlice = createSlice({
                     );
 
                     return promotionalProducts.concat(notPromotionalProducts);
-
-                    return;
-                    break;
                 default:
                     break;
             }
