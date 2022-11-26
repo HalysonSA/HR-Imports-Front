@@ -1,23 +1,23 @@
 import {
-    Box,
+    Button,
     Container,
+    Flex,
+    HStack,
     Link,
+    Spacer,
     Stack,
     Text,
     useColorModeValue,
-    Button,
-    Image,
-    Flex,
-    HStack,
-    Spacer,
 } from '@chakra-ui/react';
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
+
+import Image from 'next/image';
 
 import {
-    FaInstagram,
-    FaYoutube,
     FaFacebookF,
+    FaInstagram,
     FaWhatsapp,
+    FaYoutube,
 } from 'react-icons/fa';
 
 interface SocialProps {
@@ -80,9 +80,11 @@ const PaymentMethod = (props: { image: string; alt: string }) => {
     return (
         <>
             <Image
-                bg="white"
-                h="45px"
-                w="72px"
+                height="45px"
+                width="72px"
+                style={{
+                    background: 'white',
+                }}
                 src={props.image}
                 alt={props.alt}
             />
@@ -109,11 +111,11 @@ export default function Footer() {
                     <Image
                         src="/logo.svg"
                         alt="Logo"
-                        w="80px"
-                        h="80px"
+                        width="80px"
+                        height="80px"
                     />
                     <Spacer w={'30px'} />
-                    <Stack >
+                    <Stack>
                         <FooterInfo
                             title={'Inicio'}
                             link={'/'}

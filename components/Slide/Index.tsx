@@ -4,7 +4,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { Box, Image } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
+
+import Image from 'next/image';
 
 import { Autoplay, Navigation, Pagination } from 'swiper';
 
@@ -29,19 +31,14 @@ export default function Carousel() {
             >
                 {slide.map((item) => (
                     <SwiperSlide key={item}>
-                        <Box
-                            minH="500px"
-                            maxH="750px"
-                            bg="gray.50"
-                            cursor={'grab'}
-                        >
+                        <Box cursor={'grab'}>
                             <Image
-                                w="auto"
-                                minH={'500px'}
+                                loader={({ src }) => src}
+                                width="1500px"
+                                height="768px"
+                                objectFit="fill"
                                 src={item}
-                                alt="Banner"
-                                objectFit="cover"
-                                objectPosition={'10%'}
+                                alt="slide"
                             />
                         </Box>
                     </SwiperSlide>
