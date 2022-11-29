@@ -13,8 +13,18 @@ import Footer from './Footer/footer';
 import Navbar from './Navbar/navbar';
 
 const Layout = ({ children }: any) => {
+    const handleKeyDown = (event: any) => {
+        event.preventDefault();
+        if (event.key === '/' || (event.ctrlKey && event.key === 'k')) {
+            document.getElementById('SearchBox')?.focus();
+        }
+    };
+
     return (
-        <Box bgColor="white">
+        <Box
+            bgColor="white"
+            onKeyDownCapture={handleKeyDown}
+        >
             <Navbar />
             <Container
                 maxW="1500px"

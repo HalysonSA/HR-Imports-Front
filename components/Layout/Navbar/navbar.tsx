@@ -157,6 +157,7 @@ export default function Navbar() {
                         }}
                     >
                         <Input
+                            id="SearchBox"
                             type="text"
                             borderRadius={'20px 0 0 20px'}
                             placeholder="O Que você procura?"

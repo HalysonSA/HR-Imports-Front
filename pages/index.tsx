@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import Layout from '../components/Layout/Layout';
-import Carousel from '../components/Slide/Index';
+import Carousel from '../components/Slide/index';
 import NewProductSlider from '../components/Slide/NewProducts';
 
 const Home = () => {
