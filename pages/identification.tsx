@@ -1,8 +1,8 @@
-import { Box, Center, Flex } from '@chakra-ui/react';
-import CartItems from '../components/Cart/cartcomponents/CartItems';
-import StatusBar from '../components/Cart/cartcomponents/StatusBar';
-import FormEntries from '../components/Cart/Identification/FormEntries';
 import Layout from '../components/Layout/Layout';
+import StatusBar from '../components/Cart/cartcomponents/statusBar';
+import CartItems from '../components/Cart/cartcomponents/cartItems';
+import FormEntries from '../components/Cart/identification/formEntries';
+import { Box, Center, Flex } from '@chakra-ui/react';
 import RouterGuard from '../components/RoutingGuard';
 
 const Identification = () => {

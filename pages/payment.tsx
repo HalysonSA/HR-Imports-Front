@@ -1,6 +1,6 @@
 import { Box, Center, Flex } from '@chakra-ui/react';
-import StatusBar from '../components/Cart/cartcomponents/StatusBar';
-import StripeComponent from '../components/Cart/Stripe/index';
+import StatusBar from '../components/Cart/cartcomponents/statusBar';
+import StripeComponent from '../components/Cart/stripe';
 import Layout from '../components/Layout/Layout';
 import RouterGuard from '../components/RoutingGuard';
 

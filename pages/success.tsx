@@ -1,10 +1,11 @@
-import { Box, Center, Text } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
-import StatusBar from '../components/Cart/cartcomponents/StatusBar';
-import Layout from '../components/Layout/Layout';
+import StatusBar from '../components/Cart/cartcomponents/statusBar';
 import { CartContext } from '../context/cart';
+import Layout from '../components/Layout/Layout';
+import { Center, Text, Box } from '@chakra-ui/react';
 
 import { motion } from 'framer-motion';
+import router from 'next/router';
 import RouterGuard from '../components/RoutingGuard';
 
 const Success = () => {

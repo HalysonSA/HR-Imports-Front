@@ -1,5 +1,5 @@
 import Layout from '../../components/Layout/Layout';
-import IndividualProductPage from '../../components/Shop/IndividualPage';
+import IndividualProductPage from '../../components/Shop/individualPage';
 
 const ProductPage = () => {
     return (

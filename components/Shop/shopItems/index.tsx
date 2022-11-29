@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FetchProducts from '../../../utils/fetchProducts';
 import { ProductInfo, ReduxState } from '../../Redux/type';
-import SlideProductCard from '../../Slide/ProductCard';
+import SlideProductCard from '../../Slide/productCard';
 
 const ShopItems = () => {
     const router = useRouter();

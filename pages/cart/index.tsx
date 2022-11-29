@@ -11,9 +11,9 @@ import {
 import Layout from '../../components/Layout/Layout';
 
 import { useContext } from 'react';
-import CartItems from '../../components/Cart/cartcomponents/CartItems';
-import StatusBar from '../../components/Cart/cartcomponents/StatusBar';
-import Summary from '../../components/Cart/cartcomponents/Summary';
+import CartItems from '../../components/Cart/cartcomponents/cartItems';
+import StatusBar from '../../components/Cart/cartcomponents/statusBar';
+import Summary from '../../components/Cart/cartcomponents/summary';
 import { CartContext } from '../../context/cart';
 
 import { ToastContainer } from 'react-toastify';

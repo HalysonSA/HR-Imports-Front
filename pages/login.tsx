@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 
-import BannerLogin from '../components/LoginPage/Banner';
-import SignInLogin from '../components/LoginPage/SignIn';
+import BannerLogin from '../components/LoginPage/banner';
+import SignInLogin from '../components/LoginPage/signin';
 
 const Login = () => {
     return (

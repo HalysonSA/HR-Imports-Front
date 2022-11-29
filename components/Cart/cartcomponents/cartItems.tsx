@@ -1,6 +1,6 @@
 import { Box, Flex } from '@chakra-ui/react';
-import HeaderCart from './HeaderCartItem/HeaderCart';
-import ProductCard from './ProductCard';
+import HeaderCart from './headerCartItem/headerCart';
+import ProductCard from './productCard';
 
 const CartItems = () => {
     return (
