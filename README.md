@@ -5,11 +5,16 @@
 
 **E-Commerce project** using Next Js( no backend in this repository )
 
->NextJs
->Chakra UI
->SwiperJs
->Redux
->React Context
->NextAuth
+>NextJs 
 
-This site is running in  [GitHub Pages](https://halyson-sand.vercel.app/).
+>Chakra UI 
+
+>SwiperJs 
+
+>Redux 
+
+>React Context 
+
+>NextAuth 
+
+This site is running in  [Vercel](https://halyson-sand.vercel.app/).
