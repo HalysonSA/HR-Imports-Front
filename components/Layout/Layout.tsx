@@ -13,18 +13,17 @@ import Footer from './Footer/footer';
 import Navbar from './Navbar/navbar';
 
 const Layout = ({ children }: any) => {
-    const handleKeyDown = (event: any) => {
-        event.preventDefault();
-        if (event.key === '/' || (event.ctrlKey && event.key === 'k')) {
-            document.getElementById('SearchBox')?.focus();
-        }
-    };
+    if (typeof window !== 'undefined') {
+        document.addEventListener('keydown', (event) => {
+            if (event.key === '/' || (event.ctrlKey && event.key === 'k')) {
+                event.preventDefault();
+                document.getElementById('SearchBox')?.focus();
+            }
+        });
+    }
 
     return (
-        <Box
-            bgColor="white"
-            onKeyDownCapture={handleKeyDown}
-        >
+        <Box bgColor="white">
             <Navbar />
             <Container
                 maxW="1500px"
