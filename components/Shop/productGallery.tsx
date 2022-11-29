@@ -3,7 +3,7 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FetchProducts from '../../utils/fetchProducts';
-import GallerySlider from './gallerySlider';
+import GallerySlider from './GallerySlider';
 
 type ProductInfo = {
     _id: string;

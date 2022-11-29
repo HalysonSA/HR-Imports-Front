@@ -1,5 +1,5 @@
 import { Center } from '@chakra-ui/react';
-import StatusBar from '../components/Cart/cartcomponents/statusBar';
+import StatusBar from '../components/Cart/cartcomponents/StatusBar';
 import Layout from '../components/Layout/Layout';
 
 const Checkout = () => {

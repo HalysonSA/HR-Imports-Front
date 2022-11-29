@@ -9,8 +9,8 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
-import Footer from './Footer/footer';
-import Navbar from './Navbar/navbar';
+import Footer from './Footer/Footer';
+import Navbar from './Navbar/Navbar';
 
 const Layout = ({ children }: any) => {
     return (

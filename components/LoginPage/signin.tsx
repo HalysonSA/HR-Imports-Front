@@ -29,7 +29,7 @@ import { GetUser } from '../../utils/checkUser';
 
 import { signOut } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
-import { signInUser } from '../../components/Redux/UserSlice';
+import { signInUser } from '../Redux/UserSlice';
 
 type SignInProps = {
     email: string;

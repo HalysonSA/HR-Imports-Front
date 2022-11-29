@@ -33,7 +33,7 @@ import PriceFormat from '../../utils/priceFormat';
 import { cartIsOpen } from '../Redux/CartSlice';
 
 import { ChevronRightIcon } from '@chakra-ui/icons';
-import ProductGallery from './productGallery';
+import ProductGallery from './ProductGallery';
 
 import { useRouter } from 'next/router';
 import FetchProducts from '../../utils/fetchProducts';

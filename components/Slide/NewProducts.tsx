@@ -10,7 +10,7 @@ import { Autoplay, Navigation, Pagination } from 'swiper';
 
 import FetchProducts from '../../utils/fetchProducts';
 import { ProductInfo, ReduxState } from '../Redux/type';
-import SlideProductCard from './productCard';
+import SlideProductCard from './ProductCard';
 
 export default function NewProductSlider() {
     const [isLargerThan1280] = useMediaQuery('(min-width: 1280px)');

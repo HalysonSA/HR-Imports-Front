@@ -31,9 +31,9 @@ import { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useDispatch } from 'react-redux';
-import { signInUser } from '../../../components/Redux/UserSlice';
-import CartSideBar from '../../Cart/sidecart/sidebar';
+import CartSideBar from '../../Cart/SideCart/SideBar';
 import { cartIsOpen } from '../../Redux/CartSlice';
+import { signInUser } from '../../Redux/UserSlice';
 
 import { CartContext } from '../../../context/cart';
 

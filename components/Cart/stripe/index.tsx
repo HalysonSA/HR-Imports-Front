@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react';
 import { CartContext } from '../../../context/cart';
 import { CustomerContext } from '../../../context/customer';
 import api from '../../api/axios';
-import CheckoutForm from './checkout';
+import CheckoutForm from './Checkout';
 
 const stripePromise = loadStripe(
     `${process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY}`

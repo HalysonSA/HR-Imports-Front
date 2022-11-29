@@ -1,5 +1,5 @@
-import {  Flex, Box, Image, useMediaQuery} from '@chakra-ui/react';
-import SignUpRegister from '../components/RegisterPage/signup';
+import { Box, Flex, Image, useMediaQuery } from '@chakra-ui/react';
+import SignUpRegister from '../components/RegisterPage/SignUp';
 
 const SignUp = () => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
@@ -13,13 +13,14 @@ const SignUp = () => {
             <SignUpRegister />
 
             {isLargerThan768 ? (
-            <Box w={"60%"}>
-                <Image
-                    src="/register.svg"
-                    alt="illustration"
-                    h="100vh"
-                />
-            </Box>) : null}
+                <Box w={'60%'}>
+                    <Image
+                        src="/register.svg"
+                        alt="illustration"
+                        h="100vh"
+                    />
+                </Box>
+            ) : null}
         </Flex>
     );
 };

@@ -1,5 +1,5 @@
-import FooterSideBar from './footersidebar';
-import ItemSideBar from './itemsidebar';
+import FooterSideBar from './FooterSideBar';
+import ItemSideBar from './ItemSideBar';
 
 import {
     Center,

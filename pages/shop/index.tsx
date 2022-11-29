@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 
 import Layout from '../../components/Layout/Layout';
-import ShopFilters from '../../components/Shop/shopFiltersPage/filters';
-import ShopHeader from '../../components/Shop/shopFiltersPage/header';
-import ShopItems from '../../components/Shop/shopItems';
+import ShopFilters from '../../components/Shop/ShopFiltersPage/Filters';
+import ShopHeader from '../../components/Shop/ShopFiltersPage/Header';
+import ShopItems from '../../components/Shop/ShopItems';
 
 const Shop = () => {
     return (
