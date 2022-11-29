@@ -5,8 +5,8 @@ import { checkUserExists } from '../utils/checkUser';
 import { checkUser } from './Redux/UserSlice';
 
 import { Box } from '@chakra-ui/react';
-import { LoginAlert } from '../utils/alertLoginIsRequired';
-import LoadingPage from '../utils/loadingPage';
+import { LoginAlert } from './utils/alertLoginIsRequired';
+import LoadingPage from './utils/loadingPage';
 
 const RouterGuard = ({ children }: any) => {
     const [itsLoading, setLoading] = useState(true);

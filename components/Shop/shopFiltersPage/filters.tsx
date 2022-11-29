@@ -15,7 +15,7 @@ import {
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyFiltersState from '../../../utils/myFiltersState';
+import useFiltersSync from '../../../utils/myFiltersState';
 import { setShopFilters } from '../../Redux/ProductSlice';
 import { ReduxState } from '../../Redux/type';
 
@@ -70,7 +70,7 @@ const ShopFilters = () => {
     ]);
 
     const filters = useSelector((state: ReduxState) => state.filters);
-    MyFiltersState();
+    useFiltersSync();
 
     return (
         <Flex

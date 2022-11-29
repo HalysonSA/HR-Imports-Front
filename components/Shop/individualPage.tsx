@@ -37,8 +37,8 @@ import ProductGallery from './productGallery';
 
 import { useRouter } from 'next/router';
 import FetchProducts from '../../utils/fetchProducts';
-import LoadingPage from '../../utils/loadingPage';
 import { ProductInfo, ReduxState } from '../Redux/type';
+import LoadingPage from './../utils/loadingPage';
 
 const IndividualProductPage = () => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');

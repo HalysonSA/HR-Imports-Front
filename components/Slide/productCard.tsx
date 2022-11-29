@@ -1,8 +1,8 @@
 import { Box, Image, Stack, Text } from '@chakra-ui/react';
 import router from 'next/router';
-import LoadingPage from '../../utils/loadingPage';
 import PriceFormat from '../../utils/priceFormat';
 import { ProductInfo } from '../Redux/type';
+import LoadingPage from '../utils/loadingPage';
 
 const handleProductClick = (product: { _id: string }) => {
     router.push(`/shop/${product._id}`, undefined, { shallow: false });
@@ -14,78 +14,79 @@ interface ProductCardProps {
 
 const SlideProductCard = (myProduct: ProductCardProps) => {
     const { product } = myProduct;
-    if (product) {
-        const { title, price, image, _id, promotional } = product;
 
-        return (
-            <Box
-                borderRadius={10}
-                border="1px solid #EBEBEB"
-                _hover={{
-                    boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
-                    cursor: 'pointer',
-                }}
-                w={['145px', '280px']}
-                minH={['280px', '410px']}
-                pb="2"
-                bg="white"
-                wordBreak={'break-word'}
-                onClick={() => handleProductClick(product)}
-            >
-                <Image
-                    borderRadius={'10px 10px 0 0'}
-                    h={['144px', '270px']}
-                    w="100%"
-                    objectFit={'cover'}
-                    src={image[0]}
-                    alt={title}
-                />
-                {promotional && (
-                    <Box
-                        color="white"
-                        bgColor={'red'}
-                        textAlign={'center'}
-                    >
-                        <Text
-                            fontSize={['sm', 'lg']}
-                            fontWeight={'semibold'}
-                            textTransform={'uppercase'}
-                        >
-                            Preço Promocional
-                        </Text>
-                    </Box>
-                )}
-                <Box mx={['3', '5']}>
-                    <Text
-                        fontSize={['lg', 'xl']}
-                        fontWeight={'bold'}
-                        mt="2"
-                        wordBreak={'break-word'}
-                    >
-                        {title}
-                    </Text>
-                    <Stack spacing={0}>
-                        {/*Exemplo com desconto*/}
-                        <Text
-                            fontSize={['xl', '3xl']}
-                            fontWeight={'extrabold'}
-                            mt="4"
-                            color={'purple.600'}
-                        >
-                            {PriceFormat(price)}
-                        </Text>
-                        <Text
-                            transform={'translateY(-10px)'}
-                            color={'#A0A0A0'}
-                        >
-                            Á vista no PIX
-                        </Text>
-                    </Stack>
-                </Box>
-            </Box>
-        );
-    } else {
+    if (!product) {
         return <LoadingPage />;
     }
+
+    const { title, price, image, _id, promotional } = product;
+
+    return (
+        <Box
+            borderRadius={10}
+            border="1px solid #EBEBEB"
+            _hover={{
+                boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
+                cursor: 'pointer',
+            }}
+            w={['145px', '280px']}
+            minH={['280px', '410px']}
+            pb="2"
+            bg="white"
+            wordBreak={'break-word'}
+            onClick={() => handleProductClick(product)}
+        >
+            <Image
+                borderRadius={'10px 10px 0 0'}
+                h={['144px', '270px']}
+                w="100%"
+                objectFit={'cover'}
+                src={image[0]}
+                alt={title}
+            />
+            {promotional && (
+                <Box
+                    color="white"
+                    bgColor={'red'}
+                    textAlign={'center'}
+                >
+                    <Text
+                        fontSize={['sm', 'lg']}
+                        fontWeight={'semibold'}
+                        textTransform={'uppercase'}
+                    >
+                        Preço Promocional
+                    </Text>
+                </Box>
+            )}
+            <Box mx={['3', '5']}>
+                <Text
+                    fontSize={['lg', 'xl']}
+                    fontWeight={'bold'}
+                    mt="2"
+                    wordBreak={'break-word'}
+                >
+                    {title}
+                </Text>
+                <Stack spacing={0}>
+                    {/*Exemplo com desconto*/}
+                    <Text
+                        fontSize={['xl', '3xl']}
+                        fontWeight={'extrabold'}
+                        mt="4"
+                        color={'purple.600'}
+                    >
+                        {PriceFormat(price)}
+                    </Text>
+                    <Text
+                        transform={'translateY(-10px)'}
+                        color={'#A0A0A0'}
+                    >
+                        Á vista no PIX
+                    </Text>
+                </Stack>
+            </Box>
+        </Box>
+    );
 };
 export default SlideProductCard;

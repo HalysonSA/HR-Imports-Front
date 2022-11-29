@@ -47,24 +47,6 @@ const ShopItems = () => {
         );
 
         setFilteredProducts(filtered);
-
-        /*  const filter = products.filter(
-            (product: ProductInfo) =>
-                Object.values(product.color).includes(colorParams || '') &&
-                product.title
-                    .toLowerCase()
-                    .includes(searchParams ? searchParams.toLowerCase() : '') &&
-                product.category
-                    .toLowerCase()
-                    .includes(categoryParams?.toLocaleLowerCase() || '') &&
-                product.brand
-                    .toLowerCase()
-                    .includes(brandParams?.toLowerCase() || '') &&
-                product.material
-                    .toLowerCase()
-                    .includes(materialParams?.toLowerCase() || '')
-        );
-        setFilteredProducts(filter);*/
     }, [
         searchParams,
         products,
