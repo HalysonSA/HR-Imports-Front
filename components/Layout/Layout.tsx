@@ -9,6 +9,7 @@ import {
     Stack,
     Text,
 } from '@chakra-ui/react';
+import { toast, ToastContainer } from 'react-toastify';
 import Footer from './Footer/footer';
 import Navbar from './Navbar/navbar';
 
@@ -24,6 +25,7 @@ const Layout = ({ children }: any) => {
 
     return (
         <Box bgColor="white">
+            <ToastContainer />
             <Navbar />
             <Container
                 maxW="1500px"
@@ -56,6 +58,14 @@ const Layout = ({ children }: any) => {
                             color="purple.700"
                             bgColor={'white'}
                             fontWeight={'bold'}
+                            onClick={() => {
+                                toast.success(
+                                    'E-mail cadastrado com sucesso!',
+                                    {
+                                        position: 'bottom-center',
+                                    }
+                                );
+                            }}
                         >
                             Enviar
                         </Button>

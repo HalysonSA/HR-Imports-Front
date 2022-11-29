@@ -33,12 +33,12 @@ export default function Carousel() {
                     <SwiperSlide key={item}>
                         <Box cursor={'grab'}>
                             <Image
-                                loader={({ src }) => src}
                                 width="1500px"
                                 height="768px"
                                 objectFit="fill"
                                 src={item}
                                 alt="slide"
+                                priority
                             />
                         </Box>
                     </SwiperSlide>
