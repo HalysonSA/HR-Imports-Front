@@ -1,27 +1,48 @@
+import { Box, Center, Text } from '@chakra-ui/react';
 import { useContext, useEffect } from 'react';
 import StatusBar from '../components/Cart/cartcomponents/statusBar';
-import { CartContext } from '../context/cart';
 import Layout from '../components/Layout/Layout';
-import { Center, Text, Box } from '@chakra-ui/react';
+import { CartContext } from '../context/cart';
 
 import { motion } from 'framer-motion';
-import router from 'next/router';
+import { useRouter } from 'next/router';
+import api from '../components/api/axios';
 import RouterGuard from '../components/RoutingGuard';
+import { CustomerContext } from '../context/customer';
 
 const Success = () => {
-    const { clearCart } = useContext(CartContext);
+    const { clearCart, cart } = useContext(CartContext);
+    const { customer } = useContext(CustomerContext);
+
+    const router = useRouter();
+
+    const { payment_intent } = router.query;
 
     useEffect(() => {
-        clearCart();
+        async function redirectToHome() {
+            if (!payment_intent) {
+                location.href = '/';
+            }
 
-        function redirectToHome() {
-            location.href = '/';
+            if (cart.length !== 0 && customer) {
+                await api.post('/orders', {
+                    user: customer,
+                    cart: cart,
+                    payment: {
+                        payment_status: 'pending',
+                    },
+                });
+
+                clearCart();
+
+                location.href = '/';
+            }
         }
 
         if (typeof window !== 'undefined') {
             setTimeout(redirectToHome, 3000);
         }
-    }, []);
+    }, [customer, cart]);
 
     return (
         <Layout>

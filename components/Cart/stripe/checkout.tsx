@@ -11,12 +11,8 @@ import {
     useElements,
     useStripe,
 } from '@stripe/react-stripe-js';
-import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
-import { CartContext } from '../../../context/cart';
-import { CustomerContext } from '../../../context/customer';
-import api from '../../api/axios';
 import { isLoading } from '../../Redux/LoadingSlice';
 
 const CheckoutForm = () => {
@@ -26,22 +22,10 @@ const CheckoutForm = () => {
     const dispatch = useDispatch();
     const itsLoading = useSelector((state: any) => state.isLoading);
 
-    const [errorMessage, setErrorMessage] = useState(null);
-    const { customer } = useContext(CustomerContext);
-    const { cart } = useContext(CartContext);
-
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
         dispatch(isLoading(true));
-
-        await api.post('/orders', {
-            user: customer,
-            cart: cart,
-            payment: {
-                payment_status: 'pending',
-            },
-        });
 
         if (!stripe || !elements) {
             // Stripe.js has not yet loaded.
@@ -60,8 +44,6 @@ const CheckoutForm = () => {
 
         if (response.error) {
             toast.error('Seu pagamento foi recusado');
-        } else {
-            toast.success('Pagamento realizado com sucesso!');
         }
     };
 
@@ -108,8 +90,6 @@ const CheckoutForm = () => {
                         </Button>
                     </Container>
                 </Center>
-
-                {errorMessage && <div>{errorMessage}</div>}
             </form>
         </Box>
     );

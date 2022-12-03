@@ -27,7 +27,6 @@ import { signIn } from 'next-auth/react';
 
 import { GetUser } from '../../utils/checkUser';
 
-import { signOut } from 'next-auth/react';
 import { useDispatch } from 'react-redux';
 import { signInUser } from '../../components/Redux/UserSlice';
 
@@ -52,11 +51,14 @@ const SignInLogin = () => {
 
         const user = await GetUser({ email, password });
 
-        user && dispatch(signInUser(user)) && router.push('/');
-
         !user && toast.error('Email ou senha incorretos');
 
-        signOut();
+        if (user) {
+            toast.success('Sucesso');
+            dispatch(signInUser(user));
+            router.push('/');
+        }
+
         setLoading(false);
         reset();
     }
