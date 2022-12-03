@@ -4,10 +4,10 @@ import {
     Circle,
     Flex,
     HStack,
-    Image,
     Stack,
     Text,
 } from '@chakra-ui/react';
+import Image from 'next/image';
 import { useContext } from 'react';
 import { FiTrash } from 'react-icons/fi';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
@@ -28,11 +28,9 @@ const ProductCard = () => {
                     gap={3}
                 >
                     <Image
-                        objectFit={'cover'}
-                        minW="150px"
-                        minH="150px"
-                        h="150px"
-                        w="150px"
+                        objectFit="cover"
+                        height={150}
+                        width={150}
                         alt=""
                         src={item.image[0]}
                     />

@@ -23,23 +23,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import { CustomerContext } from '../../../context/customer';
 import { checkEmail } from '../../../utils/checkEmail';
 
-type UserInfo = {
-    name?: string;
-    email?: string;
-    password?: string;
-    phone?: string;
-    accountType?: string | undefined;
-    status?: string | undefined;
-};
-
-type UserType = {
-    user: UserInfo;
-};
-
-type LoadingType = {
-    isLoading: Boolean;
-};
-
 type Localization = {
     cep: string;
     localidade: string;

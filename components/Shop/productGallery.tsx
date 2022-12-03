@@ -3,24 +3,8 @@ import router from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import FetchProducts from '../../utils/fetchProducts';
+import { ProductInfo, ReduxState } from '../Redux/type';
 import GallerySlider from './gallerySlider';
-
-type ProductInfo = {
-    _id: string;
-    title: string;
-    description: string;
-    price: number;
-    image: string[];
-    category: string;
-    material: string;
-    brand: string;
-    size: string[];
-    color: string[];
-};
-
-type ReduxState = {
-    products: ProductInfo[];
-};
 
 const ProductGallery = () => {
     const [image, setImage] = useState('');

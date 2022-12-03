@@ -1,13 +1,20 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 const Header = () => (
     <Head>
         <title>HR Imports - Produtos Importados</title>
-        <link rel="apple-touch-icon" href=""></link>
+        <link
+            rel="apple-touch-icon"
+            href=""
+        ></link>
         <meta
             name="description"
             content="Produtos de qualidade e preço justo"
         />
+        <meta
+            name="theme-color"
+            content="#6B46C1"
+        ></meta>
         <meta
             property="og:title"
             content="HR Imports - Produtos Importados"
@@ -29,5 +36,5 @@ const Header = () => (
             href="/favicon.ico"
         />
     </Head>
-)
-export default Header
+);
+export default Header;

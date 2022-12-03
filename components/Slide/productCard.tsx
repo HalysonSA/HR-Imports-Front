@@ -1,25 +1,29 @@
-import { Box, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Stack, Text, useMediaQuery } from '@chakra-ui/react';
+import Image from 'next/image';
 import router from 'next/router';
 import PriceFormat from '../../utils/priceFormat';
 import { ProductInfo } from '../Redux/type';
 import LoadingPage from '../utils/loadingPage';
-
-const handleProductClick = (product: { _id: string }) => {
-    router.push(`/shop/${product._id}`, undefined, { shallow: false });
-};
 
 interface ProductCardProps {
     product: ProductInfo;
 }
 
 const SlideProductCard = (myProduct: ProductCardProps) => {
+    const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const { product } = myProduct;
 
     if (!product) {
         return <LoadingPage />;
     }
 
-    const { title, price, image, _id, promotional } = product;
+    const { title, price, image, promotional } = product;
+
+    const myFirstImage = image[0];
+
+    const handleProductClick = (product: { _id: string }) => {
+        router.push(`/shop/${product._id}`, undefined, { shallow: false });
+    };
 
     return (
         <Box
@@ -37,11 +41,15 @@ const SlideProductCard = (myProduct: ProductCardProps) => {
             onClick={() => handleProductClick(product)}
         >
             <Image
-                borderRadius={'10px 10px 0 0'}
-                h={['144px', '270px']}
-                w="100%"
-                objectFit={'cover'}
-                src={image[0]}
+                priority
+                style={{
+                    objectFit: 'cover',
+                    borderRadius: '10px 10px 0 0',
+                }}
+                layout="responsive"
+                width={isLargerThan768 ? 280 : 145}
+                height={isLargerThan768 ? 280 : 145}
+                src={myFirstImage}
                 alt={title}
             />
             {promotional && (
