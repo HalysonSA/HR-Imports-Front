@@ -172,6 +172,7 @@ export const CartProvider = ({ children }: any) => {
     const clearCart = () => {
         sessionStorage.removeItem('cart');
         setCart([]);
+        location.href = '/';
     };
 
     return (

@@ -34,8 +34,6 @@ const Success = () => {
                 });
 
                 clearCart();
-
-                location.href = '/';
             }
         }
 
