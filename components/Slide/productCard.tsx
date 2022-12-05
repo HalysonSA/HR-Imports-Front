@@ -69,16 +69,17 @@ const SlideProductCard = (myProduct: ProductCardProps) => {
             )}
             <Box mx={['3', '5']}>
                 <Text
+                    noOfLines={[3, 2]}
                     fontSize={['lg', 'xl']}
                     fontWeight={'bold'}
                     mt="2"
-                    wordBreak={'break-word'}
                 >
                     {title}
                 </Text>
                 <Stack spacing={0}>
                     {/*Exemplo com desconto*/}
                     <Text
+                        noOfLines={[1, 1]}
                         fontSize={['xl', '3xl']}
                         fontWeight={'extrabold'}
                         mt="4"

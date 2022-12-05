@@ -21,7 +21,7 @@ export default function NewProductSlider() {
 
     return (
         <Box
-            mx={4}
+            mx={2}
             py="5"
             cursor={'grab'}
         >
