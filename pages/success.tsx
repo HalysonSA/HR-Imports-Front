@@ -25,20 +25,22 @@ const Success = () => {
             }
 
             if (cart.length !== 0 && customer) {
-                await api.post('/orders', {
-                    user: customer,
-                    cart: cart,
-                    payment: {
-                        payment_status: 'pending',
-                    },
-                });
-
-                clearCart();
+                await api
+                    .post('/orders', {
+                        user: customer,
+                        cart: cart,
+                        payment: {
+                            payment_status: 'pending',
+                        },
+                    })
+                    .then(() => {
+                        clearCart();
+                    });
             }
         }
 
         if (typeof window !== 'undefined') {
-            setTimeout(redirectToHome, 3000);
+            setTimeout(redirectToHome, 5000);
         }
     }, [customer, cart]);
 

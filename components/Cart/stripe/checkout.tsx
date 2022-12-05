@@ -14,6 +14,9 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { isLoading } from '../../Redux/LoadingSlice';
+import LoadingPage from '../../utils/loadingPage';
+
+import { useRouter } from 'next/router';
 
 const CheckoutForm = () => {
     const stripe = useStripe();
@@ -22,29 +25,37 @@ const CheckoutForm = () => {
     const dispatch = useDispatch();
     const itsLoading = useSelector((state: any) => state.isLoading);
 
+    const router = useRouter();
+
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
         dispatch(isLoading(true));
 
         if (!stripe || !elements) {
-            // Stripe.js has not yet loaded.
-            // Make sure to disable form submission until Stripe.js has loaded.
-            return;
+            return <LoadingPage />;
         }
 
         const response = await stripe.confirmPayment({
             elements,
-            confirmParams: {
-                return_url: 'http://localhost:3000/success',
-            },
+            redirect: 'if_required',
         });
 
-        dispatch(isLoading(false));
+        if (response.paymentIntent) {
+            toast.success('Seu pagamento foi aprovado');
+            router.push({
+                pathname: '/success',
+                query: {
+                    payment_intent: response.paymentIntent.id,
+                },
+            });
+        }
 
         if (response.error) {
             toast.error('Seu pagamento foi recusado');
         }
+
+        dispatch(isLoading(false));
     };
 
     return (
