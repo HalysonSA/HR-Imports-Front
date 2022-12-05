@@ -41,7 +41,7 @@ const SlideProductCard = (myProduct: ProductCardProps) => {
             onClick={() => handleProductClick(product)}
         >
             <Image
-                priority
+                priority={true}
                 style={{
                     objectFit: 'cover',
                     borderRadius: '10px 10px 0 0',

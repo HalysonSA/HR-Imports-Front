@@ -38,7 +38,7 @@ export default function Carousel() {
                                 objectFit="fill"
                                 src={item}
                                 alt="slide"
-                                priority
+                                priority={true}
                             />
                         </Box>
                     </SwiperSlide>
