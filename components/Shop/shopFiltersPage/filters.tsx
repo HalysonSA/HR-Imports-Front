@@ -348,8 +348,9 @@ const ShopFilters = () => {
                 <Text fontSize="lg"> Ordernar por:</Text>
                 <Select
                     focusBorderColor="purple.600"
-                    maxW="170px"
+                    maxW="180px"
                     onChange={(e) => sortingCheck(e.target.value)}
+                    fontSize="lg"
                 >
                     <option value="default">Mais populares</option>
                     <option value="lowPrice">Menor preço</option>

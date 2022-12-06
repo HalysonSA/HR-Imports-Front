@@ -15,7 +15,6 @@ import {
     MenuButton,
     MenuItem,
     MenuList,
-    Spacer,
     Stack,
     Text,
     useDisclosure,
@@ -107,6 +106,7 @@ export default function Navbar() {
                     alignItems={'center'}
                 >
                     <Box
+                        display={{ base: 'none', md: 'flex' }}
                         onClick={() => router.push('/')}
                         _hover={{ cursor: 'pointer' }}
                     >
@@ -146,10 +146,27 @@ export default function Navbar() {
                     </HStack>
                 </HStack>
 
-                <InputGroup
-                    maxW="300px"
-                    display={{ base: 'none', md: 'flex' }}
-                >
+                <IconButton
+                    colorScheme={'transparent'}
+                    color="black"
+                    size={'lg'}
+                    p={0}
+                    icon={
+                        isOpen ? (
+                            <CloseIcon />
+                        ) : (
+                            <HamburgerIcon
+                                w="25px"
+                                h="25px"
+                            />
+                        )
+                    }
+                    aria-label={'Open Menu'}
+                    display={{ md: 'none' }}
+                    onClick={isOpen ? onClose : onOpen}
+                />
+
+                <InputGroup maxW={['170px', '300px']}>
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
@@ -159,7 +176,8 @@ export default function Navbar() {
                         <Input
                             id="SearchBox"
                             type="text"
-                            borderRadius={'20px 0 0 20px'}
+                            borderRadius={'10px 0 0 10px'}
+                            noOfLines={1}
                             placeholder="O Que você procura?"
                             focusBorderColor="purple.600"
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -168,7 +186,7 @@ export default function Navbar() {
                     <Button
                         onClick={() => onSearch()}
                         colorScheme="purple"
-                        borderRadius={'0 20px 20px 0'}
+                        borderRadius={'0 10px 10px 0'}
                         color={'white'}
                         _hover={{
                             cursor: 'pointer',
@@ -179,33 +197,9 @@ export default function Navbar() {
                 </InputGroup>
                 <Flex alignItems={'center'}>
                     <HStack>
-                        <Flex
-                            cursor={'pointer'}
-                            onClick={() => handleOpenCart()}
-                            _hover={{
-                                color: 'purple.600',
-                            }}
-                        >
-                            <AiOutlineShoppingCart size={35} />
-
-                            <Center
-                                w="18px"
-                                h="18px"
-                                transform={'translate(-10px, -5px)'}
-                                borderRadius={'30px'}
-                                bg="red"
-                            >
-                                <Text
-                                    fontSize={'sm'}
-                                    color={'white'}
-                                    fontWeight={'bold'}
-                                >
-                                    {totalQuantity}
-                                </Text>
-                            </Center>
-                        </Flex>
                         <Menu>
                             <MenuButton
+                                display={{ base: 'none', md: 'flex' }}
                                 as={Button}
                                 onClick={() => {
                                     !(session || user.name)
@@ -235,57 +229,60 @@ export default function Navbar() {
                             <MenuList
                                 zIndex={99}
                                 color={'black'}
+                                fontSize={'lg'}
                             >
-                                {session || user.name ? (
-                                    <>
-                                        <MenuItem
-                                            onClick={() =>
-                                                router.push('/orders')
-                                            }
-                                        >
-                                            Meus Pedidos
-                                        </MenuItem>
-                                        <MenuItem
-                                            bg="transparent"
-                                            _hover={{
-                                                bg: 'red',
-                                                color: 'white',
-                                            }}
-                                            onClick={() => handleLogout()}
-                                        >
-                                            Sair
-                                        </MenuItem>
-                                    </>
-                                ) : null}
+                                <MenuItem
+                                    _hover={{
+                                        bg: 'white',
+                                        color: 'purple.600',
+                                    }}
+                                    onClick={() => router.push('/orders')}
+                                >
+                                    Meus Pedidos
+                                </MenuItem>
+                                <MenuItem
+                                    bg="transparent"
+                                    _hover={{
+                                        bg: 'red',
+                                        color: 'white',
+                                    }}
+                                    onClick={() => handleLogout()}
+                                >
+                                    Sair
+                                </MenuItem>
                             </MenuList>
-                            <Spacer />
 
                             <CartSideBar />
-
-                            <IconButton
-                                colorScheme={'transparent'}
-                                color="black"
-                                size={'lg'}
-                                p={0}
-                                icon={
-                                    isOpen ? (
-                                        <CloseIcon />
-                                    ) : (
-                                        <HamburgerIcon
-                                            w="25px"
-                                            h="25px"
-                                        />
-                                    )
-                                }
-                                aria-label={'Open Menu'}
-                                display={{ md: 'none' }}
-                                onClick={isOpen ? onClose : onOpen}
-                            />
                         </Menu>
+                        <Flex
+                            cursor={'pointer'}
+                            onClick={() => handleOpenCart()}
+                            _hover={{
+                                color: 'purple.600',
+                            }}
+                        >
+                            <AiOutlineShoppingCart size={35} />
+
+                            <Center
+                                w="18px"
+                                h="18px"
+                                transform={'translate(-10px, -5px)'}
+                                borderRadius={'30px'}
+                                bg="red"
+                            >
+                                <Text
+                                    fontSize={'sm'}
+                                    color={'white'}
+                                    fontWeight={'bold'}
+                                >
+                                    {totalQuantity}
+                                </Text>
+                            </Center>
+                        </Flex>
                     </HStack>
                 </Flex>
             </Flex>
-
+            {/* Mobile Menu */}
             {isOpen ? (
                 <Box
                     pb={4}
@@ -294,50 +291,13 @@ export default function Navbar() {
                     <Stack
                         as={'nav'}
                         spacing={4}
+                        fontSize={'lg'}
+                        fontWeight={'bold'}
+                        textTransform={'uppercase'}
                     >
-                        <Link
-                            href="/shop"
-                            fontSize={'lg'}
-                            fontWeight={'bold'}
-                        >
-                            Nossos produtos
-                        </Link>
-                        <Link
-                            href="/about"
-                            fontSize={'lg'}
-                            fontWeight={'bold'}
-                        >
-                            Sobre
-                        </Link>
-                        <InputGroup maxW="300px">
-                            <form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    onSearch();
-                                }}
-                            >
-                                <Input
-                                    type="text"
-                                    borderRadius={'20px 0 0 20px'}
-                                    placeholder="O Que você procura?"
-                                    focusBorderColor="purple.600"
-                                    onChange={(e) =>
-                                        setSearchTerm(e.target.value)
-                                    }
-                                />
-                            </form>
-                            <Button
-                                onClick={() => onSearch()}
-                                colorScheme="purple"
-                                borderRadius={'0 20px 20px 0'}
-                                color={'white'}
-                                _hover={{
-                                    cursor: 'pointer',
-                                }}
-                            >
-                                <Search2Icon />
-                            </Button>
-                        </InputGroup>
+                        <Link href="/">Início</Link>
+                        <Link href="/shop">Nossos produtos</Link>
+                        <Link href="/about">Sobre</Link>
                     </Stack>
                 </Box>
             ) : null}
