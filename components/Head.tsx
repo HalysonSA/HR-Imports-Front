@@ -15,18 +15,25 @@ const Header = ({ ogTitle, ogDescription, ogImage, ogUrl }: Props) => (
             href=""
         ></link>
         <meta
+            key={'description'}
             name="description"
-            content={'Produtos de qualidade e preço justo'}
+            content={
+                ogDescription
+                    ? ogDescription
+                    : 'Produtos de qualidade e preço justo'
+            }
         />
         <meta
             name="theme-color"
             content="#6B46C1"
         ></meta>
         <meta
+            key={'og:title'}
             property="og:title"
             content={ogTitle ? ogTitle : 'HR Imports - Produtos Importados'}
         />
         <meta
+            key={'og:description'}
             property="og:description"
             content={
                 ogDescription
@@ -35,6 +42,12 @@ const Header = ({ ogTitle, ogDescription, ogImage, ogUrl }: Props) => (
             }
         />
         <meta
+            key={'og:image'}
+            property="og:image"
+            content={ogImage ? ogImage : 'https://halyson-sand.vercel.app/'}
+        />
+        <meta
+            key={'og:url'}
             property="og:url"
             content={ogUrl ? ogUrl : 'https://halyson-sand.vercel.app/'}
         />

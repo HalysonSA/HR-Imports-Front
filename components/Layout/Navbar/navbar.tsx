@@ -94,7 +94,7 @@ export default function Navbar() {
             top={0}
             position="sticky"
             bg="white"
-            p={0}
+            p={2}
         >
             <Flex
                 h={'90px'}
