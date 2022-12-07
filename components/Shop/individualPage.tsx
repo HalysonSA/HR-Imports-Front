@@ -37,6 +37,7 @@ import ProductGallery from './productGallery';
 
 import { useRouter } from 'next/router';
 import FetchProducts from '../../utils/fetchProducts';
+import Header from '../Head';
 import { ProductInfo, ReduxState } from '../Redux/type';
 import LoadingPage from './../utils/loadingPage';
 
@@ -110,6 +111,12 @@ const IndividualProductPage = () => {
             py={5}
             px={2}
         >
+            <Header
+                ogTitle={title}
+                ogDescription={description}
+                ogImage={image[0]}
+                ogUrl={`https://halyson-sand.vercel.app/shop/${_id}`}
+            />
             <ToastContainer />
             <Box
                 pl={isLargerThan768 ? 20 : 0}

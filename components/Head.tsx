@@ -1,15 +1,22 @@
 import Head from 'next/head';
 
-const Header = () => (
+interface Props {
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: string;
+    ogUrl?: string;
+}
+
+const Header = ({ ogTitle, ogDescription, ogImage, ogUrl }: Props) => (
     <Head>
-        <title>HR Imports - Produtos Importados</title>
+        <title>HR Imports</title>
         <link
             rel="apple-touch-icon"
             href=""
         ></link>
         <meta
             name="description"
-            content="Produtos de qualidade e preço justo"
+            content={'Produtos de qualidade e preço justo'}
         />
         <meta
             name="theme-color"
@@ -17,15 +24,19 @@ const Header = () => (
         ></meta>
         <meta
             property="og:title"
-            content="HR Imports - Produtos Importados"
+            content={ogTitle ? ogTitle : 'HR Imports - Produtos Importados'}
         />
         <meta
             property="og:description"
-            content="Produtos importados de qualidade e preço justo"
+            content={
+                ogDescription
+                    ? ogDescription
+                    : 'Produtos de qualidade e preço justo'
+            }
         />
         <meta
             property="og:url"
-            content="https://hallfaste.com"
+            content={ogUrl ? ogUrl : 'https://halyson-sand.vercel.app/'}
         />
         <meta
             property="og:type"
