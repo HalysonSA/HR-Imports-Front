@@ -76,7 +76,7 @@ const ShopItems = () => {
                 </Text>
             </HStack>
             <Flex
-                minH="700px"
+                minH={['270px', '700px']}
                 w="100%"
                 wrap="wrap"
                 justifyContent="center"

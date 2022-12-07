@@ -94,7 +94,7 @@ export default function Navbar() {
             top={0}
             position="sticky"
             bg="white"
-            px={['4', '10']}
+            p={0}
         >
             <Flex
                 h={'90px'}
@@ -285,7 +285,8 @@ export default function Navbar() {
             {/* Mobile Menu */}
             {isOpen ? (
                 <Box
-                    pb={4}
+                    pl={2}
+                    pb={2}
                     display={{ md: 'none' }}
                 >
                     <Stack
@@ -297,6 +298,7 @@ export default function Navbar() {
                     >
                         <Link href="/">Início</Link>
                         <Link href="/shop">Nossos produtos</Link>
+                        <Link href="/orders">Meus Pedidos</Link>
                         <Link href="/about">Sobre</Link>
                     </Stack>
                 </Box>

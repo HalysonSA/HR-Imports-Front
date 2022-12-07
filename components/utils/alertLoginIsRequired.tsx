@@ -7,8 +7,8 @@ import {
     ModalHeader,
     ModalOverlay,
     Stack,
-    useDisclosure,
     Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -28,7 +28,7 @@ export const LoginAlert = (modalOpen: { modalOpen: boolean }) => {
                 isCentered
             >
                 <ModalOverlay />
-                <ModalContent>
+                <ModalContent mx={4}>
                     <ModalHeader textTransform={'uppercase'}>
                         login necessário
                     </ModalHeader>
