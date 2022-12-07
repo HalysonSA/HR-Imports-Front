@@ -40,7 +40,6 @@ import FetchProducts from '../../utils/fetchProducts';
 import { ProductInfo, ReduxState } from '../Redux/type';
 import LoadingPage from './../utils/loadingPage';
 
-import Header from '../Head';
 const IndividualProductPage = () => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
@@ -111,12 +110,6 @@ const IndividualProductPage = () => {
             py={5}
             px={2}
         >
-            <Header
-                description={description}
-                url={`https://halyson-sand.vercel.app/shop/${_id}`}
-                image={image[0]}
-                ogTitle={title}
-            />
             <ToastContainer />
             <Box
                 pl={isLargerThan768 ? 20 : 0}

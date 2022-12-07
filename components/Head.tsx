@@ -1,23 +1,15 @@
 import Head from 'next/head';
 
-interface Props {
-    description: string;
-    url: string;
-    image: string;
-    ogTitle: string;
-    children?: React.ReactNode;
-}
-
-const Header = ({ description, url, image, ogTitle, children }: Props) => (
+const Header = () => (
     <Head>
-        <title>HR Imports</title>
+        <title>HR Imports - Produtos Importados</title>
         <link
             rel="apple-touch-icon"
             href=""
         ></link>
         <meta
             name="description"
-            content={description}
+            content="Produtos de qualidade e preço justo"
         />
         <meta
             name="theme-color"
@@ -25,19 +17,15 @@ const Header = ({ description, url, image, ogTitle, children }: Props) => (
         ></meta>
         <meta
             property="og:title"
-            content={ogTitle}
+            content="HR Imports - Produtos Importados"
         />
         <meta
             property="og:description"
-            content={description}
-        />
-        <meta
-            property="og:image"
-            content={image}
+            content="Produtos importados de qualidade e preço justo"
         />
         <meta
             property="og:url"
-            content={url}
+            content="https://hallfaste.com"
         />
         <meta
             property="og:type"
@@ -47,7 +35,6 @@ const Header = ({ description, url, image, ogTitle, children }: Props) => (
             rel="icon"
             href="/favicon.ico"
         />
-        {children}
     </Head>
 );
 export default Header;
