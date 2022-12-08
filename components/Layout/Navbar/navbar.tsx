@@ -12,12 +12,16 @@ import {
     InputGroup,
     Link,
     Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
+    Popover,
+    PopoverArrow,
+    PopoverBody,
+    PopoverCloseButton,
+    PopoverContent,
+    PopoverTrigger,
+    Portal,
     Stack,
     Text,
-    useDisclosure
+    useDisclosure,
 } from '@chakra-ui/react';
 
 import { useRouter } from 'next/router';
@@ -198,59 +202,103 @@ export default function Navbar() {
                 <Flex alignItems={'center'}>
                     <HStack>
                         <Menu>
-                            <MenuButton
-                                display={{ base: 'none', md: 'flex' }}
-                                as={Button}
-                                onClick={() => {
-                                    !(session || user.name)
-                                        ? router.push('/login')
-                                        : onOpen();
-                                }}
-                                rounded={'full'}
-                                variant={'link'}
-                                cursor={'pointer'}
-                                minW={0}
-                            >
-                                <Avatar
-                                    size={'sm'}
-                                    src={
-                                        session?.user?.image ||
-                                        user.name ||
-                                        undefined
-                                    }
-                                    referrerPolicy={'no-referrer'}
-                                    name={
-                                        session?.user?.name ||
-                                        user.name ||
-                                        undefined
-                                    }
-                                />
-                            </MenuButton>
-                            <MenuList
-                                zIndex={99}
-                                color={'black'}
-                                fontSize={'lg'}
-                            >
-                                <MenuItem
-                                    _hover={{
-                                        bg: 'white',
-                                        color: 'purple.600',
-                                    }}
-                                    onClick={() => router.push('/orders')}
-                                >
-                                    Meus Pedidos
-                                </MenuItem>
-                                <MenuItem
-                                    bg="transparent"
-                                    _hover={{
-                                        bg: 'red',
-                                        color: 'white',
-                                    }}
-                                    onClick={() => handleLogout()}
-                                >
-                                    Sair
-                                </MenuItem>
-                            </MenuList>
+                            <Popover>
+                                <PopoverTrigger>
+                                    <Button
+                                        display={{ base: 'none', md: 'flex' }}
+                                        as={Button}
+                                        onClick={() => {
+                                            onOpen();
+                                        }}
+                                        rounded={'full'}
+                                        variant={'link'}
+                                        cursor={'pointer'}
+                                        minW={0}
+                                    >
+                                        <Avatar
+                                            size={'sm'}
+                                            src={
+                                                session?.user?.image ||
+                                                user.name ||
+                                                undefined
+                                            }
+                                            referrerPolicy={'no-referrer'}
+                                            name={
+                                                session?.user?.name ||
+                                                user.name ||
+                                                undefined
+                                            }
+                                        />
+                                    </Button>
+                                </PopoverTrigger>
+                                <Portal>
+                                    <PopoverContent mt="5">
+                                        <PopoverArrow bg="purple.600" />
+                                        <PopoverCloseButton
+                                            size={'md'}
+                                            bgColor="white"
+                                            color={'purple.600'}
+                                        />
+                                        <PopoverBody>
+                                            {session?.user || user.email ? (
+                                                <Stack fontSize={'lg'}>
+                                                    <Link
+                                                        _hover={{
+                                                            color: 'purple.600',
+                                                        }}
+                                                        onClick={() =>
+                                                            router.push(
+                                                                '/orders'
+                                                            )
+                                                        }
+                                                    >
+                                                        Meus Pedidos
+                                                    </Link>
+                                                    <Link
+                                                        bg="transparent"
+                                                        _hover={{
+                                                            color: 'red',
+                                                        }}
+                                                        onClick={() =>
+                                                            handleLogout()
+                                                        }
+                                                    >
+                                                        Sair
+                                                    </Link>
+                                                </Stack>
+                                            ) : (
+                                                <Stack fontSize={'lg'}>
+                                                    <Link
+                                                        _hover={{
+                                                            color: 'purple.600',
+                                                        }}
+                                                        onClick={() =>
+                                                            router.push(
+                                                                '/login'
+                                                            )
+                                                        }
+                                                    >
+                                                        Entrar
+                                                    </Link>
+                                                    <Link
+                                                        bg="transparent"
+                                                        _hover={{
+                                                            color: 'purple.600',
+                                                        }}
+                                                        onClick={() =>
+                                                            router.push(
+                                                                '/register'
+                                                            )
+                                                        }
+                                                    >
+                                                        Cadastre-se
+                                                    </Link>
+                                                </Stack>
+                                            )}
+                                        </PopoverBody>
+                                    </PopoverContent>
+                                </Portal>
+                            </Popover>
 
                             <CartSideBar />
                         </Menu>
