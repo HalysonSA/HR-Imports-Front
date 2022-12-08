@@ -1,20 +1,44 @@
-import {
-    Box,
-    Flex,
-    HStack,
-    Select,
-    Stack,
-    Text,
-    useMediaQuery,
-} from '@chakra-ui/react';
-import {
-    MdOutlineExpandMore,
-    MdOutlineProductionQuantityLimits,
-} from 'react-icons/md';
+import { Box, HStack, Select, Stack, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import Layout from '../components/Layout/Layout';
+import CustomerOrderCard from '../components/Orders/CustomerOrderCard';
+import useOrdersSync from '../utils/myOrdersState';
+
+export type Props = {
+    _id?: string;
+    status?: string;
+    user?: {
+        street_name: string;
+        street_number: number;
+        city: string;
+        complement: string;
+        cpf: string;
+        email: string;
+        federal_unit: string;
+        first_name: string;
+        last_name: string;
+        neighborhood: string;
+        telephone: string;
+        zip_code: string;
+    };
+    cart?: [];
+    payment?: {
+        payment_status: string;
+        payment_type: string;
+    };
+
+    createdAt?: string;
+};
 
 const Orders = () => {
-    const [isLargetThan768] = useMediaQuery('(min-width: 768px)');
+    const [myOrders, setMyOrders] = useState([]);
+
+    const response = useOrdersSync();
+
+    useEffect(() => {
+        setMyOrders(response);
+    }, [response]);
 
     return (
         <Layout>
@@ -51,119 +75,25 @@ const Orders = () => {
                         <option value={'pending'}>Pendente</option>
                     </Select>
                 </HStack>
+                <Stack
+                    spacing={7}
+                    mb={'8em'}
+                >
+                    {myOrders.map((props: Props) => {
+                        const { _id, cart, user, createdAt } = props;
 
-                <Flex
-                    minH={'80px'}
-                    my={4}
-                    p={8}
-                    gap={4}
-                    direction={'row'}
-                    justifyContent={'space-around'}
-                    alignItems={'center'}
-                    borderRadius={'2xl'}
-                    border={'1px solid #d3d3d3'}
-                    _hover={{
-                        boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
-                        border: 'none',
-                        transition: 'all 0.2s ease-in-out',
-                    }}
-                    fontSize={'lg'}
-                    fontWeight={'bold'}
-                    wrap={'wrap'}
-                >
-                    <Stack>
-                        <Text>#ID do Pedido</Text>
-                        <Box>
-                            <Text color={'purple.600'}>
-                                ihumfyu9q23gf8h98gfwuei
-                            </Text>
-                        </Box>
-                    </Stack>
-                    {isLargetThan768 && (
-                        <>
-                            <Stack minW={'150px'}>
-                                <Text>Status</Text>
-                                <Box>
-                                    <Text color={'orange.400'}>Pendente</Text>
-                                </Box>
-                            </Stack>
-                            <Stack minW={'150px'}>
-                                <Text>Data</Text>
-                                <Text color={'purple.600'}>2021-08-01</Text>
-                            </Stack>
-                            <Stack minW={'150px'}>
-                                <Text>Pagamento</Text>
-                                <Text color={'purple.600'}>
-                                    Cartão de Crédito
-                                </Text>
-                            </Stack>
-                        </>
-                    )}
-                    <HStack
-                        _hover={{
-                            color: 'purple.600',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <Text>Detalhes</Text>
-                        <MdOutlineExpandMore size={20} />
-                    </HStack>
-                </Flex>
-                <Flex
-                    minH={'80px'}
-                    my={4}
-                    p={8}
-                    gap={4}
-                    direction={'row'}
-                    justifyContent={'space-around'}
-                    alignItems={'center'}
-                    borderRadius={'2xl'}
-                    border={'1px solid #d3d3d3'}
-                    _hover={{
-                        boxShadow: '0px 0px 20px rgba(107, 70, 193, 0.25)',
-                        border: 'none',
-                        transition: 'all 0.2s ease-in-out',
-                    }}
-                    fontSize={'lg'}
-                    fontWeight={'bold'}
-                    wrap={'wrap'}
-                >
-                    <Stack>
-                        <Text>#ID do Pedido</Text>
-                        <Box>
-                            <Text color={'purple.600'}>
-                                892389fni2h8rf2h7f290432
-                            </Text>
-                        </Box>
-                    </Stack>
-                    {isLargetThan768 && (
-                        <>
-                            <Stack minW={'150px'}>
-                                <Text>Status</Text>
-                                <Box>
-                                    <Text color={'green.400'}>Enviado</Text>
-                                </Box>
-                            </Stack>
-                            <Stack minW={'150px'}>
-                                <Text>Data</Text>
-                                <Text color={'purple.600'}>2021-08-01</Text>
-                            </Stack>
-                            <Stack minW={'150px'}>
-                                <Text>Pagamento</Text>
-                                <Text color={'purple.600'}>Boleto</Text>
-                            </Stack>
-                        </>
-                    )}
-                    <HStack
-                        _hover={{
-                            color: 'purple.600',
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <Text>Detalhes</Text>
-                        <MdOutlineExpandMore size={20} />
-                    </HStack>
-                </Flex>
+                        return (
+                            <div key={_id}>
+                                <CustomerOrderCard
+                                    _id={_id}
+                                    cart={cart}
+                                    user={user}
+                                    createdAt={createdAt}
+                                />
+                            </div>
+                        );
+                    })}
+                </Stack>
             </Box>
         </Layout>
     );

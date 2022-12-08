@@ -17,7 +17,7 @@ import {
     MenuList,
     Stack,
     Text,
-    useDisclosure,
+    useDisclosure
 } from '@chakra-ui/react';
 
 import { useRouter } from 'next/router';
@@ -36,14 +36,14 @@ import { cartIsOpen } from '../../Redux/CartSlice';
 
 import { CartContext } from '../../../context/cart';
 
-type UserInfo = {
+export type UserInfo = {
     name?: string;
     email?: string;
     password?: string;
     phone?: string;
 };
 
-type UserType = {
+export type UserType = {
     user: UserInfo;
 };
 
@@ -94,10 +94,10 @@ export default function Navbar() {
             top={0}
             position="sticky"
             bg="white"
-            p={2}
+            px={2}
         >
             <Flex
-                h={'90px'}
+                h={'70px'}
                 alignItems={'center'}
                 justifyContent={'space-between'}
             >
