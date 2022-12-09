@@ -16,7 +16,14 @@ import { Props } from '../../pages/orders';
 import PriceFormat from '../../utils/priceFormat';
 import ProductCardInformations from './ProductCardInformations';
 
-const CustomerOrderCard = ({ _id, cart, user, createdAt }: Props) => {
+const CustomerOrderCard = ({
+    _id,
+    cart,
+    user,
+    createdAt,
+    status,
+    payment_method,
+}: Props) => {
     const [isLargetThan768] = useMediaQuery('(min-width: 768px)');
     const [toggle, setToggle] = useState(false);
 
@@ -54,7 +61,15 @@ const CustomerOrderCard = ({ _id, cart, user, createdAt }: Props) => {
                         <Stack minW={'150px'}>
                             <Text>Status</Text>
                             <Box>
-                                <Text color={'green.400'}>Enviado</Text>
+                                <Text
+                                    color={
+                                        status == 'Processamento'
+                                            ? 'orange.400'
+                                            : 'green.400'
+                                    }
+                                >
+                                    {status}
+                                </Text>
                             </Box>
                         </Stack>
                         <Stack minW={'150px'}>
@@ -65,7 +80,13 @@ const CustomerOrderCard = ({ _id, cart, user, createdAt }: Props) => {
                         </Stack>
                         <Stack minW={'150px'}>
                             <Text>Pagamento</Text>
-                            <Text color={'purple.600'}>Boleto</Text>
+                            <Text color={'purple.600'}>
+                                {payment_method == 'card'
+                                    ? 'Cartão'
+                                    : payment_method == 'boleto'
+                                    ? 'Boleto'
+                                    : 'Pix'}
+                            </Text>
                         </Stack>
                     </>
                 )}

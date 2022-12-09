@@ -27,13 +27,18 @@ const ProductCard = () => {
                     my={2}
                     gap={3}
                 >
-                    <Image
-                        objectFit="cover"
-                        height={150}
-                        width={150}
-                        alt=""
-                        src={item.image[0]}
-                    />
+                    <Box
+                        w="150px"
+                        h="150px"
+                    >
+                        <Image
+                            objectFit="cover"
+                            height={150}
+                            width={150}
+                            alt=""
+                            src={item.image[0]}
+                        />
+                    </Box>
                     <Flex
                         direction={['column', 'column', 'row']}
                         w="100%"

@@ -6,9 +6,9 @@ import CustomerOrderCard from '../components/Orders/CustomerOrderCard';
 import useOrdersSync from '../utils/myOrdersState';
 
 export type Props = {
-    _id?: string;
-    status?: string;
-    user?: {
+    _id: string;
+    status: string;
+    user: {
         street_name: string;
         street_number: number;
         city: string;
@@ -22,13 +22,14 @@ export type Props = {
         telephone: string;
         zip_code: string;
     };
-    cart?: [];
+    cart: [];
     payment?: {
         payment_status: string;
-        payment_type: string;
+        payment_method: string;
     };
+    payment_method: string;
 
-    createdAt?: string;
+    createdAt: string;
 };
 
 const Orders = () => {
@@ -80,7 +81,10 @@ const Orders = () => {
                     mb={'8em'}
                 >
                     {myOrders.map((props: Props) => {
-                        const { _id, cart, user, createdAt } = props;
+                        if (!props.payment) return null;
+
+                        const { _id, cart, user, createdAt, status } = props;
+                        const { payment_method } = props.payment;
 
                         return (
                             <div key={_id}>
@@ -89,6 +93,8 @@ const Orders = () => {
                                     cart={cart}
                                     user={user}
                                     createdAt={createdAt}
+                                    status={status}
+                                    payment_method={payment_method}
                                 />
                             </div>
                         );
