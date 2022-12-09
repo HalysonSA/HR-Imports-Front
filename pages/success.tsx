@@ -54,7 +54,7 @@ const Success = () => {
                 <Center m={5}>
                     <StatusBar />
                 </Center>
-                <Center minH={'500px'}>
+                <Center minH="800px">
                     <Box cursor={'pointer'}>
                         <motion.div
                             className="box"

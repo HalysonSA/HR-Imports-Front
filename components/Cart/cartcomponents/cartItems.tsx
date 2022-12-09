@@ -9,6 +9,7 @@ const CartItems = () => {
             w={['100%', '100%', '65%', '75%']}
             maxW={'1200px'}
             gap={3}
+            display={['none', 'flex']}
         >
             <HeaderCart />
 
