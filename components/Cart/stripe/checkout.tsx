@@ -50,6 +50,8 @@ const CheckoutForm = () => {
                     payment_status: response.paymentIntent.status,
                     payment_date: response.paymentIntent.created,
                     payment_amount: response.paymentIntent.amount,
+                    //@ts-ignore - Stripe types are not up to date
+                    payment_method: response.paymentIntent.payment_method,
                 },
             });
         }

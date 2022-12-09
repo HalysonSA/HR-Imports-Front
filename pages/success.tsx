@@ -16,8 +16,13 @@ const Success = () => {
 
     const router = useRouter();
 
-    const { payment_intent, payment_status, payment_amount, payment_date } =
-        router.query;
+    const {
+        payment_intent,
+        payment_status,
+        payment_amount,
+        payment_date,
+        payment_method,
+    } = router.query;
 
     useEffect(() => {
         async function redirectToHome() {
@@ -35,6 +40,7 @@ const Success = () => {
                             payment_intent: payment_intent,
                             payment_amount: payment_amount,
                             payment_date: payment_date,
+                            payment_method: payment_method,
                         },
                     })
                     .then(() => {
