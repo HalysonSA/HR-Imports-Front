@@ -1,29 +1,30 @@
-import Layout from '../components/Layout/Layout';
+import { Box, Center, Stack } from '@chakra-ui/react';
 import StatusBar from '../components/Cart/cartcomponents/statusBar';
-import CartItems from '../components/Cart/cartcomponents/cartItems';
 import FormEntries from '../components/Cart/identification/formEntries';
-import { Box, Center, Flex } from '@chakra-ui/react';
+import Layout from '../components/Layout/Layout';
 import RouterGuard from '../components/RoutingGuard';
 
 const Identification = () => {
     return (
         <Layout>
             <RouterGuard>
-                <Center m={5}>
-                    <StatusBar />
-                </Center>
-                <Flex
-                    direction={['column', 'column', 'row']}
-                    gap={5}
+                <Stack
+                    spacing={5}
+                    minH="800px"
                 >
-                    <Box
-                        w={['100%', '100%', '85%', '75%']}
-                        mb={5}
-                    >
-                        <FormEntries />
-                    </Box>
-                    <CartItems />
-                </Flex>
+                    <Center m={5}>
+                        <StatusBar />
+                    </Center>
+
+                    <Center mb={5}>
+                        <Box
+                            w="100%"
+                            maxW="800px"
+                        >
+                            <FormEntries />
+                        </Box>
+                    </Center>
+                </Stack>
             </RouterGuard>
         </Layout>
     );
