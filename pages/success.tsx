@@ -16,7 +16,8 @@ const Success = () => {
 
     const router = useRouter();
 
-    const { payment_intent } = router.query;
+    const { payment_intent, payment_status, payment_amount, payment_date } =
+        router.query;
 
     useEffect(() => {
         async function redirectToHome() {
@@ -30,7 +31,10 @@ const Success = () => {
                         user: customer,
                         cart: cart,
                         payment: {
-                            payment_status: 'pending',
+                            payment_status: payment_status,
+                            payment_intent: payment_intent,
+                            payment_amount: payment_amount,
+                            payment_date: payment_date,
                         },
                     })
                     .then(() => {

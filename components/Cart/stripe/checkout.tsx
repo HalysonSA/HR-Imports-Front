@@ -47,6 +47,9 @@ const CheckoutForm = () => {
                 pathname: '/success',
                 query: {
                     payment_intent: response.paymentIntent.id,
+                    payment_status: response.paymentIntent.status,
+                    payment_date: response.paymentIntent.created,
+                    payment_amount: response.paymentIntent.amount,
                 },
             });
         }
@@ -59,12 +62,13 @@ const CheckoutForm = () => {
     };
 
     return (
-        <Box>
+        <Box mb={10}>
             <form onSubmit={handleSubmit}>
                 <Center mt={20}>
                     <Container
-                        bg="gray.100"
-                        borderRadius={'15px'}
+                        border={'1px solid #e2e8f0'}
+                        boxShadow={'2xl'}
+                        borderRadius={'xl'}
                         p={4}
                     >
                         <ToastContainer />
