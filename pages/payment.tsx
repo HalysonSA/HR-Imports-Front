@@ -5,10 +5,6 @@ import Layout from '../components/Layout/Layout';
 import RouterGuard from '../components/RoutingGuard';
 
 const Payment = () => {
-    const handleSubmit = async () => {
-        return;
-    };
-
     return (
         <Layout>
             <RouterGuard>

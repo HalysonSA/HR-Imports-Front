@@ -101,7 +101,7 @@ export default function Navbar() {
             px={2}
         >
             <Flex
-                h={'70px'}
+                h={'100px'}
                 alignItems={'center'}
                 justifyContent={'space-between'}
             >

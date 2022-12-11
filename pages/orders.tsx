@@ -1,41 +1,20 @@
-import { Box, HStack, Select, Stack, Text } from '@chakra-ui/react';
+import { Box, HStack, Select, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import Layout from '../components/Layout/Layout';
-import CustomerOrderCard from '../components/Orders/CustomerOrderCard';
 import useOrdersSync from '../utils/myOrdersState';
 
-export type Props = {
-    _id: string;
-    status: string;
-    user: {
-        street_name: string;
-        street_number: number;
-        city: string;
-        complement: string;
-        cpf: string;
-        email: string;
-        federal_unit: string;
-        first_name: string;
-        last_name: string;
-        neighborhood: string;
-        telephone: string;
-        zip_code: string;
-    };
-    cart: [];
-    payment?: {
-        payment_status: string;
-        payment_method: string;
-    };
-    payment_method: string;
-
-    createdAt: string;
-};
+import { useDispatch } from 'react-redux';
+import CustomerOrderCard from '../components/Orders/CustomerOrderCard';
+import { setOrdersProps } from '../components/Redux/OrderSlice';
 
 const Orders = () => {
     const [myOrders, setMyOrders] = useState([]);
 
     const response = useOrdersSync();
+    const dispatch = useDispatch();
+
+    dispatch(setOrdersProps(response));
 
     useEffect(() => {
         setMyOrders(response);
@@ -43,7 +22,10 @@ const Orders = () => {
 
     return (
         <Layout>
-            <Box minH={'700px'}>
+            <Box
+                minH={'700px'}
+                mb={8}
+            >
                 <HStack py={4}>
                     <MdOutlineProductionQuantityLimits
                         size={30}
@@ -76,30 +58,7 @@ const Orders = () => {
                         <option value={'pending'}>Pendente</option>
                     </Select>
                 </HStack>
-                <Stack
-                    spacing={7}
-                    mb={'8em'}
-                >
-                    {myOrders.map((props: Props) => {
-                        if (!props.payment) return null;
-
-                        const { _id, cart, user, createdAt, status } = props;
-                        const { payment_method } = props.payment;
-
-                        return (
-                            <div key={_id}>
-                                <CustomerOrderCard
-                                    _id={_id}
-                                    cart={cart}
-                                    user={user}
-                                    createdAt={createdAt}
-                                    status={status}
-                                    payment_method={payment_method}
-                                />
-                            </div>
-                        );
-                    })}
-                </Stack>
+                <CustomerOrderCard />
             </Box>
         </Layout>
     );
