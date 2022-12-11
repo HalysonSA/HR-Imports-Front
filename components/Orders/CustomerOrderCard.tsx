@@ -68,7 +68,7 @@ const CustomerOrderCard = () => {
                         <Flex
                             minH={'80px'}
                             my={4}
-                            p={8}
+                            p={[4, 8]}
                             gap={4}
                             direction={'row'}
                             justifyContent={'space-between'}
@@ -145,7 +145,7 @@ const CustomerOrderCard = () => {
                                 <Flex
                                     minH={'80px'}
                                     my={4}
-                                    p={8}
+                                    p={[4, 8]}
                                     gap={4}
                                     direction={'column'}
                                     justifyContent={'start'}
@@ -177,9 +177,11 @@ const CustomerOrderCard = () => {
                                         w="100%"
                                         p={2}
                                         justifyContent={'space-between'}
-                                        bgColor={'#F5F5F5'}
-                                        borderRadius={'xl'}
+                                        borderRadius={'2xl'}
                                         fontWeight={'bold'}
+                                        color={'white'}
+                                        bgColor={'purple.600'}
+                                        px={2}
                                     >
                                         <Text textTransform={'uppercase'}>
                                             Total do pedido

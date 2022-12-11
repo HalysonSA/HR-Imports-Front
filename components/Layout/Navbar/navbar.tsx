@@ -232,7 +232,7 @@ export default function Navbar() {
                                     </Button>
                                 </PopoverTrigger>
                                 <Portal>
-                                    <PopoverContent mt="5">
+                                    <PopoverContent mt="8">
                                         <PopoverArrow bg="purple.600" />
                                         <PopoverCloseButton
                                             size={'md'}
