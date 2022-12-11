@@ -11,6 +11,34 @@ export type ProductInfo = {
     brand: string;
     size: string[];
     color: string[];
+    quantity?: number;
+};
+
+export type Order = {
+    _id: string;
+    status: string;
+    user: {
+        street_name: string;
+        street_number: number;
+        city: string;
+        complement: string;
+        cpf: string;
+        email: string;
+        federal_unit: string;
+        first_name: string;
+        last_name: string;
+        neighborhood: string;
+        telephone: string;
+        zip_code: string;
+    };
+    cart: ProductInfo[];
+    payment: {
+        payment_status: string;
+        payment_method: string;
+        payment_amount: number;
+    };
+
+    createdAt: string;
 };
 
 export type UserInfo = {
@@ -42,4 +70,5 @@ export type ReduxState = {
     isLoading: Boolean;
     shopFilters: ShopFiltersInfo;
     filters: Filters;
+    orders: Order[];
 };
