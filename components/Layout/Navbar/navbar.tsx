@@ -92,265 +92,273 @@ export default function Navbar() {
     }
 
     return (
-        <Container
-            maxW="1500px"
+        <Box
+            w="100%"
             zIndex="100"
             top={0}
             position="sticky"
-            bg="white"
-            px={2}
+            bgColor="white"
         >
-            <Flex
-                h={'100px'}
-                alignItems={'center'}
-                justifyContent={'space-between'}
+            <Container
+                maxW="1500px"
+                bg="white"
+                px={2}
             >
-                <HStack
-                    spacing={8}
+                <Flex
+                    h={'100px'}
                     alignItems={'center'}
+                    justifyContent={'space-between'}
                 >
-                    <Box
-                        display={{ base: 'none', md: 'flex' }}
-                        onClick={() => router.push('/')}
-                        _hover={{ cursor: 'pointer' }}
-                    >
-                        <Image
-                            w="60px"
-                            h="60px"
-                            src="/logo.svg"
-                            alt="Logo"
-                        />
-                    </Box>
                     <HStack
-                        as={'nav'}
-                        spacing={4}
-                        display={{ base: 'none', md: 'flex' }}
+                        spacing={8}
+                        alignItems={'center'}
                     >
-                        <Link
-                            href="/shop"
-                            fontSize={'lg'}
-                            fontWeight={'bold'}
-                            _hover={{
-                                color: 'purple.600',
-                            }}
+                        <Box
+                            display={{ base: 'none', md: 'flex' }}
+                            onClick={() => router.push('/')}
+                            _hover={{ cursor: 'pointer' }}
                         >
-                            Nossos produtos
-                        </Link>
-
-                        <Link
-                            href="/about"
-                            fontSize={'lg'}
-                            fontWeight={'bold'}
-                            _hover={{
-                                color: 'purple.600',
-                            }}
-                        >
-                            Sobre
-                        </Link>
-                    </HStack>
-                </HStack>
-
-                <IconButton
-                    colorScheme={'transparent'}
-                    color="black"
-                    size={'lg'}
-                    p={0}
-                    icon={
-                        isOpen ? (
-                            <CloseIcon />
-                        ) : (
-                            <HamburgerIcon
-                                w="25px"
-                                h="25px"
+                            <Image
+                                w="60px"
+                                h="60px"
+                                src="/logo.svg"
+                                alt="Logo"
                             />
-                        )
-                    }
-                    aria-label={'Open Menu'}
-                    display={{ md: 'none' }}
-                    onClick={isOpen ? onClose : onOpen}
-                />
+                        </Box>
+                        <HStack
+                            as={'nav'}
+                            spacing={4}
+                            display={{ base: 'none', md: 'flex' }}
+                        >
+                            <Link
+                                href="/shop"
+                                fontSize={'lg'}
+                                fontWeight={'bold'}
+                                _hover={{
+                                    color: 'purple.600',
+                                }}
+                            >
+                                Nossos produtos
+                            </Link>
 
-                <InputGroup maxW={['170px', '300px']}>
-                    <form
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                            onSearch();
-                        }}
-                    >
-                        <Input
-                            id="SearchBox"
-                            type="text"
-                            borderRadius={'10px 0 0 10px'}
-                            noOfLines={1}
-                            placeholder="O Que você procura?"
-                            focusBorderColor="purple.600"
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                    </form>
-                    <Button
-                        onClick={() => onSearch()}
-                        colorScheme="purple"
-                        borderRadius={'0 10px 10px 0'}
-                        color={'white'}
-                        _hover={{
-                            cursor: 'pointer',
-                        }}
-                    >
-                        <Search2Icon />
-                    </Button>
-                </InputGroup>
-                <Flex alignItems={'center'}>
-                    <HStack>
-                        <Menu>
-                            <Popover>
-                                <PopoverTrigger>
-                                    <Button
-                                        display={{ base: 'none', md: 'flex' }}
-                                        as={Button}
-                                        onClick={() => {
-                                            onOpen();
-                                        }}
-                                        rounded={'full'}
-                                        variant={'link'}
-                                        cursor={'pointer'}
-                                        minW={0}
-                                    >
-                                        <Avatar
-                                            size={'sm'}
-                                            src={
-                                                session?.user?.image ||
-                                                user.name ||
-                                                undefined
-                                            }
-                                            referrerPolicy={'no-referrer'}
-                                            name={
-                                                session?.user?.name ||
-                                                user.name ||
-                                                undefined
-                                            }
-                                        />
-                                    </Button>
-                                </PopoverTrigger>
-                                <Portal>
-                                    <PopoverContent mt="8">
-                                        <PopoverArrow bg="purple.600" />
-                                        <PopoverCloseButton
-                                            size={'md'}
-                                            bgColor="white"
-                                            color={'purple.600'}
-                                        />
-                                        <PopoverBody>
-                                            {session?.user || user.email ? (
-                                                <Stack fontSize={'lg'}>
-                                                    <Link
-                                                        _hover={{
-                                                            color: 'purple.600',
-                                                        }}
-                                                        onClick={() =>
-                                                            router.push(
-                                                                '/orders'
-                                                            )
-                                                        }
-                                                    >
-                                                        Meus Pedidos
-                                                    </Link>
-                                                    <Link
-                                                        bg="transparent"
-                                                        _hover={{
-                                                            color: 'red',
-                                                        }}
-                                                        onClick={() =>
-                                                            handleLogout()
-                                                        }
-                                                    >
-                                                        Sair
-                                                    </Link>
-                                                </Stack>
-                                            ) : (
-                                                <Stack fontSize={'lg'}>
-                                                    <Link
-                                                        _hover={{
-                                                            color: 'purple.600',
-                                                        }}
-                                                        onClick={() =>
-                                                            router.push(
-                                                                '/login'
-                                                            )
-                                                        }
-                                                    >
-                                                        Entrar
-                                                    </Link>
-                                                    <Link
-                                                        bg="transparent"
-                                                        _hover={{
-                                                            color: 'purple.600',
-                                                        }}
-                                                        onClick={() =>
-                                                            router.push(
-                                                                '/register'
-                                                            )
-                                                        }
-                                                    >
-                                                        Cadastre-se
-                                                    </Link>
-                                                </Stack>
-                                            )}
-                                        </PopoverBody>
-                                    </PopoverContent>
-                                </Portal>
-                            </Popover>
+                            <Link
+                                href="/about"
+                                fontSize={'lg'}
+                                fontWeight={'bold'}
+                                _hover={{
+                                    color: 'purple.600',
+                                }}
+                            >
+                                Sobre
+                            </Link>
+                        </HStack>
+                    </HStack>
 
-                            <CartSideBar />
-                        </Menu>
-                        <Flex
-                            cursor={'pointer'}
-                            onClick={() => handleOpenCart()}
-                            _hover={{
-                                color: 'purple.600',
+                    <IconButton
+                        colorScheme={'transparent'}
+                        color="black"
+                        size={'lg'}
+                        p={0}
+                        icon={
+                            isOpen ? (
+                                <CloseIcon />
+                            ) : (
+                                <HamburgerIcon
+                                    w="25px"
+                                    h="25px"
+                                />
+                            )
+                        }
+                        aria-label={'Open Menu'}
+                        display={{ md: 'none' }}
+                        onClick={isOpen ? onClose : onOpen}
+                    />
+
+                    <InputGroup maxW={['170px', '300px']}>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                onSearch();
                             }}
                         >
-                            <AiOutlineShoppingCart size={35} />
+                            <Input
+                                id="SearchBox"
+                                type="text"
+                                borderRadius={'10px 0 0 10px'}
+                                noOfLines={1}
+                                placeholder="O Que você procura?"
+                                focusBorderColor="purple.600"
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                            />
+                        </form>
+                        <Button
+                            onClick={() => onSearch()}
+                            colorScheme="purple"
+                            borderRadius={'0 10px 10px 0'}
+                            color={'white'}
+                            _hover={{
+                                cursor: 'pointer',
+                            }}
+                        >
+                            <Search2Icon />
+                        </Button>
+                    </InputGroup>
+                    <Flex alignItems={'center'}>
+                        <HStack>
+                            <Menu>
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <Button
+                                            display={{
+                                                base: 'none',
+                                                md: 'flex',
+                                            }}
+                                            as={Button}
+                                            onClick={() => {
+                                                onOpen();
+                                            }}
+                                            rounded={'full'}
+                                            variant={'link'}
+                                            cursor={'pointer'}
+                                            minW={0}
+                                        >
+                                            <Avatar
+                                                size={'sm'}
+                                                src={
+                                                    session?.user?.image ||
+                                                    user.name ||
+                                                    undefined
+                                                }
+                                                referrerPolicy={'no-referrer'}
+                                                name={
+                                                    session?.user?.name ||
+                                                    user.name ||
+                                                    undefined
+                                                }
+                                            />
+                                        </Button>
+                                    </PopoverTrigger>
+                                    <Portal>
+                                        <PopoverContent mt="8">
+                                            <PopoverArrow bg="purple.600" />
+                                            <PopoverCloseButton
+                                                size={'md'}
+                                                bgColor="white"
+                                                color={'purple.600'}
+                                            />
+                                            <PopoverBody>
+                                                {session?.user || user.email ? (
+                                                    <Stack fontSize={'lg'}>
+                                                        <Link
+                                                            _hover={{
+                                                                color: 'purple.600',
+                                                            }}
+                                                            onClick={() =>
+                                                                router.push(
+                                                                    '/orders'
+                                                                )
+                                                            }
+                                                        >
+                                                            Meus Pedidos
+                                                        </Link>
+                                                        <Link
+                                                            bg="transparent"
+                                                            _hover={{
+                                                                color: 'red',
+                                                            }}
+                                                            onClick={() =>
+                                                                handleLogout()
+                                                            }
+                                                        >
+                                                            Sair
+                                                        </Link>
+                                                    </Stack>
+                                                ) : (
+                                                    <Stack fontSize={'lg'}>
+                                                        <Link
+                                                            _hover={{
+                                                                color: 'purple.600',
+                                                            }}
+                                                            onClick={() =>
+                                                                router.push(
+                                                                    '/login'
+                                                                )
+                                                            }
+                                                        >
+                                                            Entrar
+                                                        </Link>
+                                                        <Link
+                                                            bg="transparent"
+                                                            _hover={{
+                                                                color: 'purple.600',
+                                                            }}
+                                                            onClick={() =>
+                                                                router.push(
+                                                                    '/register'
+                                                                )
+                                                            }
+                                                        >
+                                                            Cadastre-se
+                                                        </Link>
+                                                    </Stack>
+                                                )}
+                                            </PopoverBody>
+                                        </PopoverContent>
+                                    </Portal>
+                                </Popover>
 
-                            <Center
-                                w="18px"
-                                h="18px"
-                                transform={'translate(-10px, -5px)'}
-                                borderRadius={'30px'}
-                                bg="red"
+                                <CartSideBar />
+                            </Menu>
+                            <Flex
+                                cursor={'pointer'}
+                                onClick={() => handleOpenCart()}
+                                _hover={{
+                                    color: 'purple.600',
+                                }}
                             >
-                                <Text
-                                    fontSize={'sm'}
-                                    color={'white'}
-                                    fontWeight={'bold'}
+                                <AiOutlineShoppingCart size={35} />
+
+                                <Center
+                                    w="18px"
+                                    h="18px"
+                                    transform={'translate(-10px, -5px)'}
+                                    borderRadius={'30px'}
+                                    bg="red"
                                 >
-                                    {totalQuantity}
-                                </Text>
-                            </Center>
-                        </Flex>
-                    </HStack>
+                                    <Text
+                                        fontSize={'sm'}
+                                        color={'white'}
+                                        fontWeight={'bold'}
+                                    >
+                                        {totalQuantity}
+                                    </Text>
+                                </Center>
+                            </Flex>
+                        </HStack>
+                    </Flex>
                 </Flex>
-            </Flex>
-            {/* Mobile Menu */}
-            {isOpen ? (
-                <Box
-                    pl={2}
-                    pb={2}
-                    display={{ md: 'none' }}
-                >
-                    <Stack
-                        as={'nav'}
-                        spacing={4}
-                        fontSize={'lg'}
-                        fontWeight={'bold'}
-                        textTransform={'uppercase'}
+                {/* Mobile Menu */}
+                {isOpen ? (
+                    <Box
+                        pl={2}
+                        pb={2}
+                        display={{ md: 'none' }}
                     >
-                        <Link href="/">Início</Link>
-                        <Link href="/shop">Nossos produtos</Link>
-                        <Link href="/orders">Meus Pedidos</Link>
-                        <Link href="/about">Sobre</Link>
-                    </Stack>
-                </Box>
-            ) : null}
-        </Container>
+                        <Stack
+                            as={'nav'}
+                            spacing={4}
+                            fontSize={'lg'}
+                            fontWeight={'bold'}
+                            textTransform={'uppercase'}
+                        >
+                            <Link href="/">Início</Link>
+                            <Link href="/shop">Nossos produtos</Link>
+                            <Link href="/orders">Meus Pedidos</Link>
+                            <Link href="/about">Sobre</Link>
+                        </Stack>
+                    </Box>
+                ) : null}
+            </Container>
+        </Box>
     );
 }
