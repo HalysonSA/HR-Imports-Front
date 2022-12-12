@@ -1,4 +1,4 @@
-import { Box, HStack, Select, Text } from '@chakra-ui/react';
+import { Box, Center, HStack, Select, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import Layout from '../components/Layout/Layout';
@@ -58,7 +58,13 @@ const Orders = () => {
                         <option value={'pending'}>Pendente</option>
                     </Select>
                 </HStack>
-                <CustomerOrderCard />
+                {myOrders.length === 0 ? (
+                    <Center>
+                        <Text fontSize="lg">Nenhum pedido encontrado</Text>
+                    </Center>
+                ) : (
+                    <CustomerOrderCard />
+                )}
             </Box>
         </Layout>
     );

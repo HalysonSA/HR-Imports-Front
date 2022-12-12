@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-import { Box, Center, useMediaQuery } from '@chakra-ui/react';
+import { Box, Center, Skeleton, useMediaQuery } from '@chakra-ui/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 
 import FetchProducts from '../../utils/fetchProducts';
@@ -21,6 +21,7 @@ export default function NewProductSlider() {
 
     return (
         <Box
+            minH={'350px'}
             mx={2}
             py="5"
             cursor={'grab'}
@@ -38,16 +39,22 @@ export default function NewProductSlider() {
                 modules={[Pagination, Navigation, Autoplay]}
                 className="mySwiper"
             >
-                {products
-                    .slice(0, 9)
-                    .reverse()
-                    .map((product: ProductInfo) => (
-                        <SwiperSlide key={product._id}>
-                            <Center my="5">
-                                <SlideProductCard product={product} />
-                            </Center>
-                        </SwiperSlide>
-                    ))}
+                <Skeleton
+                    isLoaded={products.length > 0}
+                    h={'350px'}
+                    fadeDuration={2}
+                >
+                    {products
+                        .slice(0, 9)
+                        .reverse()
+                        .map((product: ProductInfo) => (
+                            <SwiperSlide key={product._id}>
+                                <Center my="5">
+                                    <SlideProductCard product={product} />
+                                </Center>
+                            </SwiperSlide>
+                        ))}
+                </Skeleton>
             </Swiper>
         </Box>
     );

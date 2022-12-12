@@ -63,7 +63,7 @@ const ShopItems = () => {
                 bg="purple.600"
                 color="white"
                 w="100%"
-                h="30px"
+                minH="30px"
             >
                 <Text
                     fontSize={'lg'}

@@ -17,6 +17,7 @@ import {
     PopoverBody,
     PopoverCloseButton,
     PopoverContent,
+    PopoverHeader,
     PopoverTrigger,
     Portal,
     Stack,
@@ -241,6 +242,20 @@ export default function Navbar() {
                                     <Portal>
                                         <PopoverContent mt="8">
                                             <PopoverArrow bg="purple.600" />
+
+                                            {session?.user || user.email ? (
+                                                <PopoverHeader>
+                                                    <Text
+                                                        fontSize={'lg'}
+                                                        fontWeight={'bold'}
+                                                    >
+                                                        Olá,{' '}
+                                                        {user.name ||
+                                                            session?.user?.name}
+                                                    </Text>
+                                                </PopoverHeader>
+                                            ) : null}
+
                                             <PopoverCloseButton
                                                 size={'md'}
                                                 bgColor="white"
@@ -276,27 +291,19 @@ export default function Navbar() {
                                                 ) : (
                                                     <Stack fontSize={'lg'}>
                                                         <Link
+                                                            href="/login"
                                                             _hover={{
                                                                 color: 'purple.600',
                                                             }}
-                                                            onClick={() =>
-                                                                router.push(
-                                                                    '/login'
-                                                                )
-                                                            }
                                                         >
                                                             Entrar
                                                         </Link>
                                                         <Link
+                                                            href="/register"
                                                             bg="transparent"
                                                             _hover={{
                                                                 color: 'purple.600',
                                                             }}
-                                                            onClick={() =>
-                                                                router.push(
-                                                                    '/register'
-                                                                )
-                                                            }
                                                         >
                                                             Cadastre-se
                                                         </Link>

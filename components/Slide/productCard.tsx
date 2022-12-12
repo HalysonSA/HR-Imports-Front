@@ -3,7 +3,6 @@ import Image from 'next/image';
 import router from 'next/router';
 import PriceFormat from '../../utils/priceFormat';
 import { ProductInfo } from '../Redux/type';
-import LoadingPage from '../utils/loadingPage';
 
 interface ProductCardProps {
     product: ProductInfo;
@@ -12,10 +11,6 @@ interface ProductCardProps {
 const SlideProductCard = (myProduct: ProductCardProps) => {
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
     const { product } = myProduct;
-
-    if (!product) {
-        return <LoadingPage />;
-    }
 
     const { title, price, image, promotional } = product;
 

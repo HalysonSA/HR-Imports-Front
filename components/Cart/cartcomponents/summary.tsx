@@ -1,12 +1,12 @@
 import {
-    Button,
     Box,
-    Flex,
-    Text,
-    HStack,
-    Stack,
+    Button,
     Center,
     Divider,
+    Flex,
+    HStack,
+    Stack,
+    Text,
 } from '@chakra-ui/react';
 import { useContext } from 'react';
 import { AiOutlineFileSearch } from 'react-icons/ai';
@@ -108,12 +108,12 @@ const Summary = () => {
                     <Button
                         p="7"
                         colorScheme="purple"
+                        onClick={() => (location.href = '/identification')}
                     >
                         <Text
                             fontSize={['xl']}
                             fontWeight={'bold'}
                             textTransform={'uppercase'}
-                            onClick={() => (location.href = '/identification')}
                         >
                             Finalizar compra
                         </Text>
@@ -122,6 +122,7 @@ const Summary = () => {
                         p="7"
                         variant={'outline'}
                         colorScheme={'purple'}
+                        onClick={() => (location.href = '/shop')}
                     >
                         <Text
                             fontSize={['xl']}
