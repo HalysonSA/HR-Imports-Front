@@ -7,6 +7,7 @@ import { CartContext } from '../context/cart';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/router';
 import api from '../components/api/axios';
+import RouterGuard from '../components/RoutingGuard';
 import { CustomerContext } from '../context/customer';
 
 const Success = () => {
@@ -55,34 +56,34 @@ const Success = () => {
 
     return (
         <Layout>
-            {/*<RouterGuard> */}
-            <Center m={5}>
-                <StatusBar />
-            </Center>
-            <Center minH="800px">
-                <Box cursor={'pointer'}>
-                    <motion.div
-                        className="box"
-                        initial={{ opacity: 0, scale: 0.5 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        whileHover={{ scale: 1.3 }}
-                        transition={{
-                            duration: 0.8,
-                            delay: 0.5,
-                            ease: [0, 0.71, 0.2, 1.01],
-                        }}
-                    >
-                        <Text
-                            fontSize={'3xl'}
-                            fontWeight={'bold'}
-                            color={'purple.500'}
+            <RouterGuard>
+                <Center m={5}>
+                    <StatusBar />
+                </Center>
+                <Center minH="800px">
+                    <Box cursor={'pointer'}>
+                        <motion.div
+                            className="box"
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.3 }}
+                            transition={{
+                                duration: 0.8,
+                                delay: 0.5,
+                                ease: [0, 0.71, 0.2, 1.01],
+                            }}
                         >
-                            Obrigado pela sua compra!
-                        </Text>
-                    </motion.div>
-                </Box>
-            </Center>
-            {/* </RouterGuard> */}
+                            <Text
+                                fontSize={'3xl'}
+                                fontWeight={'bold'}
+                                color={'purple.500'}
+                            >
+                                Obrigado pela sua compra!
+                            </Text>
+                        </motion.div>
+                    </Box>
+                </Center>
+            </RouterGuard>
         </Layout>
     );
 };
